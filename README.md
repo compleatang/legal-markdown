@@ -182,7 +182,7 @@ Also, if you use the reference.odt or reference.docx to override the default for
 
 # License
 
-MIT License - (c) 2012 - Watershed Legal Services, PLLC. All copyrights are owned by [Watershed Legal Services, PLLC](http://watershedlegal.com). 
+MIT License - (c) 2012 - Watershed Legal Services, PLLC. All copyrights are owned by [Watershed Legal Services, PLLC](http://watershedlegal.com). See License file.
 
 This software is provided as is and specifically disclaims any implied warranties of fitness for any purpose whatsoever. By using this software you agree to hold harmless Watershed Legal Services and its Members for any perceived harm that using this software may have caused you. 
 
