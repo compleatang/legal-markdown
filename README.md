@@ -172,6 +172,18 @@ Also, if you use the reference.odt or reference.docx to override the default for
 
 [ ] - Parsing. At this point legal_markdown cannot take a markdown document and parse it to build structured headers. Legal_markdown only works with a renderer to *create* documents but not to *import* documents. I want to build this functionality out at a later date. 
 
+# Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
+
 # License
 
-This software is licensed [CC-BY-SA](http://creativecommons.org/licenses/by-sa/2.0/). All copyrights are owned by [Watershed Legal Services, PLLC](http://watershedlegal.com). This software is provided as is and specifically disclaims any implied warranties of fitness for any purpose whatsoever. By using this software you agree to hold harmless Watershed Legal Services and its Members for any perceived harm that using this software may have caused you. In other words, don't be a jerk. 
+MIT License - (c) 2012 - Watershed Legal Services, PLLC. All copyrights are owned by [Watershed Legal Services, PLLC](http://watershedlegal.com). 
+
+This software is provided as is and specifically disclaims any implied warranties of fitness for any purpose whatsoever. By using this software you agree to hold harmless Watershed Legal Services and its Members for any perceived harm that using this software may have caused you. 
+
+In other words, don't be a jerk. 
