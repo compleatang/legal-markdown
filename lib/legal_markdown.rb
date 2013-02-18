@@ -5,37 +5,54 @@ require "legal_markdown/version"
 
 module LegalMarkdown
   extend self
+  def execute(*args)
+    # Get the Content & Yaml Data
+    data = load(*args)
+    parsed_content = parse_file(data[0])
+    # Run the Mixins
+    mixed_content = mixing_in(parsed_content[0], parsed_content[1])
+    #REMOVE THESE LATER
+    content = mixed_content[0]
+    yaml_data = mixed_content[1]
+    puts content
+    puts "What's left"
+    yaml_data.each{|k,v| puts "#{k}: #{v}"}
+  end
 
+  private
   # ----------------------
   # |      Step 1        |
   # ----------------------
   # Parse Options & Load File 
+  def load(*args)
 
-  # OPTIONS
-  # OPTS = {}
-  # op = OptionParser.new do |x|
-  #     x.banner = 'cat <options> <file>'      
-  #     x.separator ''
+    # OPTIONS
+    # OPTS = {}
+    # op = OptionParser.new do |x|
+    #     x.banner = 'cat <options> <file>'      
+    #     x.separator ''
 
-  #     x.on("-A", "--show-all", "Equivalent to -vET")               
-  #         { OPTS[:showall] = true }      
+    #     x.on("-A", "--show-all", "Equivalent to -vET")               
+    #         { OPTS[:showall] = true }      
 
-  #     x.on("-b", "--number-nonblank", "number nonempty output lines") 
-  #         { OPTS[:number_nonblank] = true }      
+    #     x.on("-b", "--number-nonblank", "number nonempty output lines") 
+    #         { OPTS[:number_nonblank] = true }      
 
-  #     x.on("-x", "--start-from NUM", Integer, "Start numbering from NUM")        
-  #         { |n| OPTS[:start_num] = n }
+    #     x.on("-x", "--start-from NUM", Integer, "Start numbering from NUM")        
+    #         { |n| OPTS[:start_num] = n }
 
-  #     x.on("-h", "--help", "Show this message") 
-  #         { puts op;  exit }
-  # end
-  # op.parse!(ARGV)
+    #     x.on("-h", "--help", "Show this message") 
+    #         { puts op;  exit }
+    # end
+    # op.parse!(ARGV)
 
-  # # Example code for dealing with multiple filenames -- but don't think we want to do this.
-  # ARGV.each{ |fn| output_file(OPTS, fn) }
+    # # Example code for dealing with multiple filenames -- but don't think we want to do this.
+    # ARGV.each{ |fn| output_file(OPTS, fn) }
 
-  # Load Source File
-  source_file = File::read(ARGV[-1]) if File::exists?(ARGV[-1])
+    # Load Source File
+    source_file = File::read(ARGV[-1]) if File::exists?(ARGV[-1])
+    return[source_file, '']
+  end
 
   # ----------------------
   # |      Step 2        |
@@ -115,17 +132,4 @@ module LegalMarkdown
 
   #   Step 7b: Where an output file was not specified
 
-  def execute(*args)
-    # Get the Content & Yaml Data
-    parsed_content = parse_file(source_file)
-    # Run the Mixins
-    mixed_content = mixing_in(parsed_content[0], parsed_content[1])
-    #REMOVE THESE LATER
-    content = mixed_content[0]
-    yaml_data = mixed_content[1]
-    puts content
-    puts "What's left"
-    yaml_data.each{|k,v| puts "#{k}: #{v}"}
-
-  end
 end

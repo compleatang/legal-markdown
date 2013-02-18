@@ -4,4 +4,4 @@
 #  legalmd file.md
 
 require 'legal_markdown'
-LegalMarkdown.execute(*ARGV)
+LegalMarkdown.execute(ARGV)
