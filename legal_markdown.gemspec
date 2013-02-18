@@ -1,0 +1,24 @@
+# -*- encoding: utf-8 -*-
+lib = File.expand_path("../lib", __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'legal_markdown'
+
+Gem::Specification.new do |s|
+  s.name              = "legal_markdown"
+  s.version           = Legal_Markdown::Version.to_s
+  s.date              = Time.now.strftime('%Y-%m-%d')
+  s.summary           = "Gem for parsing legal documents written in markdown for processing with legal specific requirements."
+  s.homepage          = "http://github.com/compleatang/legal-markdown"
+  s.email             = "caseykuhlman@watershedlegal"
+  s.authors           = [ "Casey Kuhlman" ]
+  s.has_rdoc          = false
+
+  s.files             = %w( README.markdown Rakefile )
+  s.files            += Dir.glob("lib/**/*")
+  s.files            += Dir.glob("bin/**/*")
+
+  s.executables       = %w( legalmd )
+  s.description       = <<desc
+  This gem will parse YAML Front Matter of Markdown Documents. Typically, this gem would be called with a md renderer, such as Pandoc, that would turn the md into a document such as a .pdf file or a .docx file. By combining this pre-processing with a markdown renderer, you can ensure that both the structured content and the structured styles necessary for your firm or organization are more strictly enforced. Plus you won't have to deal with Word any longer, and every lawyer should welcome that. Why? Because Word is awful. 
+desc
+end

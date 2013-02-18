@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+#
+# == USAGE
+#  legalmd file.md
+#
+# == INSTALL
+# RubyGem:
+#     gem install legal_markdown
+
+require 'legal_markdown'
+LegalMarkdown.execute(*ARGV)
