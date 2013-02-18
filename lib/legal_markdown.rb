@@ -1,130 +1,131 @@
 #! ruby
 require 'yaml'
 require 'English'
+require "legal_markdown/version"
 
-# ----------------------
-# |    What is it?     |
-# ----------------------
-# Gem to allow for easier creation of legal documents using markdown
-#  and a markdown renderer.
-# 
-# ----------------------
-# |      Step 1        |
-# ----------------------
-# Parse Options & Load File 
+module LegalMarkdown
+  extend self
 
-# OPTIONS
-# OPTS = {}
-# op = OptionParser.new do |x|
-#     x.banner = 'cat <options> <file>'      
-#     x.separator ''
+  # ----------------------
+  # |      Step 1        |
+  # ----------------------
+  # Parse Options & Load File 
 
-#     x.on("-A", "--show-all", "Equivalent to -vET")               
-#         { OPTS[:showall] = true }      
+  # OPTIONS
+  # OPTS = {}
+  # op = OptionParser.new do |x|
+  #     x.banner = 'cat <options> <file>'      
+  #     x.separator ''
 
-#     x.on("-b", "--number-nonblank", "number nonempty output lines") 
-#         { OPTS[:number_nonblank] = true }      
+  #     x.on("-A", "--show-all", "Equivalent to -vET")               
+  #         { OPTS[:showall] = true }      
 
-#     x.on("-x", "--start-from NUM", Integer, "Start numbering from NUM")        
-#         { |n| OPTS[:start_num] = n }
+  #     x.on("-b", "--number-nonblank", "number nonempty output lines") 
+  #         { OPTS[:number_nonblank] = true }      
 
-#     x.on("-h", "--help", "Show this message") 
-#         { puts op;  exit }
-# end
-# op.parse!(ARGV)
+  #     x.on("-x", "--start-from NUM", Integer, "Start numbering from NUM")        
+  #         { |n| OPTS[:start_num] = n }
 
-# # Example code for dealing with multiple filenames -- but don't think we want to do this.
-# ARGV.each{ |fn| output_file(OPTS, fn) }
+  #     x.on("-h", "--help", "Show this message") 
+  #         { puts op;  exit }
+  # end
+  # op.parse!(ARGV)
 
-# Load Source File
-source_file = File::read(ARGV[-1]) if File::exists?(ARGV[-1])
+  # # Example code for dealing with multiple filenames -- but don't think we want to do this.
+  # ARGV.each{ |fn| output_file(OPTS, fn) }
 
-# ----------------------
-# |      Step 2        |
-# ----------------------
-# Load YAML Front-matter
+  # Load Source File
+  source_file = File::read(ARGV[-1]) if File::exists?(ARGV[-1])
 
-def parse_file(source)
-  begin
-    yaml_pattern = /\A(---\s*\n.*?\n?)^(---\s*$\n?)/m
-    if source =~ yaml_pattern
-      data = YAML.load($1)
-      content = $POSTMATCH
-    else
-      data = {}
-      content = source
+  # ----------------------
+  # |      Step 2        |
+  # ----------------------
+  # Load YAML Front-matter
+
+  def parse_file(source)
+    begin
+      yaml_pattern = /\A(---\s*\n.*?\n?)^(---\s*$\n?)/m
+      if source =~ yaml_pattern
+        data = YAML.load($1)
+        content = $POSTMATCH
+      else
+        data = {}
+        content = source
+      end
+    rescue => e 
+      puts "Error reading file #{File.join(ARGV[0])}: #{e.message}"
     end
-  rescue => e 
-    puts "Error reading file #{File.join(ARGV[0])}: #{e.message}"
+    return[data, content]
   end
-  return[data, content]
-end
 
-parsed_content = parse_file(source_file)
+  # ----------------------
+  # |      Step 3        |
+  # ----------------------
+  # Mixins
 
-# ----------------------
-# |      Step 3        |
-# ----------------------
-# Mixins
-
-def mixing_in( mixins, content )
-  mixins.each do | mixin, replacer |
-    replacer = replacer.to_s
-    safe_words = [ "title", "author", "date" ]
-    if replacer != "false"
-      pattern = /{{#{mixin}}}/
-      if content =~ pattern
-        content = content.gsub( pattern, replacer )
-        # delete the mixin so that later parsing of special mixins & headers is easier and faster
-        mixins.delete( mixin ) unless safe_words.any?{ |s| s.casecmp(mixin) == 0 }
+  def mixing_in( mixins, content )
+    mixins.each do | mixin, replacer |
+      replacer = replacer.to_s
+      safe_words = [ "title", "author", "date" ]
+      if replacer != "false"
+        pattern = /{{#{mixin}}}/
+        if content =~ pattern
+          content = content.gsub( pattern, replacer )
+          # delete the mixin so that later parsing of special mixins & headers is easier and faster
+          mixins.delete( mixin ) unless safe_words.any?{ |s| s.casecmp(mixin) == 0 }
+        end
       end
     end
+    return[content, mixins]
   end
-  return[content, mixins]
+
+  # ----------------------
+  # |      Step 4        |
+  # ----------------------
+  # Headers
+
+
+  #  Step 4a: Find the block starting and finishing lines
+
+
+  #  Step 4b: Set the alignment and the nesting structure
+
+
+  #  Step 4c: Set the requested list styling per the YAML front-matter
+
+
+  #  Step 4d: Pull out the ll. tags & strip the leading whitespace
+  #   but keep the proper nesting alignment.
+
+
+  # ----------------------
+  # |      Step 5        |
+  # ----------------------
+  # Special YAML fields
+
+
+  # Step 6: Strip the YAML front-matter
+
+
+  # Step 7: Write the file 
+
+
+  #   Step 7a: Where an output file was specified
+
+
+  #   Step 7b: Where an output file was not specified
+
+  def execute(*args)
+    # Get the Content & Yaml Data
+    parsed_content = parse_file(source_file)
+    # Run the Mixins
+    mixed_content = mixing_in(parsed_content[0], parsed_content[1])
+    #REMOVE THESE LATER
+    content = mixed_content[0]
+    yaml_data = mixed_content[1]
+    puts content
+    puts "What's left"
+    yaml_data.each{|k,v| puts "#{k}: #{v}"}
+
+  end
 end
-
-mixed_content = mixing_in(parsed_content[0], parsed_content[1])
-content = mixed_content[0]
-yaml_data = mixed_content[1]
-
-#REMOVE THESE LATER
-puts content
-puts "What's left"
-yaml_data.each{|k,v| puts "#{k}: #{v}"}
-
-# ----------------------
-# |      Step 4        |
-# ----------------------
-# Headers
-
-
-#  Step 4a: Find the block starting and finishing lines
-
-
-#  Step 4b: Set the alignment and the nesting structure
-
-
-#  Step 4c: Set the requested list styling per the YAML front-matter
-
-
-#  Step 4d: Pull out the ll. tags & strip the leading whitespace
-#   but keep the proper nesting alignment.
-
-
-# ----------------------
-# |      Step 5        |
-# ----------------------
-# Special YAML fields
-
-
-# Step 6: Strip the YAML front-matter
-
-
-# Step 7: Write the file 
-
-
-#   Step 7a: Where an output file was specified
-
-
-#   Step 7b: Where an output file was not specified
-
