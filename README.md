@@ -152,6 +152,25 @@ In Libreoffice you would modify your template reference.odt as you need it. You 
 
 Then you would save the reference.odt as a new name perhaps contract-reference.odt in your Pandoc reference folder. 
 
+### Step 3(a): Add Precursors to Headers
+
+*Note*: I only use these when I'm using pandoc to move directly to html or pdf files (a fuller suite of this is what we're working towards at Watershed, along with the fantastic team at [FrontlineSMS](http://www.frontlinesms.com/about-us/) and others hopefully). If you want to use `legal_markdown` along with .odt or .docx files probably better to utilize the workflow described *supra*.
+
+Now that you've been warned, here's how you use precursors. Within the text of the document nothing changes. In the YAML front matter you will leave it as it was before. All you need to do is add any word or other marker before the trigger. What `legal_markdown` will do is to look at the last two characters if the marker ends in a period or three if it ends in a paren, and then everything else it will place into a precursor. If you want to reference the preceding level (like 1.1.1 in the example above) then simply put in {pre}. I'll try to make this less fragile down the road, but for now it is what it is. So, your YAML front matter will look like this:
+
+    ```yaml
+    ---
+    title: Wonderful Contract
+    author: Your Name
+    date: today
+    level-1: Article 1.
+    level-2: {pre}1.
+    level-3: {pre}a.
+    ---
+    ```
+
+The other thing you need to be aware of if you use this method is that when `legal_markdown` parses the input markdown it have to hardcode in the numbering. This means that you'll lose any features of automatic lists and list nesting which your markdown renderer may give you if you simply placed the triggers without any precursors.
+
 ### Step 4: Run Legal-Markdown and Pandoc
 
 Make sure when you run Pandoc you use the new reference document that you created as the basis. 
@@ -170,7 +189,9 @@ Also, if you use the reference.odt or reference.docx to override the default for
 
 [ ] - Definitions. For now these can be used as mixins but that functionality needs to improve.
 
-[ ] - Parsing. At this point legal_markdown cannot take a markdown document and parse it to build structured headers. Legal_markdown only works with a renderer to *create* documents but not to *import* documents. I want to build this functionality out at a later date. 
+[ ] - Parsing. At this point legal_markdown cannot take a markdown document and parse it to build structured headers. Legal_markdown only works with a renderer to *create* documents but not to *import* documents. I want to build this functionality out at a later date. Legal_markdown is not meant as an importer for files types, there are other tools for that but I would like it to be able to parse text that is already in markdown. 
+
+[ ] - Markdown post-processing. This will cure some of the issues (class establishment and proper list nesting of structure documents) that are currently lost when using precurors.
 
 # Contributing
 
