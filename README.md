@@ -88,8 +88,10 @@ Then you can describe the functionality that you require in the YAML front-matte
     4. `level-1: (A)` will format the same as the above only with the capital letters in a parentetical;
     5. `level-1: a.` will format with lowercase letters followed by a period;
     6. `level-1: (a)` will format with lowercase letters within a parentethical;
-    7. `level-1: I.` will format with Roman numerals followed by a period;
-    8. `level-1: (I)` will format with Roman numerals within a parententical.
+    7. `level-1: I.` will format with capital Roman numerals followed by a period;
+    8. `level-1: (I)` will format with capital Roman numerals within a parententical;
+    9. `level-1: i.` will format with lowercase Roman numerals followed by a period;
+    10. `level-1: (i)` will format with lowercase Roman numerals within a parententical..
 
 Obviously you will replace `level-1` with `level-2`, etc. Although this functionality was built into the gem, it is generally not the best practice. A better practice is to let the gem make the replacements and reformat the markdown and then use your rendering system and its default reference documents to set the styles you need. 
 
