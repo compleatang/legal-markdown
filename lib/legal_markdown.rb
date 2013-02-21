@@ -1,6 +1,7 @@
 #! ruby
 require 'yaml'
 require 'English'
+require 'roman-numerals'
 require "legal_markdown/version"
 
 module LegalMarkdown
@@ -139,26 +140,26 @@ module LegalMarkdown
       def set_the_subs_arrays(value)
         # takes a core value from the hash pulled from the yaml
         # returns an array with a type symbol and a precursor string
-        if value =~ /\(\d\)\z/ # type1 : {{ (1) }}
-          return[:type1, value[0..-4]]
-        elsif value =~ /[a-z]\.\z/ # type2 : {{ a. }}
-          return[:type2, value[0..-3]]
-        elsif value =~ /\([a-z]\)\z/ # type3 : {{ (a) }}
-          return[:type3, value[0..-4]]
-        elsif value =~ /[A-Z]\.\z/ # type4 : {{ A. }}
-          return[:type4, value[0..-3]]
-        elsif value =~ /\([A-Z]\)\z/ # type5 : {{ (A) }}
-          return[:type5, value[0..-4]]
-        elsif value =~ /I\.\z/ # type6 : {{ I. }}
-          return[:type6, value[0..-3]]
-        elsif value =~ /\(I\)\z/ # type7 : {{ (I) }}
-          return[:type7, value[0..-4]]
-        elsif value =~ /i\.\z/ # type8 : {{ i. }}
-          return[:type8, value[0..-3]]
-        elsif value =~ /\(i\)\z/ # type9 : {{ (i) }}
-          return[:type9, value[0..-4]]
-        else value =~ /\d\.\z/ # type0 : {{ 1. }} ... also default
-          return[:type0, value[0..-3]]
+        if value =~ /I\.\z/            # type1 : {{ I. }}
+          return[:type1, value[0..-3]]
+        elsif value =~ /\(I\)\z/       # type2 : {{ (I) }}
+          return[:type2, value[0..-4]]
+        elsif value =~ /i\.\z/         # type3 : {{ i. }}
+          return[:type3, value[0..-3]]
+        elsif value =~ /\(i\)\z/       # type4 : {{ (i) }}
+          return[:type4, value[0..-4]]
+        elsif value =~ /[A-Z]\.\z/     # type5 : {{ A. }}
+          return[:type5, value[0..-3]]
+        elsif value =~ /\([A-Z]\)\z/   # type6 : {{ (A) }}
+          return[:type6, value[0..-4]]
+        elsif value =~ /[a-z]\.\z/     # type7 : {{ a. }}
+          return[:type7, value[0..-3]]
+        elsif value =~ /\([a-z]\)\z/   # type8 : {{ (a) }}
+          return[:type8, value[0..-4]]
+        elsif value =~ /\(\d\)\z/      # type9 : {{ (1) }}
+          return[:type9, value[0..-3]]
+        else value =~ /\d\.\z/         # type0 : {{ 1. }} ... also default
+          return[:type0, value[0..-4]]
         end
       end
 
@@ -195,50 +196,82 @@ module LegalMarkdown
 
       def get_the_subs_arrays( value )
         # returns a new array for the replacements
-        if value[0] == :type1       # :type1 : {{ (1) }}
-          return[:type1, value[1], "(", "1", ")"]
-        elsif value[0] == :type2    # :type2 : {{ a. }}
-          return[:type2, value[1], "", "a", "."]
-        elsif value[0] == :type3    # :type3 : {{ (a) }}
-          return[:type3, value[1], "(", "a", ")"]
-        elsif value[0] == :type4    # :type4 : {{ A. }}
-          return[:type4, value[1], "", "A", "."]
-        elsif value[0] == :type5    # :type5 : {{ (A) }}
-          return[:type5, value[1], "(", "A", ")"]
-        elsif value[0] == :type6    # :type6 : {{ I. }}
-          return[:type6, value[1], "", "1", "."]   # TODO revert after installing the roman numerals gem
-        elsif value[0] == :type7    # :type7 : {{ (I) }}
-          return[:type7, value[1], "(", "1", ")"]  # TODO revert after installing the roman numerals gem
-        elsif value[0] == :type8    # :type8 : {{ i. }}
-          return[:type8, value[1], "", "1", "."]   # TODO revert after installing the roman numerals gem
-        elsif value[0] == :type9    # :type7 : {{ (i) }}
-          return[:type9, value[1], "(", "1", ")"]  # TODO revert after installing the roman numerals gem
+        if value[0] == :type1       # :type1 : {{ I. }}
+          return[:type1, value[1], "", "I", "."] 
+        elsif value[0] == :type2    # :type2 : {{ (I) }}
+          return[:type2, value[1], "(", "I", ")"]
+        elsif value[0] == :type3    # :type3 : {{ i. }}
+          return[:type3, value[1], "", "i", "."]
+        elsif value[0] == :type4    # :type4 : {{ (i) }}
+          return[:type4, value[1], "(", "i", ")"]
+        elsif value[0] == :type5    # :type5 : {{ A. }}
+          return[:type5, value[1], "", "A", "."]
+        elsif value[0] == :type6    # :type6 : {{ (A) }}
+          return[:type6, value[1], "(", "A", ")"]
+        elsif value[0] == :type7    # :type7 : {{ a. }}
+          return[:type7, value[1], "", "a", "."]
+        elsif value[0] == :type8    # :type8 : {{ (a) }}
+          return[:type8, value[1], "(", "a", ")"]
+        elsif value[0] == :type9    # :type9 : {{ (1) }}
+          return[:type9, value[1], "(", "1", ")"]
         else value[0] == :type0     # :type0 : {{ 1. }} ... also default
           return[:type0, value[1], "", 1, "."]
         end
       end
 
       def log_the_line( new_block, selector, line, array_to_sub )
-        subtitute = array_to_sub[1..-1].join
+        substitute = array_to_sub[1..4].join
         spaces = ( " " * ( (selector.size) - 1 ) * 4 )
-        new_block << spaces + line.gsub(selector, subtitute)
+        new_block << spaces + line.gsub(selector, substitute)
       end
 
-      def increment_the_sub_branches( hash_of_subs, array_to_sub, selector )
+      def increment_the_branch( hash_of_subs, array_to_sub, selector )
+        romans_uppers = [ :type1, :type2 ]
+        romans_lowers = [ :type3, :type4 ]
+        romans = romans_uppers + romans_lowers
+        if romans.any?{ |e| e == array_to_sub[0] }
+          if romans_lowers.any?{ |e| e == array_to_sub[0] }
+            r_l = true
+          else
+            r_u = true
+          end
+        end
+        if r_l == true
+          array_to_sub[3] = array_to_sub[3].upcase
+        end
+        if r_l == true || r_u == true
+          array_to_sub[3] = RomanNumerals.to_decimal(array_to_sub[3]) 
+        end
         array_to_sub[3] = array_to_sub[3].next
+        if r_l == true || r_u == true
+          array_to_sub[3] = RomanNumerals.to_roman(array_to_sub[3]) 
+        end
+        if r_l == true
+          array_to_sub[3] = array_to_sub[3].downcase
+        end
         hash_of_subs[selector]= array_to_sub
         return hash_of_subs
       end
 
       def reset_the_sub_branches( hash_of_subs, array_to_sub, selector )
-        hash_of_subs = increment_the_sub_branches( hash_of_subs, array_to_sub, selector )
+        hash_of_subs = increment_the_branch( hash_of_subs, array_to_sub, selector )
         leaders_to_reset = []
         hash_of_subs.each_key{ |k| leaders_to_reset << k if k > selector }
         leaders_to_reset.each do | leader |
-          #get_it = hash_of_subs[hash_key]
-          hash_of_subs[leader]= get_the_subs_arrays(hash_of_subs[leader])
+          unless hash_of_subs[leader][5] == :pre
+            hash_of_subs[leader]= get_the_subs_arrays(hash_of_subs[leader])
+          else
+            hash_of_subs[leader]= get_the_subs_arrays(hash_of_subs[leader])
+            hash_of_subs[leader]= pre_setup(hash_of_subs[leader])
+          end
         end
         return hash_of_subs
+      end
+
+      def pre_setup( array_to_sub )
+        array_to_sub[5] = :pre
+        array_to_sub[1] = ""
+        return array_to_sub
       end
 
       def reform_the_block( old_block, substitutions )
@@ -248,26 +281,31 @@ module LegalMarkdown
         # hash. After that it will rebuild the leading matter from the
         # sub hash. It will drop markers if it is going down the tree.
         # It will reset the branches if it is going up the tree. 
+        # sub_it is an array w/ type[0] & lead_string[1] & id's[2..4]
         new_block = ""
+        leader_before = ""
         leader_above = ""
         selector_before = ""
         old_block.each_line do | line | 
           selector = $1.chop if line =~ /(^l+.\s)/ 
-          # sub_it is an array w/ type[0] & lead_string[1] & id's[2..4]
           sub_it = substitutions[selector]
-          if sub_it[1] == "{{pre}}" && leader_above != ""
-            sub_it[1] = leader_above
-          elsif sub_it[1] == "{{pre}}" && leader_above == ""
-            sub_it[1] = ""
+          if sub_it[5] == :pre || sub_it[1] =~ /pre/
+            sub_it = pre_setup(sub_it) 
+            if selector_before < selector     # Going down the tree, into pre
+              leader_above = substitutions[selector_before][1..4].join
+              sub_it[1] = leader_above = leader_before
+            elsif selector_before > selector && substitutions[selector_before][5] == :pre
+              sub_it[1] = leader_above[0..-3]
+            else
+              sub_it[1] = leader_above
+            end
           end
           log_the_line( new_block, selector, line, sub_it )
+          leader_before = sub_it[1..4].join
           if selector_before > selector     # We are going up the tree.
             substitutions = reset_the_sub_branches(substitutions, sub_it, selector)
-          elsif selector_before < selector  # We are going down the tree.
-            leader_above = sub_it[1..-1].join
-            substitutions = increment_the_sub_branches(substitutions, sub_it, selector)
           else                              # We are at the same level.
-            substitutions = increment_the_sub_branches(substitutions, sub_it, selector)
+            substitutions = increment_the_branch(substitutions, sub_it, selector)
           end
           selector_before = selector
         end
@@ -288,7 +326,8 @@ module LegalMarkdown
 
     if headers == {} 
       block_redux = block
-    elsif block == nil || block == ""
+    end
+    if block == nil || block == ""
       block_redux = ""
     else
       block_redux = chew_on_the_block( headers, block )

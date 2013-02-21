@@ -166,8 +166,8 @@ Now that you've been warned, here's how you use precursors. Within the text of t
     author: Your Name
     date: today
     level-1: Article 1.
-    level-2: {pre}1.
-    level-3: {pre}a.
+    level-2: pre 1.
+    level-3: pre a.
     ---
     ```
 
@@ -194,6 +194,8 @@ Also, if you use the reference.odt or reference.docx to override the default for
 [ ] - Parsing. At this point legal_markdown cannot take a markdown document and parse it to build structured headers. Legal_markdown only works with a renderer to *create* documents but not to *import* documents. I want to build this functionality out at a later date. Legal_markdown is not meant as an importer for files types, there are other tools for that but I would like it to be able to parse text that is already in markdown. 
 
 [ ] - Markdown post-processing. This will cure some of the issues (class establishment and proper list nesting of structure documents) that are currently lost when using precurors.
+
+[ ] - Different input and output files
 
 # Contributing
 
