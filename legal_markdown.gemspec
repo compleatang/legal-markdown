@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'legal_markdown/version'
 
 Gem::Specification.new do |s|
-  s.name              = "legal_markdown"
+  s.name              = "Legal Markdown"
   s.version           = LegalMarkdown::VERSION
   s.date              = Time.now.strftime('%Y-%m-%d')
   s.summary           = "Gem for parsing legal documents written in markdown for processing with legal specific requirements."
