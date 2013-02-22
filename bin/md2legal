@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 #
 # == USAGE
-#  legalmd file.md
+#  md2legal file.md
 
 require 'legal_markdown'
-LegalMarkdown.markdown_preprocess(ARGV)
+LegalMarkdown.markdown_to_legal(ARGV)
