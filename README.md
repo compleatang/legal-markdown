@@ -20,7 +20,7 @@ After the gem has finished its installation on your system then you can simply t
 
 [YAML](http://www.yaml.org/spec/1.2/spec.html) is about the easiest thing to create. At the top of your file (it MUST be at the top of the file) you simply put in three or more hyphens like so: `---` on a single line. Then on the next line you simply put in the `field` followed by a `:` (colon) followed by the `value`. For each line you put the `[field]: [value]` until you have filled everything in that you need. After you have put in all your YAML front-matter then you simply put in a single line with three more hyphens `---` to signal to the gem that it is the end of the fields. So this would look like this:
 
-    ```yaml
+    ```
     ---
     title: My Perfect Contract
     author: Watershed Legal Services
@@ -36,7 +36,7 @@ The gem will normally strip out the YAML front-matter as most markdown renderers
 
 To leave the YAML front-matter there simply pass the `value` of `true` to the `field` called `leave_yaml_front_matter`; this is how it would look in the above example. 
 
-    ```yaml
+    ```
     ---
     title: My Perfect Contract
     author: Watershed Legal Services
@@ -57,20 +57,20 @@ Mixins are straight-forward they are simple markers that can be used throughout 
 
 Mixins are structured in the form of **double curly** brackets (this was taken from IFTTT). So, for a `{{court}}` mixin, the YAML front-matter would look like this:
 
-    ```yaml
+    ```
     {{court}}: Regional Court of Hargeisa
     ```
 
 Mixins can also be used to set up clauses in the alternative in your templates which can be turned on or off within a specific document simply by updating the YAML mixin to false. Example of a `{{provision12a}}{{provision12b}}` alternative structuring for a contract template. Within the template the YAML front-matter would be structured something like this:
 
-    ```yaml
+    ```
     {{provision12a}}: "For the purposes of this Agreement"
     {{provision12b}}: "This Agreement shall"
     ```
 
 Then to chose one of the two provisions you would would simply change the line to "false" but without the quotes. Example:
 
-    ```yaml
+    ```
     {{provision12a}}: false
     ```
 
@@ -82,18 +82,30 @@ In order to address this problem, I have built functionality into legal_markdown
 
 Then you can describe the functionality that you require in the YAML front-matter. In the YAML front-matter you will simply add the following fields: `level-1` and then the `: ` followed by what the format you would like it to be in. Currently there are a few possible options at this time (for those using pandoc at least): 
 
-    1. `level-1: 1.` will format that level of the list as 1. 2. 3. etc.; This is the default functionality; 
-    2. `level-1: (1)` will provide for the same numbering only within parenteticals rather than followed by a period; 
-    3. `level-1: A.` will format with capital letters followed by a period (e.g, A., B., C., etc.);
-    4. `level-1: (A)` will format the same as the above only with the capital letters in a parentetical;
-    5. `level-1: a.` will format with lowercase letters followed by a period;
-    6. `level-1: (a)` will format with lowercase letters within a parentethical;
-    7. `level-1: I.` will format with capital Roman numerals followed by a period;
-    8. `level-1: (I)` will format with capital Roman numerals within a parententical;
-    9. `level-1: i.` will format with lowercase Roman numerals followed by a period;
-    10. `level-1: (i)` will format with lowercase Roman numerals within a parententical..
+1. `level-1: 1.` will format that level of the list as 1. 2. 3. etc.; This is the default functionality; 
+2. `level-1: (1)` will provide for the same numbering only within parenteticals rather than followed by a period; 
+3. `level-1: A.` will format with capital letters followed by a period (e.g, A., B., C., etc.);
+4. `level-1: (A)` will format the same as the above only with the capital letters in a parentetical;
+5. `level-1: a.` will format with lowercase letters followed by a period;
+6. `level-1: (a)` will format with lowercase letters within a parentethical;
+7. `level-1: I.` will format with capital Roman numerals followed by a period;
+8. `level-1: (I)` will format with capital Roman numerals within a parententical;
+9. `level-1: i.` will format with lowercase Roman numerals followed by a period;
+10. `level-1: (i)` will format with lowercase Roman numerals within a parententical..
 
 Obviously you will replace `level-1` with `level-2`, etc. Although this functionality was built into the gem, it is generally not the best practice. A better practice is to let the gem make the replacements and reformat the markdown and then use your rendering system and its default reference documents to set the styles you need. 
+
+## No Reset Function
+
+Sometimes in legal documents (particularly in laws) you want to build multiple structured header levels, but you do not want to reset all of the headers when going up the tree. For example, in some laws you will have Chapters, Parts, Sections, ... and you will want to track Chapters, Parts and Sections but when you go up to Parts you will not want to reset the Sections to one. 
+
+This functionality is built in with a `no-reset` function. You simply add a `no-reset` field to your YAML header and note the headers that you do not want to reset by their l., ll. notation. Separate those levels you do not want reset with commas. Example YAML line:
+
+    ~~~
+    no-reset: l., ll., lll.
+    ~~~
+
+This will not reset level-1, level-2, or level-3 when it is parsing the document and those levels will be numbered sequentially through the entire block rather than reseting when going to a higher block, levels not in this reset, e.g., llll. and lllll. will be reset when going up a level in the tree. Obviously the level 1 headers will never reset.
 
 ## Example
 
@@ -131,7 +143,7 @@ You can easily to that by doing the following steps.
 
 ### Step 2: (Optional) Fill out the YAML Front-Matter
 
-    ```yaml
+    ```
     ---
     title: Wonderful Contract
     author: Your Name
@@ -160,7 +172,7 @@ Then you would save the reference.odt as a new name perhaps contract-reference.o
 
 Now that you've been warned, here's how you use precursors. Within the text of the document nothing changes. In the YAML front matter you will leave it as it was before. All you need to do is add any word or other marker before the trigger. What `legal_markdown` will do is to look at the last two characters if the marker ends in a period or three if it ends in a paren, and then everything else it will place into a precursor. If you want to reference the preceding level (like 1.1.1 in the example above) then simply put in {pre}. I'll try to make this less fragile down the road, but for now it is what it is. So, your YAML front matter will look like this:
 
-    ```yaml
+    ```
     ---
     title: Wonderful Contract
     author: Your Name
@@ -181,21 +193,27 @@ I do not use latex to create pdfs nor do I use Word, but the functionality will 
 
 ## A Few Gotchas
 
-You cannot begin the block of structured headers with a second level header. The gem searches the markdown to find a line that begins with `l.` where there is a blank line above it. This is made to be fairly precise so as to ensure that the gem does not strip out some other functionality that you want to build. 
-
-When you are using structured headers of legal_markdown you should make the lists tight. Do not add blank lines in between the list levels or the gem will think you are creating a new list. If you are trying to create a new list then by all means go ahead as the blank lines will break the parsing. 
-
-Also, if you use the reference.odt or reference.docx to override the default formating of the list then you do not need to add any level-1 or level-2 fields to the YAML front-matter. The best way to do it is to simply use the defaults that pandoc or your renderer will use and then use the reference styles to build the functionality that you would like. 
+* When you are using structured headers of legal_markdown you should make the lists tight. Do not add blank lines in between the list levels or the gem will think you are creating a new list. If you are trying to create a new list then by all means go ahead as the blank lines will break the parsing. On the roadmap is functionality for multiple blocks, but at this point in the Gem's development it will only run one block through the modification methods. 
+* If you use the reference.odt or reference.docx to override the default formating of the list then it is not optimal add level-1 or level-2 leading text or utilize the different marker functionality (e.g., (i) or (a) and the like) to the YAML front-matter. The optimal way is to use the defaults that pandoc has or whatever renderer you use along with legal_markdown to set the spacing and then use the reference styles to build the functionality that you would like from the word processor side. The leading text and different marker systems are predominately built for html output.
+* Legal_markdown is optimized primarily for contracts, legislation, and regulations. It is not optimized for cases. For memoranda and filings I use the mixin portion but not the header portion which is enough to meet my needs - in particular, when matched with Sublime Text snippets. If you area looking for a more complete solution for cases and filings I would recommend the [Precedent Gem](https://github.com/BlackacreLabs/precedent) built by [Kyle Mitchell](https://github.com/kemitchell) for [Blackacre Labs](https://github.com/BlackacreLabs)
 
 # TODO
 
-[ ] - Definitions. For now these can be used as mixins but that functionality needs to improve.
+[ ] Definitions. For now these can be used as mixins but that functionality needs to improve.
 
-[ ] - Parsing. At this point legal_markdown cannot take a markdown document and parse it to build structured headers. Legal_markdown only works with a renderer to *create* documents but not to *import* documents. I want to build this functionality out at a later date. Legal_markdown is not meant as an importer for files types, there are other tools for that but I would like it to be able to parse text that is already in markdown. 
+[ ] Make a no-reset option for certain levels that should not reset when moving up the tree.
 
-[ ] - Markdown post-processing. This will cure some of the issues (class establishment and proper list nesting of structure documents) that are currently lost when using precurors.
+[ ] Parsing. At this point legal_markdown cannot take a markdown document and parse it to build structured headers. Legal_markdown only works with a renderer to *create* documents but not to *import* documents. I want to build this functionality out at a later date. Legal_markdown is not meant as an importer for files types, there are other tools for that but I would like it to be able to parse text that is already in markdown. 
 
-[ ] - Different input and output files
+[ ] Markdown post-processing. This will cure some of the issues (class establishment and proper list nesting of structure documents) that are currently lost when using precurors.
+
+[ ] Different input and output files.
+
+[ ] Implement partials.
+
+[ ] Small capitals based on [Precedent's Syntax](https://github.com/BlackacreLabs/precedent/blob/master/SYNTAX.md).
+
+[ ] Handle against multiple blocks in a document as this currently will not work.
 
 # Contributing
 

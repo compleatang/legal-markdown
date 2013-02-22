@@ -7,7 +7,7 @@ require "legal_markdown/version"
 module LegalMarkdown
   extend self
 
-  def markdown_preprocess(*args)
+  def markdown_to_legal(*args)
     # Get the Content & Yaml Data
     data = load(*args)
     parsed_content = parse_file(data[0])
@@ -157,9 +157,9 @@ module LegalMarkdown
         elsif value =~ /\([a-z]\)\z/   # type8 : {{ (a) }}
           return[:type8, value[0..-4]]
         elsif value =~ /\(\d\)\z/      # type9 : {{ (1) }}
-          return[:type9, value[0..-3]]
+          return[:type9, value[0..-4]]
         else value =~ /\d\.\z/         # type0 : {{ 1. }} ... also default
-          return[:type0, value[0..-4]]
+          return[:type0, value[0..-3]]
         end
       end
 
@@ -171,6 +171,10 @@ module LegalMarkdown
           search = base * level + "."
           # substitutions hash example {"ll."=>[:type8,"Article"],}
           substitutions[search]= set_the_subs_arrays(value.to_s)
+        end
+        if header =~ /no-reset/
+          no_subs_array = value.split(", ")
+          no_subs_array.each{|e| substitutions[e][6] = :no_reset }
         end
       end
 
@@ -197,25 +201,35 @@ module LegalMarkdown
       def get_the_subs_arrays( value )
         # returns a new array for the replacements
         if value[0] == :type1       # :type1 : {{ I. }}
-          return[:type1, value[1], "", "I", "."] 
+          value[2..4] = [ "", "I", "." ]
+          return value
         elsif value[0] == :type2    # :type2 : {{ (I) }}
-          return[:type2, value[1], "(", "I", ")"]
+          value[2..4] = [ "(", "I", ")"]
+          return value
         elsif value[0] == :type3    # :type3 : {{ i. }}
-          return[:type3, value[1], "", "i", "."]
+          value[2..4] = [ "", "i", "."]
+          return value
         elsif value[0] == :type4    # :type4 : {{ (i) }}
-          return[:type4, value[1], "(", "i", ")"]
+          value[2..4] = [ "(", "i", ")"]
+          return value
         elsif value[0] == :type5    # :type5 : {{ A. }}
-          return[:type5, value[1], "", "A", "."]
+          value[2..4] = [ "", "A", "."]
+          return value
         elsif value[0] == :type6    # :type6 : {{ (A) }}
-          return[:type6, value[1], "(", "A", ")"]
+          value[2..4] = [ "(", "A", ")"]
+          return value
         elsif value[0] == :type7    # :type7 : {{ a. }}
-          return[:type7, value[1], "", "a", "."]
+          value[2..4] = [ "", "a", "."]
+          return value
         elsif value[0] == :type8    # :type8 : {{ (a) }}
-          return[:type8, value[1], "(", "a", ")"]
+          value[2..4] = [ "(", "a", ")"]
+          return value
         elsif value[0] == :type9    # :type9 : {{ (1) }}
-          return[:type9, value[1], "(", "1", ")"]
+          value[2..4] = [ "(", "1", ")"]
+          return value
         else value[0] == :type0     # :type0 : {{ 1. }} ... also default
-          return[:type0, value[1], "", 1, "."]
+          value[2..4] = [ "", 1, "."]
+          return value
         end
       end
 
@@ -258,11 +272,13 @@ module LegalMarkdown
         leaders_to_reset = []
         hash_of_subs.each_key{ |k| leaders_to_reset << k if k > selector }
         leaders_to_reset.each do | leader |
-          unless hash_of_subs[leader][5] == :pre
-            hash_of_subs[leader]= get_the_subs_arrays(hash_of_subs[leader])
-          else
-            hash_of_subs[leader]= get_the_subs_arrays(hash_of_subs[leader])
-            hash_of_subs[leader]= pre_setup(hash_of_subs[leader])
+          unless hash_of_subs[leader][6] == :no_reset
+            unless hash_of_subs[leader][5] == :pre
+              hash_of_subs[leader]= get_the_subs_arrays(hash_of_subs[leader])
+            else
+              hash_of_subs[leader]= get_the_subs_arrays(hash_of_subs[leader])
+              hash_of_subs[leader]= pre_setup(hash_of_subs[leader])
+            end
           end
         end
         return hash_of_subs
@@ -285,7 +301,7 @@ module LegalMarkdown
         new_block = ""
         leader_before = ""
         leader_above = ""
-        selector_before = ""
+        selector_before = "" 
         old_block.each_line do | line | 
           selector = $1.chop if line =~ /(^l+.\s)/ 
           sub_it = substitutions[selector]
