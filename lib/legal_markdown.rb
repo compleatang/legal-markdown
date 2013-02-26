@@ -235,8 +235,8 @@ module LegalMarkdown
 
       def log_the_line( new_block, selector, line, array_to_sub )
         substitute = array_to_sub[1..4].join
-        spaces = ( " " * ( (selector.size) - 1 ) * 4 )
-        new_block << spaces + line.gsub(selector, substitute)
+        spaces = ( " " * ( (selector.size) - 2 ) * 4 )
+        new_block << spaces + line.gsub(selector, substitute) + "\n"
       end
 
       def increment_the_branch( hash_of_subs, array_to_sub, selector )
