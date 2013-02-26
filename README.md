@@ -204,8 +204,10 @@ I do not use latex to create pdfs nor do I use Word, but the functionality will 
 - [X] Make a no-reset option for certain levels that should not reset when moving up the tree.
 - [ ] Handle Exceptions better as it is very brittle right now.
 - [ ] Different input and output files.
+- [ ] Optional clauses in brackets with a mixin inside. Turn the mixin to false and the whole clause will not be rendered. For a mixin that simply turns on or off, must make a function whereby the mixin is true that it is turned on. ??? Should this switch to TOML rather than YAML frontmatter...?
 - [ ] Implement partials.
 - [ ] Definitions. For now these can be used as mixins but that functionality needs to improve.
+- [ ] Date = today function.
 - [ ] Handle against multiple blocks in a document as this currently will not work.
 - [ ] legal2md functionality. At this point legal_markdown cannot take a markdown document and parse it to build a structured legal document. Legal_markdown only works with a renderer to *create* documents but not to *parse* legal documents to create markdown. 
 
@@ -220,7 +222,7 @@ I do not use latex to create pdfs nor do I use Word, but the functionality will 
 
 # License
 
-MIT License - (c) 2012 - Watershed Legal Services, PLLC. All copyrights are owned by [Watershed Legal Services, PLLC](http://watershedlegal.com). See License file.
+MIT License - (c) 2013 - Watershed Legal Services, PLLC. All copyrights are owned by [Watershed Legal Services, PLLC](http://watershedlegal.com). See License file.
 
 This software is provided as is and specifically disclaims any implied warranties of fitness for any purpose whatsoever. By using this software you agree to hold harmless Watershed Legal Services and its Members for any perceived harm that using this software may have caused you. 
 
