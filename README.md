@@ -28,26 +28,7 @@ date: 2013-01-01
 ---
 ```
 
-## A Few Signals to the Parser
-
-### Leaving the YAML Front-Matter
-
-The gem will normally strip out the YAML front-matter as most markdown renderers will not be sure what to do with such content. Indeed, pandoc will end up drawing a table with the data still there. However, because some could potentially want to use this gem in combination with something like [Jekyll](https://github.com/mojombo/jekyll/) or any other system that could use the YAML front-matter there is a special trigger that tells legal_markdown to leave the YAML front-matter in the file. Legal_markdown will still make the necessary changes to the text of the file but it will not strip out the YAML front-matter in the process of making those changes. 
-
-To leave the YAML front-matter there simply pass the `value` of `true` to the `field` called `leave_yaml_front_matter`; this is how it would look in the above example. 
-
-```
----
-title: My Perfect Contract
-author: Watershed Legal Services
-date: 2013-01-01
-leave_yaml_front_matter: true
----
-```
-
-If you do not add the `true` value to the field then the default which is set to false will be triggered and the YAML Front-Matter will be stripped.
-
-### Some Pandoc-Specific Fields
+## Some Pandoc-Specific Fields
 
 There are a few fields that will be treated uniquely. The three fields in the example above (title: , author: , and date: ) will be replaced with the Pandoc fields as appropriate. Perhaps later we can (as a community) build out this functionality for other renderers but for now I've only built it to use Pandoc. If you don't use Pandoc then you can simply omit these fields and there will be no problem. 
 
@@ -61,18 +42,7 @@ Mixins are structured in the form of **double curly** brackets (this was taken f
 {{court}}: Regional Court of Hargeisa
 ```
 
-Mixins can also be used to set up clauses in the alternative in your templates which can be turned on or off within a specific document simply by updating the YAML mixin to false. Example of a `{{provision12a}}{{provision12b}}` alternative structuring for a contract template. Within the template the YAML front-matter would be structured something like this:
-
-```
-{{provision12a}}: "For the purposes of this Agreement"
-{{provision12b}}: "This Agreement shall"
-```
-
-Then to chose one of the two provisions you would would simply change the line to "false" but without the quotes. Example:
-
-```
-{{provision12a}}: false
-```
+If you do not want a mixin turned on for a particular document just add the mixin in the YAML Frontmatter and then leave it blank. Legal_markdown will replace the mixin with an empty string so in  the parsed document it will be out of your way.
 
 # Structured Headers
 
@@ -110,6 +80,32 @@ This will not reset level-1, level-2, or level-3 when it is parsing the document
 ## No Indent Function
 
 Sometimes you will not want to use Pandoc's listing function. Basically if you are outputting to .pdf, .odt, .doc(x) you may want to keep tight to the margins. This functionality is built into legal_markdown with a `no-indent` function. You simply add a `no-ident` field to your YAML header and not the headers you do not want to indent by their l., ll. notation. Separate those levels you do not want to reset with commas as with the `no-reset` function. Any levels *below* the last level in the `no-indent` function will be indented four spaces.
+
+## Optional Clauses Function
+
+When building templates for contracts, you often build in optional clauses or you build clauses that are mutually exclusive to one another. This functionality is supported by legal_markdown. This is how you build an optional clause. In the body of your text you put the entire clause in square-brackets (as you likely normally would) and at the beginning of the square bracket you put a mixin titled however. In the YAML Front-Matter you simply add true or false to turn that entire clause on or off. **Note**, if you do not add the mixin to your header, legal_markdown is just going to leave it as is. 
+
+You are able to nest one optional clause inside of another. However, if you do so, make sure that you include all of the sub-provisions of the master provision in the YAML matter, else legal_markdown will not be able to understand when it should close the optional provision. Another thing to note, if you include nested provisions, you can turn off an inside provision and leave an outside provision on, but if you turn off an outside provision you cannot turn on an inside provision.
+
+So, this is how the body of the text would look.
+
+```
+[{{my_optional_clause}}Both parties agree that upon material breach of this agreement by either party they will both commit suicide in homage to Kurt Cobain.]
+```
+
+Then the YAML Front Matter would look like this
+
+```
+my_optional_clause: true
+```
+
+or
+
+```
+my_optional_clause: false
+```
+
+I don't know why you would ever write such a clause, but that is why the functionality exists! 
 
 ## Example
 
@@ -206,14 +202,16 @@ I do not use latex to create pdfs nor do I use Word, but the functionality will 
 # Roadmap / TODO
 
 - [X] Make a no-reset option for certain levels that should not reset when moving up the tree.
-- [ ] Make no indent option.
+- [X] Make no indent option.
+- [X] Optional clauses in brackets with a mixin inside. Turn the mixin to false and the whole clause will not be rendered. For a mixin that simply turns on or off, must make a function whereby the mixin is true that it is turned on. 
 - [ ] Handle Exceptions better as it is very brittle right now.
 - [ ] Different input and output files.
-- [ ] Optional clauses in brackets with a mixin inside. Turn the mixin to false and the whole clause will not be rendered. For a mixin that simply turns on or off, must make a function whereby the mixin is true that it is turned on. ??? Should this switch to TOML rather than YAML frontmatter...?
 - [ ] Implement partials.
+- [ ] Leave the YAML Front Matter
 - [ ] Definitions. For now these can be used as mixins but that functionality needs to improve.
 - [ ] Date = today function.
 - [ ] Handle against multiple blocks in a document as this currently will not work.
+- [ ] ??? Should this switch to TOML rather than YAML frontmatter...?
 - [ ] legal2md functionality. At this point legal_markdown cannot take a markdown document and parse it to build a structured legal document. Legal_markdown only works with a renderer to *create* documents but not to *parse* legal documents to create markdown. 
 
 # Contributing

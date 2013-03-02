@@ -84,19 +84,67 @@ module LegalMarkdown
   # Mixins
 
   def mixing_in( mixins, content )
-    mixins.each do | mixin, replacer |
-      replacer = replacer.to_s
-      safe_words = [ "title", "author", "date" ]
-      if replacer != "false"
-        pattern = /{{#{mixin}}}/
-        if content =~ pattern
-          content = content.gsub( pattern, replacer )
-          # delete the mixin so that later parsing of special mixins & headers is easier and faster
-          mixins.delete( mixin ) unless safe_words.any?{ |s| s.casecmp(mixin) == 0 }
+
+    def clauses_mixins( mixins, content )
+      clauses_to_delete = []
+      clauses_to_mixin = []
+      
+      mixins.each do | mixin, replacer |
+        replacer = replacer.to_s.downcase
+        clauses_to_delete << mixin if replacer == "false"
+        clauses_to_mixin << mixin if replacer == "true"
+      end
+      
+      clauses_to_delete.each { |m| mixins.delete(m) }
+      clauses_to_mixin.each { |m| mixins.delete(m) }
+
+      until clauses_to_delete.size == 0
+        clauses_to_delete.each do | mixin |
+          pattern = /(\[{{#{mixin}}}\s*)(.*?\n?)(\])/m
+          sub_pattern = /\[{{(\S+)}}/m
+          content[pattern]
+          get_it_all = $& || ""
+          sub_clause = $2 || ""
+          next if sub_clause[sub_pattern] && clauses_to_delete.include?($1)
+          content = content.gsub( get_it_all, "" )
+          clauses_to_delete.delete( mixin )
         end
       end
+
+      until clauses_to_mixin.size == 0
+        clauses_to_mixin.each do | mixin |
+          pattern = /(\[{{#{mixin}}}\s*)(.*?\n?)(\])/m
+          sub_pattern = /(\[{{\S+}})/m
+          content[pattern]
+          get_it_all = $& || ""
+          sub_clause = $2 || ""
+          next if sub_clause[sub_pattern] && clauses_to_mixin.include?($1)
+          content = content.gsub( get_it_all, sub_clause )
+          clauses_to_mixin.delete( mixin )
+        end
+      end
+
+      return [content, mixins]
     end
-    return [content, mixins]
+
+    def normal_mixins( mixins, content )
+      mixins.each do | mixin, replacer |
+        unless mixin =~ /level-\d/ or mixin =~ /no-reset/ or mixin =~ /no-indent/
+          replacer = replacer.to_s
+          safe_words = [ "title", "author", "date" ]
+          pattern = /({{#{mixin}}})/
+          if content =~ pattern
+            content = content.gsub( $1, replacer )
+            mixins.delete( mixin ) unless safe_words.any?{ |s| s.casecmp(mixin) == 0 }
+          end
+        end
+      end
+      return [content, mixins]
+    end
+
+    clauses_mixed = clauses_mixins( mixins, content )
+    mixed = normal_mixins( clauses_mixed[1], clauses_mixed[0] )
+    return [ mixed[0], mixed[1] ]
   end
 
   # ----------------------
@@ -336,10 +384,8 @@ module LegalMarkdown
         return new_block
       end
 
-      if block != nil && block != "" && substitutions != nil && substitutions != {}
-        substitutions.each_key{ |k| substitutions[k]= get_the_subs_arrays(substitutions[k]) }
-        new_block = reform_the_block( block, substitutions )
-      end
+      substitutions.each_key{ |k| substitutions[k]= get_the_subs_arrays(substitutions[k]) }
+      new_block = reform_the_block( block, substitutions )
     end
 
     headers = get_the_substitutions( headers )
@@ -348,16 +394,15 @@ module LegalMarkdown
     not_the_block = block_noted[1]
     block_noted = ""   # Really only for long documents so they don't use too much memory
 
-    if headers == {} 
-      block_redux = block
-    end
     if block == nil || block == ""
       block_redux = ""
+    elsif headers == {} 
+      block_redux = block
     else
       block_redux = chew_on_the_block( headers, block )
     end
 
-    headed = not_the_block.gsub("{{block}}", block_redux )
+    headed = not_the_block.gsub("{{block}}", block_redux ) 
   end
 
   # ----------------------
