@@ -107,6 +107,10 @@ no-reset: l., ll., lll.
 
 This will not reset level-1, level-2, or level-3 when it is parsing the document and those levels will be numbered sequentially through the entire block rather than reseting when going to a higher block, levels not in this reset, e.g., llll. and lllll. will be reset when going up a level in the tree. Obviously the level 1 headers will never reset.
 
+## No Indent Function
+
+Sometimes you will not want to use Pandoc's listing function. Basically if you are outputting to .pdf, .odt, .doc(x) you may want to keep tight to the margins. This functionality is built into legal_markdown with a `no-indent` function. You simply add a `no-ident` field to your YAML header and not the headers you do not want to indent by their l., ll. notation. Separate those levels you do not want to reset with commas as with the `no-reset` function. Any levels *below* the last level in the `no-indent` function will be indented four spaces.
+
 ## Example
 
 If you use a system like Pandoc you can establish a system wherein the styles that you establish in the reference.docx or reference.odt or the latex style references can make up for the lack of granular fuctionality. When you build your reference.odt for example and you want to have a contract look like this:
@@ -202,6 +206,7 @@ I do not use latex to create pdfs nor do I use Word, but the functionality will 
 # Roadmap / TODO
 
 - [X] Make a no-reset option for certain levels that should not reset when moving up the tree.
+- [ ] Make no indent option.
 - [ ] Handle Exceptions better as it is very brittle right now.
 - [ ] Different input and output files.
 - [ ] Optional clauses in brackets with a mixin inside. Turn the mixin to false and the whole clause will not be rendered. For a mixin that simply turns on or off, must make a function whereby the mixin is true that it is turned on. ??? Should this switch to TOML rather than YAML frontmatter...?

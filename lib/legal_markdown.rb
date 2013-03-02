@@ -176,6 +176,10 @@ module LegalMarkdown
           no_subs_array = value.split(", ")
           no_subs_array.each{|e| substitutions[e][6] = :no_reset }
         end
+        @no_indt_array = []
+        if header =~ /no-indent/
+          @no_indt_array = value.split(", ")
+        end
       end
 
       return substitutions
@@ -235,7 +239,11 @@ module LegalMarkdown
 
       def log_the_line( new_block, selector, line, array_to_sub )
         substitute = array_to_sub[1..4].join
-        spaces = ( " " * ( (selector.size) - 2 ) * 4 )
+        spaces = ""
+        unless @no_indt_array.include?(selector)
+          downgrade_spaces = @no_indt_array.include?("l.") ? @no_indt_array.size - 1 : @no_indt_array.size
+          spaces = ( " " * ( (selector.size) - 2 - downgrade_spaces ) * 4 )
+        end
         new_block << spaces + line.gsub(selector, substitute) + "\n"
       end
 
