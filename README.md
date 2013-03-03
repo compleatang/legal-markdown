@@ -14,7 +14,7 @@ It is very simple. But first you must have ruby installed on your system. (Googl
 
 ## How to Use This Gem?
 
-After the gem has finished its installation on your system then you can simply type `$> legalmd [filename]` where the filename is the file (in whatever flavor of markdown you use). The gem will parse the file and output the same filename. If you prefer to output as a different filename (which will allow you to keep the YAML front-matter), then you simply type `$> legalmd [input-filename] [output-filename]`. 
+After the gem has finished its installation on your system then you can simply type `$> md2legal [filename]` where the filename is the file (in whatever flavor of markdown you use). The gem will parse the file and output the same filename. If you prefer to output as a different filename (which will allow you to keep the YAML front-matter), then you simply type `$> md2legal [output-filename] [input-filename]`. 
 
 # YAML Front-Matter
 
@@ -207,8 +207,8 @@ I do not use latex to create pdfs nor do I use Word, but the functionality will 
 - [X] Make no indent option.
 - [X] Optional clauses in brackets with a mixin inside. Turn the mixin to false and the whole clause will not be rendered. For a mixin that simply turns on or off, must make a function whereby the mixin is true that it is turned on. 
 - [X] Handle against multiple blocks in a document as this currently will not work.
+- [X] Different input and output files.
 - [ ] Handle Exceptions better as it is very brittle right now.
-- [ ] Different input and output files.
 - [ ] Implement partials.
 - [ ] Leave the YAML Front Matter
 - [ ] Definitions. For now these can be used as mixins but that functionality needs to improve.
