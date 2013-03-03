@@ -107,7 +107,7 @@ module LegalMarkdown
           sub_clause = $2 || ""
           next if sub_clause[sub_pattern] && clauses_to_delete.include?($1)
           content = content.gsub( get_it_all, "" )
-          clauses_to_delete.delete( mixin )
+          clauses_to_delete.delete( mixin ) unless content[pattern]
         end
       end
 
@@ -120,7 +120,7 @@ module LegalMarkdown
           sub_clause = $2 || ""
           next if sub_clause[sub_pattern] && clauses_to_mixin.include?($1)
           content = content.gsub( get_it_all, sub_clause )
-          clauses_to_mixin.delete( mixin )
+          clauses_to_mixin.delete( mixin ) unless content[pattern]
         end
       end
 
