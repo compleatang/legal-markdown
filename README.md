@@ -14,7 +14,7 @@ It is very simple. But first you must have ruby installed on your system. (Googl
 
 ## How to Use This Gem?
 
-After the gem has finished its installation on your system then you can simply type `$> md2legal [filename]` where the filename is the file (in whatever flavor of markdown you use). The gem will parse the file and output the same filename. If you prefer to output as a different filename (which will allow you to keep the YAML front-matter), then you simply type `$> md2legal [output-filename] [input-filename]`. 
+After the gem has finished its installation on your system then you can simply type `$> md2legal [filename]` where the filename is the file (in whatever flavor of markdown you use). The gem will parse the file and output the same filename. If you prefer to output as a different filename (which will allow you to keep the YAML front-matter), then you simply type `$> md2legal [input-filename] [output-filename]`. 
 
 # YAML Front-Matter
 

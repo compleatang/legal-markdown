@@ -49,8 +49,8 @@ module LegalMarkdown
     # op.parse!(ARGV)
 
     # Load Source File
-    @output_file = ARGV[-2] ? ARGV[-2] : ARGV[-1]
-    @input_file = ARGV[-1]
+    @output_file = ARGV[-1]
+    @input_file = ARGV[-2] ? ARGV[-2] : ARGV[-1]
     source_file = File::read(@input_file) if File::exists?(@input_file) && File::readable?(@input_file)
     return [source_file, '']
   end
