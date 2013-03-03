@@ -65,6 +65,8 @@ Then you can describe the functionality that you require in the YAML front-matte
 
 Obviously you will replace `level-1` with `level-2`, etc. Although this functionality was built into the gem, it is generally not the best practice. A better practice is to let the gem make the replacements and reformat the markdown and then use your rendering system and its default reference documents to set the styles you need. 
 
+**Update**: Have updated the block slightly so that it will work better with blank lines and multiple paragraph blocks. Wherever you wish to start the block just put in ````` Three backticks (~ without the shift) at the beginning of the line. Then start the block on the next line -- don't skip a blank line. When you are done with the block just put the same three backticks at the beginning of the line and continue your document.
+
 ## No Reset Function
 
 Sometimes in legal documents (particularly in laws) you want to build multiple structured header levels, but you do not want to reset all of the headers when going up the tree. For example, in some laws you will have Chapters, Parts, Sections, ... and you will want to track Chapters, Parts and Sections but when you go up to Parts you will not want to reset the Sections to one. 
@@ -204,13 +206,13 @@ I do not use latex to create pdfs nor do I use Word, but the functionality will 
 - [X] Make a no-reset option for certain levels that should not reset when moving up the tree.
 - [X] Make no indent option.
 - [X] Optional clauses in brackets with a mixin inside. Turn the mixin to false and the whole clause will not be rendered. For a mixin that simply turns on or off, must make a function whereby the mixin is true that it is turned on. 
+- [X] Handle against multiple blocks in a document as this currently will not work.
 - [ ] Handle Exceptions better as it is very brittle right now.
 - [ ] Different input and output files.
 - [ ] Implement partials.
 - [ ] Leave the YAML Front Matter
 - [ ] Definitions. For now these can be used as mixins but that functionality needs to improve.
 - [ ] Date = today function.
-- [ ] Handle against multiple blocks in a document as this currently will not work.
 - [ ] ??? Should this switch to TOML rather than YAML frontmatter...?
 - [ ] legal2md functionality. At this point legal_markdown cannot take a markdown document and parse it to build a structured legal document. Legal_markdown only works with a renderer to *create* documents but not to *parse* legal documents to create markdown. 
 
