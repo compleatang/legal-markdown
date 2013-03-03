@@ -208,13 +208,13 @@ I do not use latex to create pdfs nor do I use Word, but the functionality will 
 - [X] Optional clauses in brackets with a mixin inside. Turn the mixin to false and the whole clause will not be rendered. For a mixin that simply turns on or off, must make a function whereby the mixin is true that it is turned on. 
 - [X] Handle against multiple blocks in a document as this currently will not work.
 - [X] Different input and output files.
-- [ ] Handle Exceptions better as it is very brittle right now.
 - [ ] Implement partials.
+- [ ] Date = today function.
+- [ ] Handle Exceptions better as it is very brittle right now.
 - [ ] Leave the YAML Front Matter
 - [ ] Definitions. For now these can be used as mixins but that functionality needs to improve.
-- [ ] Date = today function.
-- [ ] ??? Should this switch to TOML rather than YAML frontmatter...?
 - [ ] legal2md functionality. At this point legal_markdown cannot take a markdown document and parse it to build a structured legal document. Legal_markdown only works with a renderer to *create* documents but not to *parse* legal documents to create markdown. 
+- [ ] ??? Should this switch to TOML rather than YAML frontmatter...?
 
 # Contributing
 
