@@ -18,7 +18,7 @@ module LegalMarkdown
     # Run the Headers
     headed_content = headers_on(mixed_content[1], pandoc_content)
     # Write the file
-    file = write_it( @filename, headed_content )
+    file = write_it( @output_file, headed_content )
   end
 
   private
@@ -48,12 +48,10 @@ module LegalMarkdown
     # end
     # op.parse!(ARGV)
 
-    # # Example code for dealing with multiple filenames -- but don't think we want to do this.
-    # ARGV.each{ |fn| output_file(OPTS, fn) }
-
     # Load Source File
-    @filename = ARGV[-1]
-    source_file = File::read(@filename) if File::exists?(@filename) && File::readable?(@filename)
+    @output_file = ARGV[-2] ? ARGV[-2] : ARGV[-1]
+    @input_file = ARGV[-1]
+    source_file = File::read(@input_file) if File::exists?(@input_file) && File::readable?(@input_file)
     return [source_file, '']
   end
 
@@ -418,11 +416,7 @@ module LegalMarkdown
   # ----------------------
   # Write the file 
 
-  def write_it( filename, final_content )
-    if File.writable?( filename )
-      File::open filename, 'w' do |f|
-        f.write final_content
-      end
-    end
+  def write_it( output_file, final_content )
+    File.open(output_file, "w") {|f| f.write( final_content ) }
   end
 end
