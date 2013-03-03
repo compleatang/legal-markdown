@@ -237,8 +237,8 @@ module LegalMarkdown
       # finds the block of text that will be processed
       # returns an array with the first element as the block 
       # to be processed and the second element as the rest of the document
-      if content =~ /(^l+\.\s.+^$)/m
-        block = $1.chomp
+      if content =~ /(^```\s*\n?)(.*?\n?)(^```\s*\n?)/m
+        block = $2.chomp
         content = $PREMATCH + "{{block}}\n" + $POSTMATCH
       end
       return[ block, content ]
@@ -292,6 +292,7 @@ module LegalMarkdown
           downgrade_spaces = @no_indt_array.include?("l.") ? @no_indt_array.size - 1 : @no_indt_array.size
           spaces = ( " " * ( (selector.size) - 2 - downgrade_spaces ) * 4 )
         end
+        line = line.gsub( $1, ( $1 + spaces ) ) if line[/(\n\n)/]
         new_block << spaces + line.gsub(selector, substitute) + "\n"
       end
 
@@ -358,9 +359,16 @@ module LegalMarkdown
         leader_before = ""
         leader_above = ""
         selector_before = "" 
-        old_block.each_line do | line | 
-          selector = $1.chop if line =~ /(^l+.\s)/ 
+        temp_block = []
+        old_block.each_line{ |l| old_block.gsub(l, "") if l[/^\n/] }
+        old_block.each_line{ |l| l[/(^l+.\s)/] ? temp_block << l : temp_block.last << ("\n" + l) }
+        old_block = temp_block
+        temp_block = []
+        old_block.each do | line | 
+          line[/(^l+.\s)/]
+          selector = $1.chop
           sub_it = substitutions[selector]
+          sub_it[5] = "" if sub_it[5].nil?
           if sub_it[5] == :pre || sub_it[1] =~ /pre/
             sub_it = pre_setup(sub_it) 
             if selector_before < selector     # Going down the tree, into pre
