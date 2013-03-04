@@ -125,6 +125,9 @@ module LegalMarkdown
       return [content, mixins]
     end
 
+    # probably should be using scan here.
+    # For each match, a result is generated and either added to the result array or passed to the block. If the pattern contains no groups, each individual result consists of the matched string, $&. If the pattern contains groups, each individual result is itself an array containing one entry per group.
+
     def normal_mixins( mixins, content )
       mixins.each do | mixin, replacer |
         unless mixin =~ /level-\d/ or mixin =~ /no-reset/ or mixin =~ /no-indent/
@@ -235,6 +238,8 @@ module LegalMarkdown
       # finds the block of text that will be processed
       # returns an array with the first element as the block 
       # to be processed and the second element as the rest of the document
+
+      # probably should be using .partition here -> finds regex and rtns arr of part before, part and part after. as [0][1][2]
       if content =~ /(^```\s*\n?)(.*?\n?)(^```\s*\n?)/m
         block = $2.chomp
         content = $PREMATCH + "{{block}}\n" + $POSTMATCH
@@ -358,6 +363,38 @@ module LegalMarkdown
         leader_above = ""
         selector_before = "" 
         temp_block = []
+        ## should be using str.starts_with? function here. should be splitting this into an 
+        ##   array of arrays rather than into a single array, then replace the first element
+        ##   of each array and then join the subarrays and then join the master array.
+
+        ## basically this is a map/reduce ... aka collect/inject... function we are building....
+        ## map each element in the block/string when the line starts with l. to an array
+        ##   of arrays where first element is selector and second element is the provision.
+        ## reduce back to a string by replacing the first sub element with the appropriate
+        ##   marker (guarding appropriately).
+
+        ## with procs you can set an unknown number of arguments in the second part of the block
+        ##   need to think about this but it could get us around some of the unknowns we are facing
+        ##   e.g. a_proc = Proc.new {|a, *b| b.collect {|i| i*a }}; a_proc.call(9, 1, 2, 3)   #=> [9, 
+        ##   18, 27]. This proc multiplies the first element times each of the rest of the elements
+        ##   and then collects them into an array and returns that array. It operates no matter
+        ##   how many elements are passed into *b block element. This is where they are getting the
+        ##   *args functionality we see in rails. So where we have an unknown number of times we
+        ##   need to operate on something (e.g., unknown set of optional subclauses, supra). Then
+        ##   Procs are quite helpful. Returns the value of the last expression evaluated in the 
+        ##   block. Lambdas on the other hand only can handle a FIXED number of arguments.
+
+        ## When working with hashes the fetch feature is your friend. particularly you can use with 
+        ##   menu_hash.fetch(number, nil) **note nil as the second operator there. That will return
+        ##   whatever you are looking for only based upon the key of the hash. So fetch(selector, nil)
+        ##   will return the array that you can then join. to replace the selector...
+        ##   Another key feature of hashes. The [] method of Hash converts an array with 
+        ##   the form [ [1, 2], [3, 4] ] to a hash {1 => 2, 3 => 4}. 
+
+        ## OK, when we are reading the spec and it says, "returns an enumerator" what do we 
+        ##   "do" with that enumerator? typically we'd map/collect it into an array or we could
+        ##   inject it. Basically returns an enumerator is what we do with function stringing
+        ##   over enumerable objects (arrays, hashes, matches, ranges, etc.)
         old_block.each_line{ |l| old_block.gsub(l, "") if l[/^\n/] }
         old_block.each_line{ |l| l[/(^l+.\s)/] ? temp_block << l : temp_block.last << ("\n" + l) }
         old_block = temp_block
@@ -415,6 +452,8 @@ module LegalMarkdown
   # |      Step 6        |
   # ----------------------
   # Write the file 
+
+  # need final cleanup method. should probably use str.squeeze(" ") method that will reduce all multiple instances of " "...
 
   def write_it( output_file, final_content )
     File.open(output_file, "w") {|f| f.write( final_content ) }
