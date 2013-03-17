@@ -359,7 +359,7 @@ module LegalMarkdown
         selector_before = "" 
         temp_block = []
         old_block.each_line{ |l| old_block.gsub(l, "") if l[/^\n/] }
-        old_block.each_line{ |l| l[/(^l+.\s)/] ? temp_block << l : temp_block.last << ("\n" + l) }
+        old_block.each_line{ |l| l[/(^l+.\s)/] ? temp_block << l : temp_block.last << ("\n" + l) unless temp_block.empty? }
         old_block = temp_block
         temp_block = []
         old_block.each do | line | 
