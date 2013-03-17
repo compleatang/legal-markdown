@@ -1,7 +1,0 @@
-#!/usr/bin/env ruby
-#
-# == USAGE
-#  md2legal file.md
-
-require 'legal_markdown'
-LegalMarkdown.markdown_to_legal(ARGV)

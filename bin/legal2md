@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+#
+# == USAGE
+#  legal2md input_file output_file
+#  legal2md --headers input_file
+
+require 'legal_markdown'
+if ARGV.include?("--headers")
+	LegalMarkdown::MakeYamlFrontMatter.new(ARGV)
+else
+	LegalMarkdown::LegalToMarkdown.new(ARGV)
+end

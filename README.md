@@ -109,6 +109,10 @@ my_optional_clause: false
 
 I don't know why you would ever write such a clause, but that is why the functionality exists! 
 
+## Build the YAML Frontmatter
+
+Want to let `legal_markdown` build and sort your YAML Front Matter for you? No problem. Simply call the executable from the command line with `--headers FILENAME` and it is done. 
+
 ## Example
 
 If you use a system like Pandoc you can establish a system wherein the styles that you establish in the reference.docx or reference.odt or the latex style references can make up for the lack of granular fuctionality. When you build your reference.odt for example and you want to have a contract look like this:
@@ -208,13 +212,17 @@ I do not use latex to create pdfs nor do I use Word, but the functionality will 
 - [X] Optional clauses in brackets with a mixin inside. Turn the mixin to false and the whole clause will not be rendered. For a mixin that simply turns on or off, must make a function whereby the mixin is true that it is turned on. 
 - [X] Handle against multiple blocks in a document as this currently will not work.
 - [X] Different input and output files.
+- [X] Function to build the YAML Front Matter
 - [ ] Implement partials.
 - [ ] Date = today function.
+- [ ] Final scan of the document to remove double spaces and space-periods (guard for nil mixins which had space in template).
 - [ ] Handle Exceptions better as it is very brittle right now.
 - [ ] Leave the YAML Front Matter
 - [ ] Definitions. For now these can be used as mixins but that functionality needs to improve.
 - [ ] legal2md functionality. At this point legal_markdown cannot take a markdown document and parse it to build a structured legal document. Legal_markdown only works with a renderer to *create* documents but not to *parse* legal documents to create markdown. 
 - [ ] ??? Should this switch to TOML rather than YAML frontmatter...?
+- [ ] If one subheading, turn off option.
+- [ ] Switch to a l1, l2, l3 style as will be faster to parse.
 
 # Contributing
 

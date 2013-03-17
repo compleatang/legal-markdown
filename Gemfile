@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
 
+gem "rake"
 # Specify your gem's dependencies in legal_markdown.gemspec
 gemspec
-gem "rake"
