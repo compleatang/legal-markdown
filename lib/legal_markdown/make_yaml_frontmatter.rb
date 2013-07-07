@@ -1,30 +1,52 @@
+#! ruby
+require 'yaml'
+
 class MakeYamlFrontMatter
 
   def initialize(*args)
-    ARGV.include?("-") ? data = STDIN.read : data = load(*args)
+    data = load(*args)
     parsed_file = find_yaml_if_yaml(data)
     new_yaml_as_array = scan_and_filter_yaml(parsed_file[0], parsed_file[1])
-    parsed_file.shift
     new_yaml = build_new_yaml_frontmatter(new_yaml_as_array)
-    new_yaml_as_array.clear
-    write_it( new_yaml + parsed_file[0] )
+    write_it( new_yaml + parsed_file[1] )
   end
 
   def load(*args)
-    @file = ARGV[-1]
-    source_file = File::read(@file) if File::exists?(@file) && File::readable?(@file)
+    begin
+      @file = ARGV[-1]
+      if @file != "-"
+        source_file = File::read(@file) if File::exists?(@file) && File::readable?(@file)
+      else
+        source_file = STDIN.read
+      end
+      source_file.scan(/(@include (.+)$)/).each do |set|
+        partial_file = set[1]
+        to_replace = set[0]
+        partial_contents = File::read(partial_file) if File::exists?(partial_file) && File::readable?(partial_file)
+        source_file.gsub!(to_replace, "[PARTIALSTART]\n" + partial_contents + "\n[PARTIALENDS][#{to_replace}]")
+      end
+      return source_file
+    rescue => e
+      puts "Sorry, I could not read the input file #{@file}: #{e.message}."
+      exit 0
+    end
   end
 
-  def find_yaml_if_yaml(source)
-    yaml_pattern = /\A---\s*\n(.*?\n?)^---\s*$\n?/m
-    if source[yaml_pattern]
-      data = YAML.load($1)
-      content = $POSTMATCH
-    else
-      data = {}
-      content = source
+  def find_yaml_if_yaml( source )
+    begin
+      yaml_pattern = /\A(---\s*\n.*?\n?)^(---\s*$\n?)/m
+      parts = source.partition( yaml_pattern )
+      if parts[1] != ""
+        headers = YAML.load(parts[1])
+        content = parts[2]
+      else
+        headers = {}
+        content = source
+      end
+    rescue => e
+      puts "Sorry, something went wrong when I was loading the YAML front matter: #{e.message}."
     end
-    return [data, content]
+    return [headers, content]
   end
 
   def scan_doc(content, pattern)
@@ -51,12 +73,11 @@ class MakeYamlFrontMatter
     mixin_pattern = /[^\[]{{(\S+)}}/
     opt_clauses_pattern = /\[{{(\S+)}}/
     @structured_headers_pattern = /(^l+.)/
-    pandoc_headrs = %w{title, author, date}
     mixins = filter_yaml(yaml_data, scan_doc(content, mixin_pattern))
     opt_clauses = filter_yaml(yaml_data, scan_doc(content, opt_clauses_pattern))
-    levels = filter_yaml(yaml_data, scan_doc(content, @structured_headers_pattern).concat(%w{no-indent no-reset}))
-    # pandoc = pandoc_headrs.inject({}){|h,e| h.merge({e => yaml_data[e]}) if yaml_data.has_key?(e) }
-    return [mixins, opt_clauses, levels]
+    levels = filter_yaml(yaml_data, scan_doc(content, @structured_headers_pattern))
+    extras = filter_yaml(yaml_data, %w{no-indent no-reset leader-style})
+    return [mixins, opt_clauses, levels, extras]
   end
 
   def build_new_yaml_frontmatter(yaml_data_as_array)
@@ -71,19 +92,23 @@ class MakeYamlFrontMatter
     end
     if yaml_data_as_array[2]
       front << "\n\# Structured Headers\n"
-      yaml_data_as_array[2].each{ |head, val| front << head + ": " + val.to_s + "\n" }
+      yaml_data_as_array[2].each{ |head, val| front << head + ": \"" + val.to_s + "\"\n" }
     end
     if yaml_data_as_array[3]
-      front << "\n\# Pandoc Specific\n"
       yaml_data_as_array[3].each{ |head, val| front << head + ": " + val.to_s + "\n" }
     end
     front << "\n---\n\n"
   end
 
   def write_it( final_content )
-    if @file
-      File.open(output_file, "w") {|f| f.write( final_content ) }
-    else 
+    final_content.scan(/(\[PARTIALSTART\].*?\[PARTIALENDS\]\[(.*?)\])/m).each do |set|
+      replacer = set[1]
+      to_replace = set[0]
+      final_content.gsub!(to_replace, replacer)
+    end
+    if @file != "-"
+      File.open(@file, "w") {|f| f.write( final_content ) }
+    else
       STDOUT.write final_content
     end
   end

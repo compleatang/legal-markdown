@@ -39,7 +39,8 @@ module RomanNumerals
     1000 => 'M'
   }
 
-  def self.to_roman(value)
+  def self.to_roman_upper(value)
+    value = value.to_i
     result = ''
     @base_digits.keys.reverse.each do |decimal|
       while value >= decimal
@@ -50,7 +51,19 @@ module RomanNumerals
     result
   end
 
-  def self.to_decimal(value)
+  def self.to_roman_lower(value)
+    value = value.to_i
+    result = ''
+    @base_digits.keys.reverse.each do |decimal|
+      while value >= decimal
+        value -= decimal
+        result += @base_digits[decimal]
+      end
+    end
+    result.downcase
+  end
+
+  def self.to_decimal_string(value)
     value.upcase!
     result = 0
     @base_digits.values.reverse.each do |roman|
@@ -59,6 +72,6 @@ module RomanNumerals
         result += @base_digits.key roman
       end
     end
-    result
+    result.to_s
   end
 end
