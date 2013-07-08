@@ -59,6 +59,11 @@ class LegalToMarkdown
 
   def parse_file(source)
     begin
+      if source[/@today/]
+        require 'date'
+        d = Date.today.strftime("%-d %B, %Y")
+        source.gsub!($&, d)
+      end
       yaml_pattern = /\A(---\s*\n.*?\n?)^(---\s*$\n?)/m
       parts = source.partition( yaml_pattern )
       if parts[1] != ""

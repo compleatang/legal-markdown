@@ -296,6 +296,10 @@ If you were lawyering like coders think then you would abstract these provisions
 
 Partials are simple. They use the `@import [filename]` syntax. So if your final provisions are kept in a file in the same folder called final_provisions.lmd you would put `@import final_provisions.lmd` on its own line (either within a structured headers block or outside of it) and the gem will import the contents of the partial before chewing on the whole contract. If your partial was located in another directory you just type that in just like you would on the command line `@import ~/gitlaw/contracts/commercial/partials/final_provisions.lmd` or wherever your partial is.
 
+#### Date
+
+When you are building documents sometime you simply want to put `effective_date: @today`. Try it! At this point it formats dates according to standard formating outside of the US. But if you want to change that, then simply add the date manually.
+
 ## A Few Gotchas
 
 * Legal_markdown is optimized primarily for contracts, legislation, and regulations. It is not optimized for cases. For memoranda and filings I use the mixin portion but not the header portion which is enough to meet my needs - in particular, when matched with Sublime Text snippets. If you area looking for a more complete solution for cases and filings I would recommend the [Precedent Gem](https://github.com/BlackacreLabs/precedent) built by [Kyle Mitchell](https://github.com/kemitchell) for [Blackacre Labs](https://github.com/BlackacreLabs)
