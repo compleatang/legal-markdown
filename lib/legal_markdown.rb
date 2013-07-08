@@ -34,7 +34,7 @@ class LegalToMarkdown
     @output_file = ARGV[-1]
     @input_file = ARGV[-2] ? ARGV[-2] : ARGV[-1]
     begin
-      if @output_file != "-" && @input_file != "-"
+      if @input_file != "-"
         source_file = File::read(@input_file) if File::exists?(@input_file) && File::readable?(@input_file)
       elsif @input_file == "-"
         source_file = STDIN.read
@@ -217,8 +217,10 @@ class LegalToMarkdown
         end
       end
 
-      no_subs_array = headers["no-reset"].split(", ")
-      no_subs_array.each{ |e| @substitutions[e][5] = :no_reset unless e == "l." || e == "l1."}
+      if headers["no-reset"]
+        no_subs_array = headers["no-reset"].split(", ")
+        no_subs_array.each{ |e| @substitutions[e][5] = :no_reset unless e == "l." || e == "l1."}
+      end
 
       return @substitutions
     end
