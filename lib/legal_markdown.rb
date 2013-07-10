@@ -383,7 +383,10 @@ class LegalToMarkdown
         end
 
         block << sub_it[6] + sub_it[1] + reference + " " + arrayed_line[1] + "\n\n"
-        cross_references[arrayed_line[2]]= sub_it[1] + reference if arrayed_line[2]
+        if arrayed_line[2]
+          cross_references[arrayed_line[2]]= sub_it[1] + reference
+          cross_references[arrayed_line[2]].gsub!(/\A\*|\#+ |\.\z/, "")                    #guard against formatting of headers into txt
+        end
         @substitutions[selector]= increment_the_branch(sub_it, selector, next_selector)
 
         block
