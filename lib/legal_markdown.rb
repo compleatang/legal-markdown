@@ -417,6 +417,7 @@ class LegalToMarkdown
   # ----------------------
   # Write the file
   def write_it( final_content )
+    final_content = final_content.squeeze(" ")
     if @output_file && @output_file != "-"
       File.open(@output_file, "w") {|f| f.write( final_content ) }
     else
