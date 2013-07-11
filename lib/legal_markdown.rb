@@ -131,7 +131,7 @@ class LegalToMarkdown
 
     def text_mixins( mixins, content )
       mixins.each do | mixin, replacer |
-        unless mixin =~ /level-\d/ or mixin =~ /no-reset/ or mixin =~ /no-indent/
+        unless mixin =~ /level-\d/ or mixin =~ /no-reset/ or mixin =~ /no-indent/ or mixin =~ /level-style/
           replacer = replacer.to_s
           mixin_pattern = /({{#{mixin}}})/
           content = content.gsub( $1, replacer ) if content =~ mixin_pattern
@@ -193,7 +193,13 @@ class LegalToMarkdown
       # {"ll." || "l2."=>[:type8, "Article ", "(", "1", ")", :no_reset || nil, "  ", :preval || :pre || nil]}
 
       @substitutions = {}
-      headers["level-style"] == "l1." ? @deep_leaders = true : @deep_leaders = false
+
+      if headers.has_key?("level-style")
+        headers["level-style"] =~ /l1/ ? @deep_leaders = true : @deep_leaders = false
+      else
+        @deep_leaders = false
+      end
+
       if headers.has_key?("no-indent")
         no_indent_array = headers["no-indent"].split(", ")
         no_indent_array.include?("l." || "l1.") ? @offset = no_indent_array.size : @offset = no_indent_array.size + 1
@@ -359,7 +365,7 @@ class LegalToMarkdown
       arrayed_block = []
       old_block.each_line do |line|
         next if line[/^\s*\n/]
-        line[/(^l+\.)\s*(\|.*?\|)*\s*(.*)$/] ? arrayed_block << [$1, $3, $2] : arrayed_block.last[1] << ("\n" + line.rstrip)
+        line[/(^l+\.|^l\d\.)\s*(\|.*?\|)*\s*(.*)$/] ? arrayed_block << [$1, $3, $2] : arrayed_block.last[1] << ("\n" + line.rstrip)
       end
       old_block = ""                        # for large files
 

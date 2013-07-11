@@ -76,7 +76,7 @@ class MakeYamlFrontMatter
     mixins = filter_yaml(yaml_data, scan_doc(content, mixin_pattern))
     opt_clauses = filter_yaml(yaml_data, scan_doc(content, opt_clauses_pattern))
     levels = filter_yaml(yaml_data, scan_doc(content, @structured_headers_pattern))
-    extras = filter_yaml(yaml_data, %w{no-indent no-reset leader-style})
+    extras = filter_yaml(yaml_data, %w{no-indent no-reset level-style})
     return [mixins, opt_clauses, levels, extras]
   end
 
