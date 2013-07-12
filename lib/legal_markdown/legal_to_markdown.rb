@@ -7,9 +7,10 @@ require File.dirname(__FILE__) + '/roman_numerals'
 module LegalToMarkdown
 
   def parse(args)
-    @output_file = args[-1]
     @input_file = args[-2] ? args[-2] : args[-1]
     source = FileToParse.new(@input_file)
+    @output_file = args[-1]
+    # source.writer =
     source.run_mixins if source.mixins
     source.run_leaders if source.leaders
     write_it(source.content)

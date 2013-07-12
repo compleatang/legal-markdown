@@ -78,59 +78,17 @@ module LegalToMarkdown
     end
 
     def chew_on_the_block
-      # takes a hash of substitutions to make from the #get_the_substitutions method
-      # and a block of text returned from the #find_the_block method
-      # iterates over the block to make the appropriate substitutions
-      # returns a block of text
-
-      # method will take the old_block and iterate through the lines.
-      # First it will find the leading indicator. Then it will
-      # find the appropriate substitution from the @substitutions
-      # hash. After that it will rebuild the leading matter from the
-      # sub hash. It will drop markers if it is going down the tree.
-      # It will reset the branches if it is going up the tree.
-      # sub_it is an array w/ type[0] & lead_string[1] & id's[2..4]
-
       # @substitutions hash example
       # {"ll."OR "l2."=>[:type8, "Article ", "(", "1", ")", :no_reset || nil, :no_indent || nil, :preval || :pre || nil],}
 
-      cross_references = {}
+      @cross_references = {}
       arrayed_block = []
       @block.each_line do |line|
-        next if line[/^\s*\n/]
+        next if line[/^\s+$/]
         line[/(^l+\.|^l\d\.)\s*(\|.*?\|)*\s*(.*)$/] ? arrayed_block << [$1, $3, $2] : arrayed_block.last[1] << ("\n" + line.rstrip)
       end
-
-      new_block = arrayed_block.inject("") do |block, arrayed_line|
-
-        selector = arrayed_line[0]
-        next_selector = ( arrayed_block[arrayed_block.index(arrayed_line)+1] || arrayed_block.last ).first
-        sub_it = @substitutions[selector]
-
-        if arrayed_line[1] =~ /\n/
-          arrayed_line[1].gsub!("\n", "\n\n" + sub_it[6])
-        end
-
-        if sub_it[7] == :preval
-          sub_it = preval_substitution(sub_it, selector)
-          reference = sub_it.last
-        elsif sub_it[7] == :pre
-          sub_it = pre_substitution(sub_it, selector)
-          reference = sub_it.last
-        else
-          reference = sub_it[2..4].join
-        end
-
-        block << sub_it[6] + sub_it[1] + reference + " " + arrayed_line[1] + "\n\n"
-        if arrayed_line[2]
-          cross_references[arrayed_line[2]]= sub_it[1] + reference
-          cross_references[arrayed_line[2]].gsub!(/\A\*|\#+ |\.\z/, "")                    #guard against formatting of headers into txt
-        end
-        @substitutions[selector]= increment_the_branch(sub_it, selector, next_selector)
-        block
-      end
-
-      cross_references.each_key{|k| new_block.gsub!(k, cross_references[k]) }
+      new_block = build_the_block_for_markdown arrayed_block if @writer == :markdown
+      @cross_references.each_key{|k| new_block.gsub!(k, @cross_references[k]) }
       return new_block
     end
 
@@ -254,6 +212,35 @@ module LegalToMarkdown
       array_to_sub << leading_prov + trailing_prov
       array_to_sub.last.gsub!($1, "(") if array_to_sub.last[/(\.\()/]
       return array_to_sub
+    end
+
+    def build_the_block_for_markdown( arrayed_block )
+      new_block = arrayed_block.inject("") do |block, arrayed_line|
+        selector = arrayed_line.first
+        sub_it = @substitutions[selector]
+        arrayed_line[1].gsub!("\n", "\n\n" + sub_it[6]) if arrayed_line[1] =~ /\n/
+        if sub_it[7] == :preval
+          sub_it = preval_substitution( sub_it, selector )
+          reference = sub_it.last
+        elsif sub_it[7] == :pre
+          sub_it = pre_substitution( sub_it, selector )
+          reference = sub_it.last
+        else
+          reference = sub_it[2..4].join
+        end
+        log_and_increment_line block, sub_it, reference, selector, arrayed_line, arrayed_block
+        block
+      end
+      new_block
+    end
+
+    def log_and_increment_line( block, sub_it, reference, selector, arrayed_line, arrayed_block )
+      block << sub_it[6] + sub_it[1] + reference + " " + arrayed_line[1] + "\n\n"
+      @cross_references[arrayed_line[2]]= sub_it[1].gsub(/\A\* *|\#+ */, "") + reference.chomp(".") if arrayed_line[2]
+      unless arrayed_line == arrayed_block.last
+        next_selector = arrayed_block[arrayed_block.index(arrayed_line)+1].first
+        @substitutions[selector]= increment_the_branch(sub_it, selector, next_selector)
+      end
     end
   end
 end

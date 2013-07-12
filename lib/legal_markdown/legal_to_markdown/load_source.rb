@@ -3,10 +3,10 @@ module LegalToMarkdown
 
   class FileToParse
 
-    attr_accessor :headers, :content, :mixins, :leaders
+    attr_accessor :headers, :content, :mixins, :leaders, :writer
 
     def initialize(file)
-      @input_file = file; @headers = nil; @content = ""
+      @input_file = file; @headers = nil; @content = ""; @writer = :markdown
       load; get_the_partials; parse; set_the_parsers
     end
 
