@@ -59,10 +59,7 @@ module LegalToMarkdown
         end
       end
 
-      if @headers["no-reset"]
-        no_subs_array = @headers["no-reset"].split(", ")
-        no_subs_array.each{ |e| @substitutions[e][5] = :no_reset unless e == "l." || e == "l1."}
-      end
+      get_the_resets
     end
 
     def find_the_block
@@ -120,6 +117,13 @@ module LegalToMarkdown
         return[:type9, value.delete("(" + $1 + ")"), "(", $1, ")"]
       else value =~ /(\d+)\.\z/         # type0 : {{ 1. }} ... also default
         return[:type0, value.delete($1 + "."), "", $1, "."]
+      end
+    end
+
+    def get_the_resets
+      if @headers["no-reset"]
+        no_subs_array = @headers["no-reset"].split(", ")
+        no_subs_array.each{ |e| @substitutions[e][5] = :no_reset unless e == "l." || e == "l1."}
       end
     end
 
