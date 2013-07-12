@@ -13,12 +13,13 @@ class LegalToMarkdown
     elsif ARGV.include?("--headers")
       MakeYamlFrontMatter.new(ARGV)
     else
-      LegalToMarkdown.new(ARGV)
+      args = ARGV.dup
+      LegalToMarkdown.new(args)
     end
   end # main
 
-  def initialize(*args)
-    data = load(*args)                                              # Get the Content
+  def initialize(args)
+    data = load(args)                                              # Get the Content
     parsed_content = parse_file(data)                               # Load the YAML front matter
     mixed_content = mixing_in(parsed_content[0], parsed_content[1]) # Run the Mixins
     headed_content = headers_on(mixed_content[0], mixed_content[1]) # Run the Headers
@@ -30,9 +31,9 @@ class LegalToMarkdown
   # |      Step 1        |
   # ----------------------
   # Parse Options & Load File
-  def load(*args)
-    @output_file = ARGV[-1]
-    @input_file = ARGV[-2] ? ARGV[-2] : ARGV[-1]
+  def load(args)
+    @output_file = args[-1]
+    @input_file = args[-2] ? args[-2] : args[-1]
     begin
       if @input_file != "-"
         source_file = File::read(@input_file) if File::exists?(@input_file) && File::readable?(@input_file)
