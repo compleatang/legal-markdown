@@ -1,13 +1,6 @@
 module LegalToMarkdown
   extend self
 
-  private
-
-  # ----------------------
-  # |      Step 6        |
-  # ----------------------
-  # Write the file
-
   def write_it( final_content )
     final_content = final_content.gsub(/ +\n/, "\n")
     if @output_file && @output_file != "-"
