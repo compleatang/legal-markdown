@@ -11,8 +11,8 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
   # if assert_equal is false then stop....
 
   def setup
-    Dir.chdir "./tests"
-    @lmdfiles = Dir.glob"*.lmd"
+    Dir.chdir File.dirname(__FILE__) + "/tests"
+    @lmdfiles = Dir.glob "*.lmd"
     @lmdfiles.sort!
   end
 
