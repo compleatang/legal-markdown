@@ -107,7 +107,12 @@ class LegalToMarkdown
           content[pattern]
           get_it_all = $& || ""
           sub_clause = $2 || ""
-          next if sub_clause[sub_pattern] && clauses_to_delete.include?($1)
+          if sub_clause[sub_pattern] && clauses_to_delete.include?($1)
+            next
+          elsif sub_clause[sub_pattern]
+            pattern = /\[{{#{mixin}}}\s*?.*?\n*?\].*?\n*?\]/m
+            content[pattern]; get_it_all = $& || ""
+          end
           content = content.gsub( get_it_all, "" )
           clauses_to_delete.delete( mixin ) unless content[pattern]
         end
