@@ -1,0 +1,34 @@
+---
+
+# Structured Headers
+level-1: "Article 100."
+level-2: "Section X."
+level-3: "P."
+no-indent: l., ll., lll.
+no-reset: l., ll., lll.
+
+---
+
+# TEST 4
+
+```
+l. Provision for Article 1.
+ll. Provision for Section 1.1.
+ll. Provision for 1.1.1.
+lll. Provision for 1.1.2.
+lll. Provision for Section 1.2.
+lll. Provision for 1.2.1.
+l. Provision for 1.2.2.
+ll. Profivis asl;jksfd;lg; lkshflksjdh
+ll. asd;flkajsdf;lkj
+lll. ;alsdkfjasd;flkajsd
+ll. as;dlfkjasd;flakjsdll.
+lll. a;lsdfkjasd;lfkj
+lll. a;sdlfkajsd;flk
+l. as;dlfkajsd;flkj
+ll. a;sldfkajsd;
+lll. a;sldfkjasd;flkajs
+lll. a;lsdfkajsd;lfkj
+lll. a;sdlfkajsd;flkajs
+lll. as;dlfkjasd;lfkjs
+```
