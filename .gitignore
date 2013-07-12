@@ -1,3 +1,4 @@
+.ruby*
 *.gem
 *.rbc
 .bundle
