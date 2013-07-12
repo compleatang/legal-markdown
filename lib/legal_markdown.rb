@@ -206,7 +206,7 @@ class LegalToMarkdown
         @deep_leaders = false
       end
 
-      if headers.has_key?("no-indent")
+      if headers.has_key?("no-indent") && headers["no-indent"]
         no_indent_array = headers["no-indent"].split(", ")
         no_indent_array.include?("l." || "l1.") ? @offset = no_indent_array.size : @offset = no_indent_array.size + 1
       else
