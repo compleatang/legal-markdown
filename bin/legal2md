@@ -4,4 +4,4 @@
 #  legal2md input_file output_file
 
 require 'legal_markdown'
-LegalToMarkdown.main(ARGV)
+LegalMarkdown::parse(ARGV)

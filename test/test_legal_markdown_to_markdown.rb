@@ -35,7 +35,7 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
       puts "Testing => #{lmd_file}"
       temp_file = create_temp
       benchmark_file = File.basename(lmd_file, ".lmd") + ".md"
-      LegalToMarkdown.new( [ lmd_file, temp_file ] )
+      LegalToMarkdown.parse( [ lmd_file, temp_file ] )
       assert_equal(get_file(benchmark_file).chomp, get_file(temp_file).chomp, "This file through an error => #{benchmark_file}")
       destroy_temp temp_file
     end
