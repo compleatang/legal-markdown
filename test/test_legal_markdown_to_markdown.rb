@@ -29,11 +29,12 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
   end
 
   def destroy_temp ( temp_file )
-    File.delete temp_file
+    File.delete temp_file if File::exists?(temp_file)
   end
 
   def test_files
     @lmdfiles.each do | lmd_file |
+      puts "Testing => #{lmd_file}"
       temp_file = create_temp
       benchmark_file = File.basename(lmd_file, ".lmd") + ".md"
       LegalToMarkdown.new( [ lmd_file, temp_file ] )
