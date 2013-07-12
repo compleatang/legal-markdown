@@ -149,6 +149,7 @@ class LegalToMarkdown
     clauses_mixed = clauses_mixins( mixins, content )
     fully_mixed = text_mixins( clauses_mixed[0], clauses_mixed[1] )
     fully_mixed[1].gsub!(/(\n\n+)/, "\n\n")
+    fully_mixed[1].squeeze!(" ")
     return [ fully_mixed[0], fully_mixed[1] ]
   end
 
@@ -429,7 +430,7 @@ class LegalToMarkdown
   # ----------------------
   # Write the file
   def write_it( final_content )
-    final_content = final_content.squeeze(" ").gsub(/ +\n/, "\n")
+    final_content = final_content.gsub(/ +\n/, "\n")
     if @output_file && @output_file != "-"
       File.open(@output_file, "w") {|f| f.write( final_content ) }
     else
