@@ -102,15 +102,15 @@ class LegalToMarkdown
 
       until clauses_to_delete.size == 0
         clauses_to_delete.each do | mixin |
-          pattern = /(\[{{#{mixin}}}\s*?)(.*?\n*?)(\])/m
-          sub_pattern = /\[{{(\S+?)}}\s*?/
+          pattern = /(\[\{\{#{mixin}\}\}\s*?)(.*?\n*?)(\])/m
+          sub_pattern = /\[\{\{(\S+?)\}\}\s*?/
           content[pattern]
           get_it_all = $& || ""
           sub_clause = $2 || ""
           if sub_clause[sub_pattern] && clauses_to_delete.include?($1)
             next
           elsif sub_clause[sub_pattern]
-            pattern = /\[{{#{mixin}}}\s*?.*?\n*?\].*?\n*?\]/m
+            pattern = /\[\{\{#{mixin}\}\}\s*?.*?\n*?\].*?\n*?\]/m
             content[pattern]; get_it_all = $& || ""
           end
           content = content.gsub( get_it_all, "" )
@@ -120,8 +120,8 @@ class LegalToMarkdown
 
       until clauses_to_mixin.size == 0
         clauses_to_mixin.each do | mixin |
-          pattern = /(\[{{#{mixin}}}\s*?)(.*?\n*?)(\])/m
-          sub_pattern = /\[{{(\S+?)}}\s*?/
+          pattern = /(\[\{\{#{mixin}\}\}\s*?)(.*?\n*?)(\])/m
+          sub_pattern = /\[\{\{(\S+?)\}\}\s*?/
           content[pattern]
           get_it_all = $& || ""
           sub_clause = $2 || ""
