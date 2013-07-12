@@ -138,7 +138,7 @@ class LegalToMarkdown
       mixins.each do | mixin, replacer |
         unless mixin =~ /level-\d/ or mixin =~ /no-reset/ or mixin =~ /no-indent/ or mixin =~ /level-style/
           replacer = replacer.to_s
-          mixin_pattern = /({{#{mixin}}})/
+          mixin_pattern = /(\{\{#{mixin}\}\})/
           content = content.gsub( $1, replacer ) if content =~ mixin_pattern
           mixins.delete( mixin )
         end
