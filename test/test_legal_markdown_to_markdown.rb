@@ -1,7 +1,7 @@
 #! ruby
 require 'test/unit'
 require 'tempfile'
-require_relative '../lib/legal_markdown.rb'
+require 'legal_markdown'
 
 class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
   # load all the .lmd files in the tests folder into an array

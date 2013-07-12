@@ -351,7 +351,7 @@ class LegalToMarkdown
         selector_above = get_selector_above( selector )
         leading_prov = find_parent_reference( selector_above )[3]
         trailing_prov = array_to_sub[3].clone
-        trailing_prov.prepend("0") if trailing_prov.size == 1
+        trailing_prov = "0" + trailing_prov if trailing_prov.size == 1
         array_to_sub << array_to_sub[2] + leading_prov.to_s + trailing_prov.to_s + array_to_sub[4]
         array_to_sub.last.gsub!($1, "(") if array_to_sub.last[/(\.\()/]
         return array_to_sub
