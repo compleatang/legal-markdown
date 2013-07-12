@@ -17,7 +17,17 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
   end
 
   def get_file ( filename )
-    contents = File::read( filename )
+    begin
+      contents = File::read( filename ) if File::exists?(filename) && File::readable?(filename)
+    rescue => e
+      raise "Could not find file #{filename}: #{e.message}."
+      contents = ""
+    end
+    if contents
+      return contents.chomp
+    else
+      contents = ""
+    end
     return contents
   end
 
@@ -35,8 +45,8 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
       puts "Testing => #{lmd_file}"
       temp_file = create_temp
       benchmark_file = File.basename(lmd_file, ".lmd") + ".md"
-      LegalToMarkdown.parse( [ lmd_file, temp_file ] )
-      assert_equal(get_file(benchmark_file).chomp, get_file(temp_file).chomp, "This file through an error => #{benchmark_file}")
+      LegalToMarkdown.parse_markdown( [ lmd_file, temp_file ] )
+      assert_equal(get_file(benchmark_file), get_file(temp_file), "This file threw an exception => #{benchmark_file}")
       destroy_temp temp_file
     end
   end

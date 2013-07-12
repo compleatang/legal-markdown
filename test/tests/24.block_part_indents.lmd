@@ -4,7 +4,8 @@
 level-1: "Article 1."
 level-2: "Section 1."
 level-3: "1."
-level-4: "a."
+level-4: "1."
+level-5: "1."
 no-indent: ll., lll.
 
 ---
@@ -15,9 +16,9 @@ no-indent: ll., lll.
 l. Provision for Article 1.
 ll. Provision for Section 1.1.
 lll. Provision for 1.1.1.
-lll. Provision for 1.1.2.
-ll. Provision for Section 1.2.
-lll. Provision for 1.2.1.
+llll. Provision for 1.1.2.
+lllll. Provision for Section 1.2.
+llll. Provision for 1.2.1.
 l. Provision for 1.2.2.
 ll. Profivis asl;jksfd;lg; lkshflksjdh
 l. asd;flkajsdf;lkj
@@ -32,9 +33,9 @@ llll. a;lsdfkajsd;lfkj
 ll. a;sdlfkajsd;flkajs
 lll. as;dlfkjasd;lfkjs
 llll. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-llll. tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-ll. quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+lllll. tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+lll. quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 llll. consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-l. cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-ll. proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+lllll. cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+lll. proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 ```
