@@ -23,12 +23,11 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
       raise "Could not find file #{filename}: #{e.message}."
       contents = ""
     end
-    if contents
-      return contents.chomp
+    if contents && contents != ""
+      return contents.rstrip
     else
-      contents = ""
+      return ""
     end
-    return contents
   end
 
   def create_temp
