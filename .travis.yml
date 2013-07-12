@@ -6,3 +6,4 @@ rvm:
   - "2.0.0"
   - jruby-18mode # JRuby in 1.8 mode
   - jruby-19mode # JRuby in 1.9 mode
+  - jruby-20mode # JRUBY in 2.0 mode
