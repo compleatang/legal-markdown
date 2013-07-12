@@ -13,7 +13,7 @@ module LegalMarkdown
     elsif args.include?("--headers")
       LegalMarkdown::MakeYamlFrontMatter.new(args)
     else
-      LegalMarkdown::LegalToMarkdown.parse(args)
+      LegalMarkdown::LegalToMarkdown.parse_markdown(args)
     end
   end
 end
