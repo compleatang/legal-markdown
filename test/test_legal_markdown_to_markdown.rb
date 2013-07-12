@@ -4,8 +4,6 @@ require 'tempfile'
 require_relative '../lib/legal_markdown.rb'
 
 class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
-  # test loading of invalid file
-  # test no args in ARGV => raise error.
   # load all the .lmd files in the tests folder into an array
   # run the first file through gem...LegalToMarkdown.main(input_file, output_file)
   # output file to tmp dir.
