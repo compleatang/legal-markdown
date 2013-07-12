@@ -99,23 +99,24 @@ module LegalToMarkdown
     def set_the_subs_arrays( value )
       # takes a core value from the hash pulled from the yaml
       # returns an array with a type symbol and a precursor string
-      if value =~ /([IVXLCDM]+)\.\z/            # type1 : {{ I. }}
+      case
+      when value =~ /([IVXLCDM]+)\.\z/            # type1 : {{ I. }}
         return[:type1, value.delete($1 + "."), "", $1, "."]
-      elsif value =~ /\(([IVXLCDM]+)\)\z/       # type2 : {{ (I) }}
+      when value =~ /\(([IVXLCDM]+)\)\z/       # type2 : {{ (I) }}
         return[:type2, value.delete("(" + $1 + ")"), "(", $1, ")"]
-      elsif value =~ /([ivxlcdm]+)\.\z/         # type3 : {{ i. }}
+      when value =~ /([ivxlcdm]+)\.\z/         # type3 : {{ i. }}
         return[:type3, value.delete($1 + "."), "", $1, "."]
-      elsif value =~ /\(([ivxlcdm]+)\)\z/       # type4 : {{ (i) }}
+      when value =~ /\(([ivxlcdm]+)\)\z/       # type4 : {{ (i) }}
         return[:type4, value.delete("(" + $1 + ")"), "(", $1, ")"]
-      elsif value =~ /([A-Z]+)\.\z/     # type5 : {{ A. }}
+      when value =~ /([A-Z]+)\.\z/     # type5 : {{ A. }}
         return[:type5, value.delete($1 + "."), "", $1, "."]
-      elsif value =~ /\(([A-Z]+)\)\z/   # type6 : {{ (A) }}
+      when value =~ /\(([A-Z]+)\)\z/   # type6 : {{ (A) }}
         return[:type6, value.delete("(" + $1 + ")"), "(", $1, ")"]
-      elsif value =~ /([a-z]+)\.\z/     # type7 : {{ a. }}
+      when value =~ /([a-z]+)\.\z/     # type7 : {{ a. }}
         return[:type7, value.delete($1 + "."), "", $1, "."]
-      elsif value =~ /\(([a-z]+)\)\z/   # type8 : {{ (a) }}
+      when value =~ /\(([a-z]+)\)\z/   # type8 : {{ (a) }}
         return[:type8, value.delete("(" + $1 + ")"), "(", $1, ")"]
-      elsif value =~ /\((\d+)\)\z/      # type9 : {{ (1) }}
+      when value =~ /\((\d+)\)\z/      # type9 : {{ (1) }}
         return[:type9, value.delete("(" + $1 + ")"), "(", $1, ")"]
       else value =~ /(\d+)\.\z/         # type0 : {{ 1. }} ... also default
         return[:type0, value.delete($1 + "."), "", $1, "."]
