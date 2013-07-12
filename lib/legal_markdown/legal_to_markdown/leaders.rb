@@ -226,9 +226,7 @@ module LegalToMarkdown
     def find_parent_reference( selector_above )
       leading_prov = @substitutions[selector_above].clone
       leading_prov = romans_takedown( leading_prov )
-      if leading_prov[0] == :type5 || leading_prov[0] == :type6
-        leading_prov[3] = leading_prov[3][0..-2] + (leading_prov[3][-1].ord-1).chr
-      elsif leading_prov[0] == :type7 || leading_prov[0] == :type8
+      if leading_prov[0] == ( :type5 || :type6 || :type7 || :type8 )
         leading_prov[3] = leading_prov[3][0..-2] + (leading_prov[3][-1].ord-1).chr
       else
         leading_prov[3] = (leading_prov[3].to_i-1).to_s
