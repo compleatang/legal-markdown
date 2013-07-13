@@ -4,6 +4,7 @@ module LegalToMarkdown
   module Mixins
 
     def run_mixins
+      @orig_headers = @headers.clone if @writer == :jason
       clauses_mixins
       text_mixins
       clean_up_mixins
