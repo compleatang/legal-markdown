@@ -17,3 +17,6 @@ module LegalMarkdown
     end
   end
 end
+
+# if launched as a standalone program, not loaded as a module
+LegalToMarkdown.parse if __FILE__ == $0
