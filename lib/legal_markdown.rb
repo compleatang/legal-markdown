@@ -1,5 +1,5 @@
 #! ruby
-require File.dirname(__FILE__) + '/legal_markdown/version'
+require File.dirname(__FILE__) + '/legal_markdown/version.rb'
 require File.dirname(__FILE__) + '/legal_markdown/make_yaml_frontmatter.rb'
 require File.dirname(__FILE__) + '/legal_markdown/legal_to_markdown.rb'
 
@@ -19,4 +19,4 @@ module LegalMarkdown
 end
 
 # if launched as a standalone program, not loaded as a module
-LegalToMarkdown.parse if __FILE__ == $0
+LegalMarkdown::parse(ARGV)
