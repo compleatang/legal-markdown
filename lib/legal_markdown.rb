@@ -11,9 +11,9 @@ module LegalMarkdown
       STDERR.puts "Sorry, I didn't understand that. Please give me your legal_markdown filenames or \"-\" for stdin."
       exit 0
     elsif args.include?("--headers")
-      LegalMarkdown::MakeYamlFrontMatter.new(args)
+      MakeYamlFrontMatter.new(args)
     else
-      LegalMarkdown::LegalToMarkdown.parse_markdown(args)
+      LegalToMarkdown.parse_markdown(args)
     end
   end
 end

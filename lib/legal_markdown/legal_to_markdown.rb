@@ -16,6 +16,7 @@ module LegalToMarkdown
   end
 
   def parse_jason(arg)
+    require File.dirname(__FILE__) + '/legal_to_markdown/json_builder.rb'
     @input_file = args[-2] ? args[-2] : args[-1]
     @output_file = args[-1]
     source = FileToParse.new(@input_file)
