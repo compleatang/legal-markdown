@@ -18,17 +18,8 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
   end
 
   def get_file ( filename )
-    begin
-      contents = File::read( filename ) if File::exists?(filename) && File::readable?(filename)
-    rescue => e
-      raise "Could not find file #{filename}: #{e.message}."
-      contents = ""
-    end
-    if contents && contents != ""
-      return contents.rstrip
-    else
-      return ""
-    end
+    contents = IO.read(filename)
+    contents.rstrip
   end
 
   def create_temp
@@ -45,7 +36,7 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
   end
 
   def test_markdown_files
-    puts "\n\nTesting lmd to markdown files.\n\n"
+    puts "Testing lmd to markdown files.\n\n"
     @lmdfiles.each do | lmd_file |
       puts "Testing => #{lmd_file}"
       temp_file = create_temp
@@ -56,8 +47,8 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
     end
   end
 
-  def test_json_files
-    puts "Testing lmd to json files.\n\n"
+  def test_the_json_files
+    puts "\n\nTesting lmd to json files.\n\n"
     @lmdfiles.each do | lmd_file |
       puts "Testing => #{lmd_file}"
       temp_file = create_temp
