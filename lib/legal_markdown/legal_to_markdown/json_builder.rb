@@ -32,7 +32,11 @@ module LegalToMarkdown
       if @content.is_a?(Array)
         @content[0] = build_header_and_text_hashs @content[0] unless @content[0].empty?
         @content[2] = build_header_and_text_hashs @content[2] unless @content[2].empty?
-        @content = @content[0].merge(@content[1]).merge(@content[2])
+        content_hash = {}
+        content_hash = content_hash.merge(@content[0]) unless @content[0] || @content[0].empty?
+        content_hash = content_hash.merge(@content[1])
+        content_hash = content_hash.merge(@content[2]) unless @content[2] || @content[2].empty?
+        @content = content_hash
       else
         @content = build_header_and_text_hashs @content
       end
@@ -52,10 +56,10 @@ module LegalToMarkdown
       text_block = text_block.split("\n").reject{|l| l == ""}
       text_block.inject({}) do |hash, line|
         h2 = {}
-        if line[/^\#+\s+/]
+        if line[/^(\#+\s+)/]
           h2["id"]= "heading:" + sha
           h2["type"]= "heading"
-          h2["data"]= { "content" => line.gsub($1, "") }
+          h2["data"]= { "content" => line.delete($1) }
         elsif line[/^\S/]
           h2["id"]= "text:" + sha
           h2["type"]= "text"

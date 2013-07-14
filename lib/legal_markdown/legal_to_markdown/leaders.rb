@@ -342,14 +342,15 @@ module LegalToMarkdown
       end
       provisions_hash.each_value do |h|
         if h["data"]["provision_text"][/(\|.*?\|)/]
-          ref = @cross_references[$1]
-          h["data"]["provision_text"].gsub!($1, ref)
+          sub = $1
+          ref = @cross_references[sub]
+          h["data"]["provision_text"].gsub!(sub, ref)
           start = h["data"]["provision_text"].index(ref) + 1
           stop = start + ref.length
-          cite = provisions_hash.each_value{|h| return h["id"] if h["data"]["provision_reference"] == ref}
+          ref = ref + "." unless ref[/\)\z/]
+          cite = provisions_hash.each_value.detect{|h| h["data"]["provision_reference"] == ref}["id"]
           parent = h["id"]
-          substitution = $1
-          annotation = build_an_annotation start, stop, cite, parent, substitution
+          annotation = build_an_annotation start, stop, cite, parent, sub
           annotations_hash[annotation["id"]]= annotation
         else
           next
