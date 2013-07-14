@@ -1,6 +1,6 @@
 #! ruby
 require 'test/unit'
-require 'tempfile'
+require 'securerandom'
 require 'json'
 require 'legal_markdown'
 
@@ -23,8 +23,7 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
   end
 
   def create_temp
-    temp_file = Tempfile.new('lmd_tests')
-    return temp_file.path
+    temp_file = "/tmp/lmdtests-" + SecureRandom.hex
   end
 
   def destroy_temp ( temp_file )
