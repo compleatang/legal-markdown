@@ -1,6 +1,7 @@
 #! ruby
 require 'test/unit'
 require 'tempfile'
+require 'json'
 require 'legal_markdown'
 
 class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
@@ -39,13 +40,36 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
     File.delete temp_file if File::exists?(temp_file)
   end
 
-  def test_files
+  def the_content ( hash )
+    hash["nodes"].each_value.collect{|v| v["data"]["content"] if v["data"] && v["data"]["content"]}.select{|v| v}
+  end
+
+  def test_markdown_files
+    puts "\n\nTesting lmd to markdown files.\n\n"
     @lmdfiles.each do | lmd_file |
       puts "Testing => #{lmd_file}"
       temp_file = create_temp
       benchmark_file = File.basename(lmd_file, ".lmd") + ".md"
       LegalToMarkdown.parse_markdown( [ lmd_file, temp_file ] )
-      assert_equal(get_file(benchmark_file), get_file(temp_file), "This file threw an exception => #{benchmark_file}")
+      assert_equal(get_file(benchmark_file), get_file(temp_file), "This file threw an exception => #{lmd_file}")
+      destroy_temp temp_file
+    end
+  end
+
+  def test_json_files
+    puts "Testing lmd to json files.\n\n"
+    @lmdfiles.each do | lmd_file |
+      puts "Testing => #{lmd_file}"
+      temp_file = create_temp
+      benchmark_file = File.basename(lmd_file, ".lmd") + ".json"
+      LegalToMarkdown.parse_jason( [ "--to-json", lmd_file, temp_file ])
+      benchmark = JSON.parse(IO.read(benchmark_file))
+      temp = JSON.parse(IO.read(temp_file))
+      assert_not_equal(benchmark["id"], temp["id"])
+      assert_equal(benchmark["nodes"]["document"], temp["nodes"]["document"], "This file threw an exception => #{lmd_file}")
+      assert_equal(benchmark["nodes"].count, temp["nodes"].count, "This file threw an exception => #{lmd_file}")
+      assert_not_equal(benchmark["nodes"]["content"]["nodes"], temp["nodes"]["content"]["nodes"], "This file threw an exception => #{lmd_file}")
+      assert_equal(the_content(benchmark), the_content(temp), "This file threw an exception => #{lmd_file}")
       destroy_temp temp_file
     end
   end
