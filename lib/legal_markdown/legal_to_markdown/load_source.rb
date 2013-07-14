@@ -5,8 +5,8 @@ module LegalToMarkdown
 
     attr_accessor :headers, :content, :mixins, :leaders, :writer
 
-    def initialize(file)
-      @input_file = file; @headers = nil; @content = ""; @writer = :markdown
+    def initialize(file, output)
+      @input_file = file; @headers = nil; @content = ""; @writer = output.to_sym
       load; get_the_partials; parse; set_the_parsers
     end
 
@@ -53,6 +53,9 @@ module LegalToMarkdown
       if @content[/^```/] && @headers
         self.extend LegalToMarkdown::Leaders
         @leaders = true
+      end
+      if @writer == :jason
+        self.extend LegalToMarkdown::JasonBuilder
       end
     end
 

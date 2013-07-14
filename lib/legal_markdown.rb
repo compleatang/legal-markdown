@@ -12,11 +12,10 @@ module LegalMarkdown
       exit 0
     elsif args.include?("--headers")
       MakeYamlFrontMatter.new(args)
+    elsif args.include?("--to-json") || args[-1][/\.json/]
+      LegalToMarkdown.parse_jason(args)
     else
       LegalToMarkdown.parse_markdown(args)
     end
   end
 end
-
-# if launched as a standalone program, not loaded as a module
-LegalMarkdown::parse(ARGV)

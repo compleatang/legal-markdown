@@ -36,9 +36,11 @@ module LegalToMarkdown
       else
         @content = build_header_and_text_hashs @content
       end
+      back_hash = build_back_portion @content
+      document_hash = build_front_portion.merge( @content ).merge( back_hash ); back_hash = {}
       @content = {
         "id" => sha,
-        "nodes" => build_front_portion.merge( @content ).merge( build_back_portion( @content ) )
+        "nodes" => document_hash
       }
     end
 
@@ -47,8 +49,9 @@ module LegalToMarkdown
     end
 
     def build_header_and_text_hashs( text_block )
-      text_hash = text_block.each_line.inject({}) do |hash, line|
-        h2 ={}
+      text_block = text_block.split("\n").reject{|l| l == ""}
+      text_block.inject({}) do |hash, line|
+        h2 = {}
         if line[/^\#+\s+/]
           h2["id"]= "heading:" + sha
           h2["type"]= "heading"
@@ -64,8 +67,7 @@ module LegalToMarkdown
 
     def build_back_portion( content_hash )
       back_hash = content_hash.each_value.collect{|h| h["id"]}
-      back_hash = { "content" => "nodes" => back_hash }
-      back_hash
+      back_hash = { "content" => { "nodes" => back_hash } }
     end
 
     def sha
