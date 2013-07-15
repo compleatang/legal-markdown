@@ -26,7 +26,7 @@ module LegalToMarkdown
       clauses_added = clauses_to_mixin.dup
 
       until clauses_added.size == 0 && clauses_deleted.size == 0
-        clauses_to_mixin.each do | mixin |
+        clauses_added.each do | mixin |
           pattern = /(\[\{\{#{mixin}\}\}\s*?)(.*?\n*?)(\])/m
           sub_pattern = /\[\{\{(\S+?)\}\}\s*?/
           @content[pattern]
@@ -37,7 +37,7 @@ module LegalToMarkdown
           clauses_added.delete( mixin ) unless @content[pattern]
         end
 
-        clauses_to_delete.each do | mixin |
+        clauses_deleted.each do | mixin |
           pattern = /(\[\{\{#{mixin}\}\}\s*?)(.*?\n*?)(\])/m
           sub_pattern = /\[\{\{(\S+?)\}\}\s*?/
           @content[pattern]
