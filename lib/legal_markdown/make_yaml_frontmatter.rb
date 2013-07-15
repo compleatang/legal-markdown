@@ -55,7 +55,7 @@ class MakeYamlFrontMatter
   end
 
   def build_new_yaml_frontmatter
-    @content.prepend("\n---\n\n")
+    @content = "\n---\n\n" + @content
     replacers = {0=>"Mixins", 1=>"Optional Clauses", 2=>"Structured Headers", 3=>"Properties"}
     stringy = @yaml_data_as_array.inject("") do |string, section|
       unless section.empty?
@@ -64,8 +64,8 @@ class MakeYamlFrontMatter
       end
       string
     end
-    @content.prepend(stringy)
-    @content.prepend("---\n")
+    @content = stringy + @content
+    @content = "---\n" + @content
   end
 
   def write_it
