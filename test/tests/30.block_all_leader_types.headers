@@ -1,0 +1,49 @@
+---
+
+# Structured Headers
+level-1: "Article (1)"
+level-2: "Section (a)"
+level-3: "A."
+level-4: "(A)"
+level-5: "a."
+level-6: "X."
+level-7: "(x)"
+level-8: "1."
+level-9: "x."
+
+# Properties
+no-indent: "l., ll., lll., llll., lllll., lllll., lllllll., llllllll., lllllllll."
+no-reset: ""
+level-style: ""
+
+---
+
+# TEST 4
+
+```
+l. Provision for Article 1.
+ll. Provision for Section 1.1.
+lll. Provision for 1.1.1.
+llll. Provision for 1.1.2.
+lllll. Provision for Section 1.2.
+lll. Provision for 1.2.1.
+ll. Provision for 1.2.2.
+lll. Profivis asl;jksfd;lg; lkshflksjdh
+llll. asd;flkajsdf;lkj
+lllll. ;alsdkfjasd;flkajsd
+llllll. as;dlfkjasd;flakjsdll.
+lll. a;lsdfkjasd;lfkj
+lll. a;sdlfkajsd;flk
+llll. as;dlfkajsd;flkj
+lllll. a;sldfkajsd;
+llllll. a;sldfkjasd;flkajs
+lllllll. a;lsdfkajsd;lfkj
+llllllll. a;sdlfkajsd;flkajs
+lllllllll. as;dlfkjasd;lfkjs
+lllllllll. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+lllllllll. tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+llllllll. quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+lllllll. consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+lllll. cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+lll. proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+```

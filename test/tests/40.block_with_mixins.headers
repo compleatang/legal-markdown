@@ -1,0 +1,49 @@
+---
+
+# Mixins
+test-5: "987654"
+test1: "lkjuytrd"
+test4: "123456789"
+test_78: ")(*&^%$#@"
+
+# Structured Headers
+level-1: "Article 1."
+level-2: "Section 1."
+level-3: "1."
+
+# Properties
+no-indent: "l., ll., lll."
+no-reset: ""
+level-style: ""
+
+---
+
+# TEST 4
+
+```
+l. Provision for Article 1.
+ll. Provision for Section 1.1.
+ll. Provision for 1.1.1.
+lll. Provision for 1.1.2.
+lll. Provision for Section 1.2.
+lll. Provision for 1.2.1.
+l. Provision for 1.2.2.
+ll. Profivis asl;jksfd;lg; lkshflksjdh
+ll. asd;flkajsdf;lkj
+lll. ;alsdkfjasd;flkajsd
+ll. as;dlfk{{test4}}jasd;flakjsdll.
+lll. a;lsdfkjasd;lfkj
+lll. a;sdlfkajsd;flk
+l. as;dlfkajsd;flkj
+ll. a;sldfkajsd;
+lll. a;sldfkjasd;flkajs
+lll. a;lsdfk {{test-5}} ajsd;lfkj
+lll. a;sdlfkajsd;flkajs
+lll. as;dlfkjasd;lfkjs
+ll. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+l. tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+ll. quis nostrud {{test1}} exercitation ullamco laboris nisi ut aliquip ex ea commodo
+lll. consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+lll. cillum dolore eu fugiat {{test_78}} nulla pariatur. Excepteur sint occaecat cupidatat non
+ll. proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+```

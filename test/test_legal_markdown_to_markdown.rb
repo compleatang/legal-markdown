@@ -63,4 +63,16 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
       destroy_temp temp_file
     end
   end
+
+  def test_yaml_headers
+      puts "\n\nTesting Make YAML Frontmatter.\n\n"
+      @lmdfiles.each do | lmd_file |
+        puts "Testing => #{lmd_file}"
+        temp_file = create_temp
+        benchmark_file = File.basename(lmd_file, ".lmd") + ".headers"
+        `cat #{lmd_file} | legal2md --headers - > #{temp_file}`
+        assert_equal(get_file(benchmark_file), get_file(temp_file), "This file threw an exception => #{lmd_file}")
+        destroy_temp temp_file
+      end
+    end
 end

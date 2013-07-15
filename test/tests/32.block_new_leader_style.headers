@@ -1,0 +1,49 @@
+---
+
+# Structured Headers
+level-1: "# Article (1)"
+level-2: "*Section (a)"
+level-3: "#$%^&* A."
+level-4: "|}{POIUYTR (A)"
+level-5: "~!@#$%^&* a."
+level-6: "123645789 X."
+level-7: "987654321 (x)"
+level-8: "098765432 1."
+level-9: "=-098765432 x."
+
+# Properties
+no-indent: "l1., l2., l3., l4., l5., l6., l7., l8., l9."
+no-reset: "l1., l2., l3., l4., l5., l6., l7., l8., l9."
+level-style: "l1."
+
+---
+
+# TEST 4
+
+```
+l1. Provision for Article 1.
+l2. Provision for Section 1.1.
+l3. Provision for 1.1.1.
+l4. Provision for 1.1.2.
+l5. Provision for Section 1.2.
+l3. Provision for 1.2.1.
+l2. Provision for 1.2.2.
+l3. Profivis asl;jksfd;lg; lkshflksjdh
+l4. asd;flkajsdf;lkj
+l5. ;alsdkfjasd;flkajsd
+l6. as;dlfkjasd;flakjsdll.
+l3. a;lsdfkjasd;lfkj
+l3. a;sdlfkajsd;flk
+l4. as;dlfkajsd;flkj
+l5. a;sldfkajsd;
+l6. a;sldfkjasd;flkajs
+l7. a;lsdfkajsd;lfkj
+l8. a;sdlfkajsd;flkajs
+l9. as;dlfkjasd;lfkjs
+l9. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+l8. tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+l7. quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+l6. consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+l5. cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+l3. proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+```

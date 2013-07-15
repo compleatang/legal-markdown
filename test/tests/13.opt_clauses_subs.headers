@@ -1,0 +1,27 @@
+---
+
+# Optional Clauses
+test3: "true"
+test4: "false"
+test_2: "true"
+test_3: "true"
+test_4: "true"
+test_5: "false"
+test_6: "false"
+test_7: "true"
+test_8: "false"
+test_9: "true"
+
+---
+
+# This is a header
+
+[{{test3}} Russian optional [{{test4}}clause df;laksdj]]
+
+asd;lfkajsdf;lkj
+
+[{{test_2}}TEST2: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, [{{test_3}}quis nostrud exercitation [{{test_4}}ullamco] laboris nisi ut aliquip] ex ea commodo consequat. Duis aute irure dolor in [{{test_5}}reprehenderit in [{{test_6}}voluptate velit esse] cillum dolore eu fugiat] nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Optional clause....]
+
+## This is a second header
+
+[{{test_7}}Lorem ipsum dolor sit amet, [{{test_8}}consectetur adipisicing [{{test_9}}elit, sed do] eiusmod tempor incididunt ut] labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in] reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.

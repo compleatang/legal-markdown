@@ -1,0 +1,52 @@
+---
+
+# Optional Clauses
+test09: "true"
+test1: "false"
+test4: "true"
+test_5: "true"
+test_7: "false"
+test_78: "false"
+
+# Structured Headers
+level-1: "Article 1."
+level-2: "Section 1."
+level-3: "1."
+
+# Properties
+no-indent: "l., ll., lll."
+no-reset: ""
+level-style: ""
+
+---
+
+# TEST 4
+
+```
+l. Provision for Article 1.
+ll. Provision for Section 1.1.
+ll. Provision for 1.1.1.
+lll. [{{test_7}} Provision] for 1.1.2.
+lll. Provision for Section 1.2.
+lll. Provision for 1.2.1.
+l. Provision for 1.2.2.
+ll. Profivis asl;jksfd;lg; lkshflksjdh
+ll. asd;flkajsdf;lkj
+lll. ;alsdkfjasd;flkajsd
+[{{test4}}ll. as;dlfkjasd;flakjsdll.]
+lll. a;lsdfkjasd;lfkj
+lll. a;sdlfkajsd;flk
+l. as;dlfkajsd;flkj
+ll. a;sldfkajsd;
+lll. a;sldfkjasd;flkajs
+lll. a;lsdfk [{{test_5}} ajsd;lfkj]
+lll. a;sdlfkajsd;flkajs
+lll. as;dlfkjasd;lfkjs
+ll. Lorem ipsum [{{test09}} dolor sit amet,
+consectetur adipisicing] elit, sed do eiusmod
+l. tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+[{{test1}} ll. quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo]
+lll. consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+lll. cillum dolore eu fugiat [{{test_78}} nulla pariatur. Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui] officia deserunt mollit anim id est laborum.
+```

@@ -1,0 +1,46 @@
+---
+
+# Structured Headers
+level-1: "Article 1."
+level-2: "Section 1."
+level-3: "1."
+
+# Properties
+no-indent: "l., ll., lll."
+no-reset: ""
+level-style: ""
+
+---
+
+# TEST 4
+
+```
+l. Provision for Article 1.
+ll. Provision for Section 1.1.
+ll. Provision for 1.1.1.
+lll. Provision for 1.1.2.
+lll. Provision for Section 1.2.
+lll. Provision for 1.2.1.
+l. Provision for 1.2.2.
+ll. Profivis asl;jksfd;lg; lkshflksjdh
+
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+
+ll. asd;flkajsdf;lkj
+lll. ;alsdkfjasd;flkajsd
+ll. as;dlfkjasd;flakjsdll.
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+lll. a;lsdfkjasd;lfkj
+lll. a;sdlfkajsd;flk
+l. as;dlfkajsd;flkj
+cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+ll. a;sldfkajsd;
+lll. a;sldfkjasd;flkajs
+proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+lll. a;lsdfkajsd;lfkj
+lll. a;sdlfkajsd;flkajs
+lll. as;dlfkjasd;lfkjs
+```
