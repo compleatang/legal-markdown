@@ -22,35 +22,30 @@ module LegalToMarkdown
 
       clauses_to_delete.each { |m| @headers.delete(m) }
       clauses_to_mixin.each { |m| @headers.delete(m) }
+      clauses_deleted = clauses_to_delete.dup
+      clauses_added = clauses_to_mixin.dup
 
-      until clauses_to_delete.size == 0
-        clauses_to_delete.each do | mixin |
-          pattern = /(\[\{\{#{mixin}\}\}\s*?)(.*?\n*?)(\])/m
-          sub_pattern = /\[\{\{(\S+?)\}\}\s*?/
-          @content[pattern]
-          get_it_all = $& || ""
-          sub_clause = $2 || ""
-          if sub_clause[sub_pattern] && clauses_to_delete.include?($1)
-            next
-          elsif sub_clause[sub_pattern]
-            pattern = /\[\{\{#{mixin}\}\}\s*?.*?\n*?\].*?\n*?\]/m
-            @content[pattern]; get_it_all = $& || ""
-          end
-          @content = @content.gsub( get_it_all, "" )
-          clauses_to_delete.delete( mixin ) unless @content[pattern]
-        end
-      end
-
-      until clauses_to_mixin.size == 0
+      until clauses_added.size == 0 && clauses_deleted.size == 0
         clauses_to_mixin.each do | mixin |
           pattern = /(\[\{\{#{mixin}\}\}\s*?)(.*?\n*?)(\])/m
           sub_pattern = /\[\{\{(\S+?)\}\}\s*?/
           @content[pattern]
           get_it_all = $& || ""
           sub_clause = $2 || ""
-          next if sub_clause[sub_pattern] && clauses_to_mixin.include?($1)
+          next if sub_clause[sub_pattern] && ( clauses_to_mixin.include?($1) || clauses_to_delete.include?($1) )
           @content = @content.gsub( get_it_all, sub_clause.lstrip )
-          clauses_to_mixin.delete( mixin ) unless @content[pattern]
+          clauses_added.delete( mixin ) unless @content[pattern]
+        end
+
+        clauses_to_delete.each do | mixin |
+          pattern = /(\[\{\{#{mixin}\}\}\s*?)(.*?\n*?)(\])/m
+          sub_pattern = /\[\{\{(\S+?)\}\}\s*?/
+          @content[pattern]
+          get_it_all = $& || ""
+          sub_clause = $2 || ""
+          next if sub_clause[sub_pattern] && ( clauses_to_mixin.include?($1) || clauses_to_delete.include?($1) )
+          @content = @content.gsub( get_it_all, "" )
+          clauses_deleted.delete( mixin ) unless @content[pattern]
         end
       end
     end
