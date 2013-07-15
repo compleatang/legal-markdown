@@ -52,15 +52,7 @@ module RomanNumerals
   end
 
   def self.to_roman_lower(value)
-    value = value.to_i
-    result = ''
-    @base_digits.keys.reverse.each do |decimal|
-      while value >= decimal
-        value -= decimal
-        result += @base_digits[decimal]
-      end
-    end
-    result.downcase
+    self.to_roman_upper(value).downcase
   end
 
   def self.to_decimal_string(value)
