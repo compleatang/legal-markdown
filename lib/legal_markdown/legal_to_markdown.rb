@@ -1,9 +1,10 @@
-require File.dirname(__FILE__) + '/legal_to_markdown/load_source.rb'
-require File.dirname(__FILE__) + '/legal_to_markdown/mixins.rb'
-require File.dirname(__FILE__) + '/legal_to_markdown/leaders.rb'
-require File.dirname(__FILE__) + '/legal_to_markdown/json_builder.rb'
-require File.dirname(__FILE__) + '/legal_to_markdown/writer.rb'
-require File.dirname(__FILE__) + '/roman_numerals'
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+require 'legal_to_markdown/load_source.rb'
+require 'legal_to_markdown/mixins.rb'
+require 'legal_to_markdown/leaders.rb'
+require 'legal_to_markdown/json_builder.rb'
+require 'legal_to_markdown/writer.rb'
+require 'roman_numerals'
 
 module LegalToMarkdown
 

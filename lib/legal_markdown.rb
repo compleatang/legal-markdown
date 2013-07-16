@@ -1,7 +1,8 @@
 #! ruby
-require File.dirname(__FILE__) + '/legal_markdown/version.rb'
-require File.dirname(__FILE__) + '/legal_markdown/make_yaml_frontmatter.rb'
-require File.dirname(__FILE__) + '/legal_markdown/legal_to_markdown.rb'
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+require 'legal_markdown/version.rb'
+require 'legal_markdown/make_yaml_frontmatter.rb'
+require 'legal_markdown/legal_to_markdown.rb'
 
 module LegalMarkdown
 
