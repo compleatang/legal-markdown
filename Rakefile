@@ -17,6 +17,7 @@ task :generate do
   system "cd #{pkg}"
   f = Dir.pwd + "/lib/legal_markdown.rb"
   c = File::read(f) + "\n\nLegalMarkdown::parse(ARGV)"
+  p c
   File.open(f, "w") { |f| f.write( c ); f.close }
   message = "Package updated at #{Time.now.utc} to reflect changes in Gem."
   system "git add -A"
