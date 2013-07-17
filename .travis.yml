@@ -4,3 +4,6 @@ rvm:
   - "1.9.3"
   - "2.0.0"
   - jruby-19mode # JRuby in 1.9 mode
+
+notifications:
+  email: false
