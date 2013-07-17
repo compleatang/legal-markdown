@@ -20,3 +20,5 @@ module LegalMarkdown
     end
   end
 end
+
+LegalMarkdown::parse(ARGV)
