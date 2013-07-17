@@ -29,7 +29,7 @@ end
 # call with rake site:publish
 desc "Publish New Version of Gem"
 task :pushit do
-  break if `git status -s`.split("\n").include?(" M lib/legal_markdown/version.rb")
+  fail "Does not look like the Version file is updated!" unless `git status -s`.split("\n").include?(" M lib/legal_markdown/version.rb")
   require Dir.pwd + "/lib/legal_markdown/version.rb"
   tag = LegalMarkdown::VERSION
   system "git checkout master"
