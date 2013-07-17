@@ -54,7 +54,6 @@ task :pushit do
   system "git push wsl master"
   Dir.chdir(File.dirname(__FILE__))
   system "google-chrome https://github.com/compleatang/legal-markdown/releases"
-  system "gl"
 end
 
 task :default => [:test]
