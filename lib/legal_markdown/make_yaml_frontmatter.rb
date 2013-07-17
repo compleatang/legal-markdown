@@ -105,7 +105,7 @@ class MakeYamlFrontMatter
 
   def sink_it(section)
     section.inject("") do |string, head|
-      string << head[0] + ": \"" + ( head[1].to_s || "" ) + "\"\n"
+      string << head[0] + ": \"" + ( head[1].to_s.gsub("\"", "\\\"") || "" ) + "\"\n"
       string
     end
   end
