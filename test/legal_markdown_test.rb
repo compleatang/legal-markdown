@@ -17,6 +17,10 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
     @lmdfiles.sort!
   end
 
+  def teardown
+    puts "\nAll Done!\n\n"
+  end
+
   def get_file ( filename )
     contents = IO.read(filename)
     contents.rstrip
@@ -52,7 +56,7 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
       puts "Testing => #{lmd_file}"
       temp_file = create_temp
       benchmark_file = File.basename(lmd_file, ".lmd") + ".json"
-      LegalToMarkdown.parse_jason( [ "--to-json", lmd_file, temp_file ])
+      LegalToMarkdown.parse_jason( [ "--to-json", lmd_file, temp_file ] )
       benchmark = JSON.parse(IO.read(benchmark_file))
       temp = JSON.parse(IO.read(temp_file))
       assert_not_equal(benchmark["id"], temp["id"])
@@ -70,9 +74,15 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
         puts "Testing => #{lmd_file}"
         temp_file = create_temp
         benchmark_file = File.basename(lmd_file, ".lmd") + ".headers"
-        `cat #{lmd_file} | legal2md --headers - > #{temp_file}`
+        File.open(temp_file, "w"){|f| f.write(File.read(lmd_file)); f.close }
+        MakeYamlFrontMatter.new( [ "--headers", temp_file ] )
         assert_equal(get_file(benchmark_file), get_file(temp_file), "This file threw an exception => #{lmd_file}")
         destroy_temp temp_file
       end
     end
+
+    # def test_zee_command_line
+      # puts "\n\nTesting Command Line Interface.\n\n"
+      #todo
+    # end
 end
