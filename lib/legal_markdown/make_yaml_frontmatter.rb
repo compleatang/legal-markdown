@@ -12,9 +12,10 @@ class MakeYamlFrontMatter
 
   def load(args)
     begin
-      @file = args[-1]
-      if @file != "-"
-        source_file = File::read(@file) if File::exists?(@file) && File::readable?(@file)
+      @input_file = args[-2] ? args[-2] : args[-1]
+      @output_file = args[-1]
+      if @input_file != "-"
+        source_file = File::read(@input_file) if File::exists?(@input_file) && File::readable?(@input_file)
       else
         source_file = STDIN.read
       end
@@ -26,7 +27,7 @@ class MakeYamlFrontMatter
       end
       return source_file
     rescue => e
-      puts "Sorry, I could not read the input file #{@file}: #{e.message}."
+      puts "Sorry, I could not read the input file #{@input_file}: #{e.message}."
       exit 0
     end
   end
@@ -74,8 +75,8 @@ class MakeYamlFrontMatter
       to_replace = set[0]
       @content.gsub!(to_replace, replacer)
     end
-    if @file != "-"
-      File.open(@file, "w") {|f| f.write( @content ); f.close }
+    if @output_file && @output_file != "-"
+      File.open(@output_file, "w") {|f| f.write( @content ); f.close }
     else
       STDOUT.write @content
     end

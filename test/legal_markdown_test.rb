@@ -26,8 +26,8 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
     contents.rstrip
   end
 
-  def create_temp
-    temp_file = "/tmp/lmdtests-" + SecureRandom.hex
+  def create_temp(ending)
+    temp_file = "/tmp/lmdtests-" + SecureRandom.hex + ending
   end
 
   def destroy_temp ( temp_file )
@@ -42,9 +42,9 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
     puts "Testing lmd to markdown files.\n\n"
     @lmdfiles.each do | lmd_file |
       puts "Testing => #{lmd_file}"
-      temp_file = create_temp
+      temp_file = create_temp('.md')
       benchmark_file = File.basename(lmd_file, ".lmd") + ".md"
-      LegalToMarkdown.parse_markdown( [ lmd_file, temp_file ] )
+      LegalMarkdown.parse( :to_markdown, lmd_file, temp_file )
       assert_equal(get_file(benchmark_file), get_file(temp_file), "This file threw an exception => #{lmd_file}")
       destroy_temp temp_file
     end
@@ -54,9 +54,9 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
     puts "\n\nTesting lmd to json files.\n\n"
     @lmdfiles.each do | lmd_file |
       puts "Testing => #{lmd_file}"
-      temp_file = create_temp
+      temp_file = create_temp('.json')
       benchmark_file = File.basename(lmd_file, ".lmd") + ".json"
-      LegalToMarkdown.parse_jason( [ "--to-json", lmd_file, temp_file ] )
+      LegalMarkdown.parse( :to_json, lmd_file, temp_file )
       benchmark = JSON.parse(IO.read(benchmark_file))
       temp = JSON.parse(IO.read(temp_file))
       assert_not_equal(benchmark["id"], temp["id"])
@@ -69,20 +69,14 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
   end
 
   def test_yaml_headers
-      puts "\n\nTesting Make YAML Frontmatter.\n\n"
-      @lmdfiles.each do | lmd_file |
-        puts "Testing => #{lmd_file}"
-        temp_file = create_temp
-        benchmark_file = File.basename(lmd_file, ".lmd") + ".headers"
-        File.open(temp_file, "w"){|f| f.write(File.read(lmd_file)); f.close }
-        MakeYamlFrontMatter.new( [ "--headers", temp_file ] )
-        assert_equal(get_file(benchmark_file), get_file(temp_file), "This file threw an exception => #{lmd_file}")
-        destroy_temp temp_file
-      end
+    puts "\n\nTesting Make YAML Frontmatter.\n\n"
+    @lmdfiles.each do | lmd_file |
+      puts "Testing => #{lmd_file}"
+      temp_file = create_temp('.lmd')
+      benchmark_file = File.basename(lmd_file, ".lmd") + ".headers"
+      LegalMarkdown.parse( :headers, lmd_file, temp_file )
+      assert_equal(get_file(benchmark_file), get_file(temp_file), "This file threw an exception => #{lmd_file}")
+      destroy_temp temp_file
     end
-
-    # def test_zee_command_line
-      # puts "\n\nTesting Command Line Interface.\n\n"
-      #todo
-    # end
+  end
 end
