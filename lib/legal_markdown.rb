@@ -8,7 +8,9 @@ require 'optparse'
 module LegalMarkdown
 
   def self.parse(*args)
-    args ||= ARGV.dup
+    if args.size == 1 && args.first.class == Array
+      args = args.first
+    end
 
     config={}
     config[:input] = {}
