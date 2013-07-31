@@ -1,6 +1,6 @@
 # Status
 
-[![Build Status](https://travis-ci.org/compleatang/legal-markdown.png)](https://travis-ci.org/compleatang/legal-markdown)[![Code Climate](https://codeclimate.com/github/compleatang/legal-markdown.png)](https://codeclimate.com/github/compleatang/legal-markdown)[![Dependency Status](https://gemnasium.com/compleatang/legal-markdown.png)](https://gemnasium.com/compleatang/legal-markdown)
+[![Build Status](https://travis-ci.org/compleatang/legal-markdown.png)](https://travis-ci.org/compleatang/legal-markdown)[![Coverage Status](https://coveralls.io/repos/compleatang/legal-markdown/badge.png?branch=master)](https://coveralls.io/r/compleatang/legal-markdown?branch=master)[![Code Climate](https://codeclimate.com/github/compleatang/legal-markdown.png)](https://codeclimate.com/github/compleatang/legal-markdown)[![Dependency Status](https://gemnasium.com/compleatang/legal-markdown.png)](https://gemnasium.com/compleatang/legal-markdown)
 
 # Introduction
 
@@ -85,7 +85,7 @@ Another thing to note, if you include nested provisions, you can turn off an ins
 
 So, this is how the body of the text would look.
 
-```md
+```lmd
 [{{my_optional_clause}}Both parties agree that upon material breach of this agreement by either party they will both commit suicide in homage to Kurt Cobain.]
 ```
 
@@ -188,7 +188,7 @@ You can easily to that by doing the following steps.
 
 ### Step 1: Type the body
 
-```md
+```lmd
 l. Provision for Article 1.
 ll. Provision for Section 1.1.
 lll. Provision for 1.1.1.
@@ -292,7 +292,7 @@ no-indent: l., ll.
 
 and the body of the text looked like this:
 
-```md
+```lmd
 ...
 ll. |123| This provision will need to be referenced later.
 ll. Provision
