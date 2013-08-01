@@ -2,6 +2,10 @@
 #
 # == USAGE
 #  legal2md input_file output_file
-
+if ARGV.size == 1
+  args = [:to_markdown, ARGV.first, ARGV.first]
+else
+  args = ARGV
+end
 require 'legal_markdown'
-LegalMarkdown::parse(ARGV)
+LegalMarkdown::parse(args)
