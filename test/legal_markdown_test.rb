@@ -42,7 +42,7 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
   end
 
   def test_markdown_files
-    puts "Testing lmd to markdown files.\n\n"
+    puts "\n\nTesting lmd to markdown files.\n\n"
     @lmdfiles.each do | lmd_file |
       puts "Testing => #{lmd_file}"
       temp_file = create_temp('.md')
@@ -80,6 +80,23 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
       LegalMarkdown.parse( :headers, lmd_file, temp_file )
       assert_equal(get_file(benchmark_file), get_file(temp_file), "This file threw an exception => #{lmd_file}")
       destroy_temp temp_file
+    end
+  end
+
+  def test_command_line
+    puts "Testing the command line caller.\n\n"
+    cmds = [ "--headers", "--to-markdown", "--to-json", '', '' ]
+    file = "00.load_write_no_action.lmd"
+    output = ['', create_temp('.md'), create_temp('.json'), create_temp('.md'), create_temp('.json')]
+    puts "Testing => cat 00.load_write_no_action.lmd | legal2md - -"
+    stdin_out_only = `cat 00.load_write_no_action.lmd | legal2md - -`
+    assert_equal(get_file(file), stdin_out_only)
+    cmds = cmds.each{|l| l << (" " + file) }.zip(output)
+    cmds.each do |cmd|
+      cmd = 'legal2md ' + cmd.join(' ')
+      puts "Testing => #{cmd}"
+      `#{cmd}`
+      assert_equal(get_file(file), get_file('00.load_write_no_action.md'))
     end
   end
 end
