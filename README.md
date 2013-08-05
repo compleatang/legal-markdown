@@ -32,7 +32,7 @@ If you install the package there is no need to install the gem, but you will sti
 
 ## How to Use This Gem?
 
-After the gem has finished its installation on your system then you can simply type `$> legal2md [filename]` where the filename is the fileyou want the gem to parse. Legal Markdown will parse the file and output the same filename.
+After the gem has finished its installation on your system then you can simply type `$> legal2md [filename]` where the filename is the file you want the gem to parse. Legal Markdown will parse the file and output the same filename.
 
 If you prefer to output as a different filename (which will allow you to keep the YAML front-matter), then you simply type `$> legal2md [input-filename] [output-filename]`.
 
@@ -79,14 +79,15 @@ In the body of your document you put the entire clause in square-brackets (as yo
 
 In the YAML Front-Matter you simply add "true" or "false" to turn that entire clause on or off. **Note**, if you do not add the mixin to your header, legal_markdown is just going to leave it as is, which is very unlikely to be what you want to see in your output file.
 
-You are able to nest optional clauses inside of other optional clauses. However, if you do so, make sure that you include all of the sub-provisions of the master provision in the YAML matter, else the gem will think that you closed your square brackets too early (which it was probably the closure of a nested clause. If you use the automatic YAML population feature either from the command line (see above) or by using the Sublime package, it will simplify this process for you greatly.
+You are able to nest optional clauses inside of other optional clauses. However, if you do so, make sure that you include all of the sub-provisions of the master provision in the YAML matter, else the gem will think that you closed your square brackets earlier than you thought the nested clause closed. If you use the automatic YAML population feature either from the command line (see above) or by using the Sublime package, it will simplify this process for you greatly.
 
 Another thing to note, if you include nested provisions, you can turn off an inside provision and leave an outside provision on, but if you turn off an outside provision the entire portion will not be produced, even if you turned an inner portion on. Usually, as long as you keep this rule in mind you can draft around it, and it is generally the case that that will be the result that you will want any way.
 
 So, this is how the body of the text would look.
 
 ```lmd
-[{{my_optional_clause}}Both parties agree that upon material breach of this agreement by either party they will both commit suicide in homage to Kurt Cobain.]
+[{{my_optional_clause}}Both parties agree that upon material breach of this agreement by either
+party they will both commit suicide in homage to Kurt Cobain.]
 ```
 
 Then the YAML Front Matter would look like this
@@ -324,11 +325,11 @@ When you are building documents sometime you simply want to put `date: @today`. 
 
 ### Citations
 
-At this point legal_markdown does not have a native citation handling ability. For now, I've outsourced that to the primary processor. If you look at pandoc, it has excellent bibtex and citation support that will bluebook up everything for you. Legal Markdown does not get in the way if how pandoc does citations so it is fully compatible.
+At this point legal_markdown does not have a native citation handling ability. For now, I've outsourced that to the primary processor. If you look at pandoc, it has excellent bibtex and citation support that will bluebook up everything for you. Legal Markdown does not get in the way of how pandoc does citations so it is fully compatible.
 
 ## A Few Gotchas
 
-* Legal_markdown is optimized primarily for contracts, legislation, and regulations. It is not optimized for cases. For memoranda and filings I use the mixin portion but not the header portion which is enough to meet my needs - in particular, when matched with Sublime Text snippets. If you area looking for a more complete solution for cases and filings I would recommend the [Precedent Gem](https://github.com/BlackacreLabs/precedent) built by [Kyle Mitchell](https://github.com/kemitchell) for [Blackacre Labs](https://github.com/BlackacreLabs)
+* Legal_markdown is optimized primarily for contracts, legislation, and regulations. It is not optimized for cases. For memoranda and filings I use the mixin portion but not the structured headers functionality which is enough to meet my needs - in particular, when matched with Sublime Text snippets. If you area looking for a solution for cases and filings I would recommend the [Precedent Gem](https://github.com/BlackacreLabs/precedent) built by [Kyle Mitchell](https://github.com/kemitchell) for [Blackacre Labs](https://github.com/BlackacreLabs)
 * At this point, you cannot have more than 9 levels for headers, but if you have more than 9 levels of headers you have some insane case study which will require more than this tool to cope with.
 
 ## Roadmap / TODO
