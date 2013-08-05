@@ -5,10 +5,12 @@ module LegalToMarkdown
 
     def run_leaders
       get_the_substitutions
-      find_the_block
-      if @block
-        chew_on_the_block
-        clean_up_leaders
+      unless @substitutions == {}
+        find_the_block
+        if @block
+          chew_on_the_block
+          clean_up_leaders
+        end
       end
     end
 
@@ -68,55 +70,60 @@ module LegalToMarkdown
     private
 
     def get_level_style
-      if @headers.has_key?("level-style")
+      begin
         @headers["level-style"] =~ /l1/ ? @deep_leaders = true : @deep_leaders = false
         @headers.delete("level-style")
-      else
+      rescue
         @deep_leaders = false
       end
     end
 
     def get_the_indents
-      if @headers.has_key?("no-indent") && @headers["no-indent"]
+      begin
         no_indent_array = @headers["no-indent"].split(", ")
         no_indent_array.include?("l." || "l1.") ? @offset = no_indent_array.size : @offset = no_indent_array.size + 1
-      else
+        @headers.delete("no-indent")
+      rescue
         @offset = 1
       end
-      @headers.delete("no-indent")
     end
 
     def get_the_levels
-      @headers.each do | header, value |
-        if @deep_leaders
-          search = "l" + header[-1] + "." if header =~ /level-\d/
-        else
-          search = "l" * header[-1].to_i + "." if header =~ /level-\d/
-        end
-
-        if header =~ /level-\d/
-          @substitutions[search]= set_the_subs_arrays(value.to_s)
-          @deep_leaders ? spaces = (search[1].to_i - @offset) : spaces = (search.size - @offset - 1)
-          spaces < 0 ? spaces = 0 : spaces = spaces * 2
-          @substitutions[search][6] = " " * spaces
-          if value =~ /\s*preval\s*/
-            @substitutions[search][1].gsub!(/preval\s*/, "")
-            @substitutions[search][7] = :preval
-          elsif value =~ /\s*pre\s*/
-            @substitutions[search][1].gsub!(/pre\s*/, "")
-            @substitutions[search][7] = :pre
+      begin
+        @headers.each do | header, value |
+          if @deep_leaders
+            search = "l" + header[-1] + "." if header =~ /level-\d/
+          else
+            search = "l" * header[-1].to_i + "." if header =~ /level-\d/
           end
-          @headers.delete(header)
+
+          if header =~ /level-\d/
+            @substitutions[search]= set_the_subs_arrays(value.to_s)
+            @deep_leaders ? spaces = (search[1].to_i - @offset) : spaces = (search.size - @offset - 1)
+            spaces < 0 ? spaces = 0 : spaces = spaces * 2
+            @substitutions[search][6] = " " * spaces
+            if value =~ /\s*preval\s*/
+              @substitutions[search][1].gsub!(/preval\s*/, "")
+              @substitutions[search][7] = :preval
+            elsif value =~ /\s*pre\s*/
+              @substitutions[search][1].gsub!(/pre\s*/, "")
+              @substitutions[search][7] = :pre
+            end
+            @headers.delete(header)
+          end
         end
+      rescue
+        @substitutions = {}
       end
     end
 
     def get_the_resets
-      if @headers["no-reset"]
+      begin
         no_subs_array = @headers["no-reset"].split(", ")
         no_subs_array.each{ |e| @substitutions[e][5] = :no_reset unless e == "l." || e == "l1."}
+        @headers.delete("no-reset")
+      rescue
       end
-      @headers.delete("no-reset")
     end
 
     def set_the_subs_arrays( value )
