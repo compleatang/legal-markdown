@@ -84,7 +84,7 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
   end
 
   def test_command_line
-    puts "Testing the command line caller.\n\n"
+    puts "\n\nTesting the command line caller.\n\n"
     cmds = [ "--headers", "--to-markdown", "--to-json", '', '' ]
     file = "00.load_write_no_action.lmd"
     output = ['', create_temp('.md'), create_temp('.json'), create_temp('.md'), create_temp('.json')]
@@ -98,5 +98,11 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
       `#{cmd}`
       assert_equal(get_file(file), get_file('00.load_write_no_action.md'))
     end
+  end
+
+  def test_bad_filename
+    puts "Testing bad file name.\n\n"
+    cmd = `legal2md -m 12345.lmd 12345.md`
+    assert_equal( cmd, "Sorry, I could not read the file 12345.lmd: No such file or directory - 12345.lmd.\n" )
   end
 end

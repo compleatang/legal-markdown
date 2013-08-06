@@ -17,8 +17,9 @@ module LegalToMarkdown
         @content = get_file(@input_file)
       elsif @input_file == "-"
         @content = STDIN.read
-      else
-        raise "No input file or stdin specified. Please specify a file or \"-\" for stdin."
+      end
+      if @content == nil
+        puts "No input file or stdin specified. Please specify a file or \"-\" for stdin."
         exit 0
       end
     end
@@ -61,7 +62,7 @@ module LegalToMarkdown
 
     def get_file( file )
       begin
-        f = File::read(file) if File::exists?(file) && File::readable?(file)
+        f = File::read(file)
       rescue => e
         puts "Sorry, I could not read the file #{file}: #{e.message}."
         exit 0
