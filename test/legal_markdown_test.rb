@@ -48,11 +48,16 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
     assert_equal( cmd, "Sorry, I could not read the file 12345.lmd: No such file or directory - 12345.lmd.\n" )
     puts "Testing => legal2md -m"
     cmd = `legal2md -m`
-    assert_equal( cmd, "Sorry, I could not read the file to_markdown: can't convert Symbol into String.\n" )
+    if RUBY_VERSION == "2.0.0"
+      response = "Sorry, I could not read the file to_markdown: no implicit conversion of Symbol into String.\n"
+    else
+      response = "Sorry, I could not read the file to_markdown: can't convert Symbol into String.\n"
+    end
+    assert_equal( cmd, response )
     puts "Testing => legal2md 12345.md"
     cmd = `legal2md 12345.md`
     assert_equal( cmd, "Sorry, I could not read the file 12345.md: No such file or directory - 12345.md.\n" )
-  end
+   end
 
   def test_good_command_line_calls
     puts "\n\nTesting the command line caller.\n\n"
