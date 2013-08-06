@@ -41,6 +41,36 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
     hash["nodes"].each_value.collect{|v| v["data"]["content"] if v["data"] && v["data"]["content"]}.select{|v| v}
   end
 
+  def test_bad_command_line_calls
+    puts "Testing bad file name.\n\n"
+    puts "Testing => legal2md -m 12345.lmd 12345.md"
+    cmd = `legal2md -m 12345.lmd 12345.md`
+    assert_equal( cmd, "Sorry, I could not read the file 12345.lmd: No such file or directory - 12345.lmd.\n" )
+    puts "Testing => legal2md -m"
+    cmd = `legal2md -m`
+    assert_equal( cmd, "Sorry, I could not read the file to_markdown: can't convert Symbol into String.\n" )
+    puts "Testing => legal2md 12345.md"
+    cmd = `legal2md 12345.md`
+    assert_equal( cmd, "Sorry, I could not read the file 12345.md: No such file or directory - 12345.md.\n" )
+  end
+
+  def test_good_command_line_calls
+    puts "\n\nTesting the command line caller.\n\n"
+    cmds = [ "--headers", "--to-markdown", "--to-json", '', '' ]
+    file = "00.load_write_no_action.lmd"
+    output = ['', create_temp('.md'), create_temp('.json'), create_temp('.md'), create_temp('.json')]
+    puts "Testing => cat 00.load_write_no_action.lmd | legal2md - -"
+    stdin_out_only = `cat 00.load_write_no_action.lmd | legal2md - -`
+    assert_equal(get_file(file), stdin_out_only)
+    cmds = cmds.each{|l| l << (" " + file) }.zip(output)
+    cmds.each do |cmd|
+      cmd = 'legal2md ' + cmd.join(' ')
+      puts "Testing => #{cmd}"
+      `#{cmd}`
+      assert_equal(get_file(file), get_file('00.load_write_no_action.md'))
+    end
+  end
+
   def test_markdown_files
     puts "\n\nTesting lmd to markdown files.\n\n"
     @lmdfiles.each do | lmd_file |
@@ -81,28 +111,5 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
       assert_equal(get_file(benchmark_file), get_file(temp_file), "This file threw an exception => #{lmd_file}")
       destroy_temp temp_file
     end
-  end
-
-  def test_command_line
-    puts "\n\nTesting the command line caller.\n\n"
-    cmds = [ "--headers", "--to-markdown", "--to-json", '', '' ]
-    file = "00.load_write_no_action.lmd"
-    output = ['', create_temp('.md'), create_temp('.json'), create_temp('.md'), create_temp('.json')]
-    puts "Testing => cat 00.load_write_no_action.lmd | legal2md - -"
-    stdin_out_only = `cat 00.load_write_no_action.lmd | legal2md - -`
-    assert_equal(get_file(file), stdin_out_only)
-    cmds = cmds.each{|l| l << (" " + file) }.zip(output)
-    cmds.each do |cmd|
-      cmd = 'legal2md ' + cmd.join(' ')
-      puts "Testing => #{cmd}"
-      `#{cmd}`
-      assert_equal(get_file(file), get_file('00.load_write_no_action.md'))
-    end
-  end
-
-  def test_bad_filename
-    puts "Testing bad file name.\n\n"
-    cmd = `legal2md -m 12345.lmd 12345.md`
-    assert_equal( cmd, "Sorry, I could not read the file 12345.lmd: No such file or directory - 12345.lmd.\n" )
   end
 end
