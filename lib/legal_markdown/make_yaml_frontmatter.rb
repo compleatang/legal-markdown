@@ -36,7 +36,8 @@ class MakeYamlFrontMatter
     yaml_pattern = /\A(---\s*\n.*?\n?)^(---\s*$\n?)/m
     parts = source.partition( yaml_pattern )
     if parts[1] != ""
-      @headers = YAML.load(parts[1])
+      parts[1] = string_guard parts[1]
+      @headers = YAML.load parts[1]
       @content = parts[2]
     else
       @headers = {}
@@ -109,5 +110,12 @@ class MakeYamlFrontMatter
       string << head[0] + ": \"" + ( head[1].to_s.gsub("\"", "\\\"") || "" ) + "\"\n"
       string
     end
+  end
+
+  def string_guard strings
+    if strings =~ /(:\s*(\d+\.))$/
+      strings = strings.gsub($1, ": \"" + $2 + "\"" )
+    end
+    strings
   end
 end

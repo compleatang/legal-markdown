@@ -41,7 +41,7 @@ module LegalToMarkdown
       yaml_pattern = /\A(---\s*\n.*?\n?)^(---\s*$\n?)/m
       parts = @content.partition yaml_pattern
       if parts[1] != ""
-        string_guard parts[1]
+        parts[1] = string_guard parts[1]
         @headers = YAML.load parts[1]
         @content = parts[2]
       end
@@ -77,9 +77,10 @@ module LegalToMarkdown
     end
 
     def string_guard strings
-      if strings[/(\d+\.)$/]
-        strings.gsub($1, "\"" + $1 + "\"" )
+      if strings =~ /(:\s*(\d+\.))$/
+        strings = strings.gsub($1, ": \"" + $2 + "\"" )
       end
+      strings
     end
   end
 end
