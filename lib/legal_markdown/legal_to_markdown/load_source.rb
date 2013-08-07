@@ -41,6 +41,7 @@ module LegalToMarkdown
       yaml_pattern = /\A(---\s*\n.*?\n?)^(---\s*$\n?)/m
       parts = @content.partition yaml_pattern
       if parts[1] != ""
+        string_guard parts[1]
         @headers = YAML.load parts[1]
         @content = parts[2]
       end
@@ -73,6 +74,12 @@ module LegalToMarkdown
       require 'date'
       d = Date.today.strftime("%-d %B, %Y")
       @content.gsub!(/@today/, d)
+    end
+
+    def string_guard strings
+      if strings[/(\d+\.)$/]
+        strings.gsub($1, "\"" + $1 + "\"" )
+      end
     end
   end
 end
