@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths     = ["lib"]
   s.license           = 'MIT'
 
-  # s.add_dependency('dependency')
+  s.add_dependency('paint')
   s.add_development_dependency('coveralls')
 
   s.description       = <<desc
