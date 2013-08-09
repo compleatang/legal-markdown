@@ -117,4 +117,14 @@ class TestLegalMarkdownToMarkdown < Test::Unit::TestCase
       destroy_temp temp_file
     end
   end
+
+  def test_zee_verbosity_engine
+    puts "\n\nTesting Verbose.\n\n"
+    temp_file = create_temp('.md')
+    benchmark_file = '45.all_features_speed_ratchet.debug'
+    puts "Testing => legal2md --verbose 45.all_features_speed_ratchet.lmd - > #{temp_file}"
+    `legal2md --verbose 45.all_features_speed_ratchet.lmd - > #{temp_file}`
+    assert_equal( get_file(benchmark_file), get_file(temp_file) )
+    destroy_temp temp_file
+  end
 end
