@@ -1,6 +1,6 @@
 
-[34;1mHere's what I found after loading.[0m
-[34m==================================[0m
+[34;1mHere's what I found after running the loading.[0m
+[34m=============================================[0m
 
 [32;1mThe Headers I found are:[0m
 [32m------------------------[0m
@@ -107,7 +107,7 @@ ll. Amendments*. [{{dirs_can_amend_bylaws}} The Board of Directors is expressly 
 [31;1mThere are STRUCTURED HEADERS to be parsed.[0m
 
 [34;1mHere's what I found after running the mixins.[0m
-[34m============================================[0m
+[34m=============================================[0m
 
 [32;1mThe Headers I found are:[0m
 [32m------------------------[0m
