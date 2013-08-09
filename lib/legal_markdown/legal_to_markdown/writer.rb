@@ -6,7 +6,7 @@ module LegalToMarkdown
     require 'json' if writer == :jason
     if @output_file && @output_file != "-"
       File.open(@output_file, "w") {|f| f.write( final_content ); f.close } if writer == :markdown
-      File.open(@output_file, "w") { |f| IO.write( f, JSON.pretty_generate( final_content ) ); f.close } if writer == :jason
+      File.open(@output_file, "w") { |f| f.write( JSON.pretty_generate( final_content ) ); f.close } if writer == :jason
     else
       STDOUT.write final_content
     end
