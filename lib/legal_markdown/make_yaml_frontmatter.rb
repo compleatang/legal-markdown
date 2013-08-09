@@ -99,7 +99,7 @@ class MakeYamlFrontMatter
       if $2
         arr << "level-" + $2.length.to_s
       else
-        arr << "level-" + $&.delete("l")
+        arr << "level-" + $&.delete("l").delete(".")
       end
     end
   end
@@ -124,12 +124,13 @@ class MakeYamlFrontMatter
   def guard_strings strings
     strings.scan(/\:(\S.*)$/){ |m| strings = strings.gsub( m[0], " " + m[0] ) }
     strings.scan(/^((level-\d+:)(.+)\"*)$/) do |m|
-      line = m[0]; level = m[1]; field = m[2]
-      if field !=~ /(.+)\.\z/ || field !=~ /(.+)\)\z/
-        strings = strings.gsub(line, level + " " + field.lstrip + ".")
+      line = m[0]; level = m[1]; field = m[2].strip.delete "\""
+      if field =~ /[^\.\)]\z/
+        strings = strings.gsub(line, level + " \"" + field + ".\"")
+      else
+        strings = strings.gsub(line, level + " \"" + field + "\"")
       end
     end
-    strings.scan(/(:\s*(\d+\.))$/){ |m| strings = strings.gsub( m[0], ": \"" + m[1] + "\"" ) }
     strings
   end
 
