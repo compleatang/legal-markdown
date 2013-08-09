@@ -6,7 +6,7 @@ module LegalToMarkdown
     attr_accessor :headers, :content, :mixins, :leaders, :writer
 
     def initialize(file, output)
-      @input_file = file; @headers = nil; @content = ""; @writer = output.to_sym
+      @input_file = file; @headers = nil; @content = ""; @writer = output
       load; get_the_partials; parse; set_the_parsers
     end
 
