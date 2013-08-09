@@ -64,8 +64,10 @@ module LegalToMarkdown
     def get_file( file )
       begin
         f = File::read(file)
+        if f[1] == "\u0000" then f = f.force_encoding('utf-16le').encode('utf-8') end
         f.gsub!("\xEF\xBB\xBF".force_encoding("UTF-8"), '')
         f.gsub!("\xC3\xAF\xC2\xBB\xC2\xBF".force_encoding("UTF-8"), '')
+        f.gsub!("\r", '')
         f.force_encoding("UTF-8")
         f
       rescue => e

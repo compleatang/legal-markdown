@@ -18,8 +18,10 @@ class MakeYamlFrontMatter
     begin
       source_file = @input_file == "-" ? STDIN.read : File::read(@input_file)
       source_file = guard_partials_start source_file
+      if source_file[1] == "\u0000" then source_file = source_file.force_encoding('utf-16le').encode('utf-8') end
       source_file.gsub!("\xEF\xBB\xBF".force_encoding("UTF-8"), '')
       source_file.gsub!("\xC3\xAF\xC2\xBB\xC2\xBF".force_encoding("UTF-8"), '')
+      source_file.gsub!("\r", '')
       source_file.force_encoding("UTF-8")
       source_file
     rescue
