@@ -66,6 +66,7 @@ module LegalToMarkdown
         f = File::read(file)
         f.gsub!("\xEF\xBB\xBF".force_encoding("UTF-8"), '')
         f.gsub!("\xC3\xAF\xC2\xBB\xC2\xBF".force_encoding("UTF-8"), '')
+        f.force_encoding("UTF-8")
         f
       rescue => e
         puts "Sorry, I could not read the file #{file}: #{e.message}."

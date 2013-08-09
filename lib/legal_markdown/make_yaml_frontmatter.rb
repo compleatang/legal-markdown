@@ -20,6 +20,7 @@ class MakeYamlFrontMatter
       source_file = guard_partials_start source_file
       source_file.gsub!("\xEF\xBB\xBF".force_encoding("UTF-8"), '')
       source_file.gsub!("\xC3\xAF\xC2\xBB\xC2\xBF".force_encoding("UTF-8"), '')
+      source_file.force_encoding("UTF-8")
       source_file
     rescue
       puts "Sorry, I could not read the input file #{@input_file}."
