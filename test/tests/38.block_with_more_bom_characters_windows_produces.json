@@ -1,0 +1,256 @@
+{
+  "id": "f5739452426249f39b3a0625a083bd81",
+  "nodes": {
+    "document": {
+      "title": "",
+      "abstract": "",
+      "views": [
+        "content"
+      ]
+    },
+    "provision:9d8953fac08b4715ec682fd164d96447": {
+      "id": "provision:9d8953fac08b4715ec682fd164d96447",
+      "type": "provision",
+      "data": {
+        "level": "1",
+        "provision_reference": "1.",
+        "provision_text": "Non-Disclosure Agreement",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "",
+          "",
+          "2",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:e60eaab677d81ca967af6da81bf0e762": {
+      "id": "provision:e60eaab677d81ca967af6da81bf0e762",
+      "type": "provision",
+      "data": {
+        "level": "2",
+        "provision_reference": "A.",
+        "provision_text": "Definitions",
+        "citation": "",
+        "substitution": [
+          "type5",
+          "",
+          "",
+          "C",
+          ".",
+          null,
+          "  "
+        ]
+      }
+    },
+    "provision:ad61916aa2dfff7e38ce05c2fb1e4b19": {
+      "id": "provision:ad61916aa2dfff7e38ce05c2fb1e4b19",
+      "type": "provision",
+      "data": {
+        "level": "3",
+        "provision_reference": "i.",
+        "provision_text": "\"Agreement\" means this certain Non-Disclosure Agreement dated 10 August, 2013.",
+        "citation": "",
+        "substitution": [
+          "type3",
+          "",
+          "",
+          "i",
+          ".",
+          null,
+          "    "
+        ]
+      }
+    },
+    "provision:d1566674492a96fc468d6ee5f2ee26bf": {
+      "id": "provision:d1566674492a96fc468d6ee5f2ee26bf",
+      "type": "provision",
+      "data": {
+        "level": "3",
+        "provision_reference": "ii.",
+        "provision_text": "\"Control\" means to own or control, directly or indirectly, more than 50% of voting shares.",
+        "citation": "",
+        "substitution": [
+          "type3",
+          "",
+          "",
+          "i",
+          ".",
+          null,
+          "    "
+        ]
+      }
+    },
+    "provision:2fe811ea2cea8cef4ff377c5f180be6b": {
+      "id": "provision:2fe811ea2cea8cef4ff377c5f180be6b",
+      "type": "provision",
+      "data": {
+        "level": "3",
+        "provision_reference": "iii.",
+        "provision_text": "\"Information\" means confidential information disclosed under this Agreement.",
+        "citation": "",
+        "substitution": [
+          "type3",
+          "",
+          "",
+          "i",
+          ".",
+          null,
+          "    "
+        ]
+      }
+    },
+    "provision:b989735162ebea6749322fefb9acf3f8": {
+      "id": "provision:b989735162ebea6749322fefb9acf3f8",
+      "type": "provision",
+      "data": {
+        "level": "2",
+        "provision_reference": "B.",
+        "provision_text": "Form Of Disclosure. Information may be disclosed:",
+        "citation": "",
+        "substitution": [
+          "type5",
+          "",
+          "",
+          "C",
+          ".",
+          null,
+          "  "
+        ]
+      }
+    },
+    "provision:e425cc6d2f78d07cbc1134df219e6d4a": {
+      "id": "provision:e425cc6d2f78d07cbc1134df219e6d4a",
+      "type": "provision",
+      "data": {
+        "level": "3",
+        "provision_reference": "i.",
+        "provision_text": "in writing;",
+        "citation": "",
+        "substitution": [
+          "type3",
+          "",
+          "",
+          "i",
+          ".",
+          null,
+          "    "
+        ]
+      }
+    },
+    "provision:d45c999c32979e1f1c5b67e80e1c3faa": {
+      "id": "provision:d45c999c32979e1f1c5b67e80e1c3faa",
+      "type": "provision",
+      "data": {
+        "level": "3",
+        "provision_reference": "ii.",
+        "provision_text": "by oral presentation;",
+        "citation": "",
+        "substitution": [
+          "type3",
+          "",
+          "",
+          "i",
+          ".",
+          null,
+          "    "
+        ]
+      }
+    },
+    "provision:cba8f597d9444021066337abb362973b": {
+      "id": "provision:cba8f597d9444021066337abb362973b",
+      "type": "provision",
+      "data": {
+        "level": "3",
+        "provision_reference": "iii.",
+        "provision_text": "by visual presentation;",
+        "citation": "",
+        "substitution": [
+          "type3",
+          "",
+          "",
+          "i",
+          ".",
+          null,
+          "    "
+        ]
+      }
+    },
+    "provision:c496809f58e2876152a5e5656709ef87": {
+      "id": "provision:c496809f58e2876152a5e5656709ef87",
+      "type": "provision",
+      "data": {
+        "level": "3",
+        "provision_reference": "iv.",
+        "provision_text": "by Discloser giving Recipient access to a database or digital archive of any kind; or",
+        "citation": "",
+        "substitution": [
+          "type3",
+          "",
+          "",
+          "i",
+          ".",
+          null,
+          "    "
+        ]
+      }
+    },
+    "provision:aff0451113dbc4110040a866c43b11f8": {
+      "id": "provision:aff0451113dbc4110040a866c43b11f8",
+      "type": "provision",
+      "data": {
+        "level": "3",
+        "provision_reference": "v.",
+        "provision_text": "by delivery of physical objects.",
+        "citation": "",
+        "substitution": [
+          "type3",
+          "",
+          "",
+          "i",
+          ".",
+          null,
+          "    "
+        ]
+      }
+    },
+    "provision:db01ecf08e34732eea9923c28a67268b": {
+      "id": "provision:db01ecf08e34732eea9923c28a67268b",
+      "type": "provision",
+      "data": {
+        "level": "2",
+        "provision_reference": "C.",
+        "provision_text": "Dispute Resolution.\nAny controversy or claim arising out of or relating to this Agreement, or the breach thereof, whether sounding in contract, tort, or otherwise, shall be decided solely and exclusively by State or Federal courts located in New York, New York.",
+        "citation": "",
+        "substitution": [
+          "type5",
+          "",
+          "",
+          "C",
+          ".",
+          null,
+          "  "
+        ]
+      }
+    },
+    "content": {
+      "nodes": [
+        "provision:9d8953fac08b4715ec682fd164d96447",
+        "provision:e60eaab677d81ca967af6da81bf0e762",
+        "provision:ad61916aa2dfff7e38ce05c2fb1e4b19",
+        "provision:d1566674492a96fc468d6ee5f2ee26bf",
+        "provision:2fe811ea2cea8cef4ff377c5f180be6b",
+        "provision:b989735162ebea6749322fefb9acf3f8",
+        "provision:e425cc6d2f78d07cbc1134df219e6d4a",
+        "provision:d45c999c32979e1f1c5b67e80e1c3faa",
+        "provision:cba8f597d9444021066337abb362973b",
+        "provision:c496809f58e2876152a5e5656709ef87",
+        "provision:aff0451113dbc4110040a866c43b11f8",
+        "provision:db01ecf08e34732eea9923c28a67268b"
+      ]
+    }
+  }
+}
