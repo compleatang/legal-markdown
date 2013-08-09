@@ -66,7 +66,7 @@ module LegalMarkdown
       config[:output][:markdown] = true
     end
 
-    if args.include? :to_markdown || (begin args[-1][/\.md|\.markdown/]; rescue; end;)
+    if args.include?(:to_markdown) || (begin args[-1][/\.md|\.markdown/]; rescue; end;)
       config[:output][:markdown] = true
       args.delete :markdown
     end
@@ -80,7 +80,7 @@ module LegalMarkdown
       config[:output][:jason] = true
     end
 
-    if args.include? :to_json || (begin args[-1][/\.json/]; rescue; end;)
+    if args.include?(:to_json) || (begin args[-1][/\.json/]; rescue; end;)
       config[:output][:jason] = true
       args.delete(:to_json) if args.include?( :to_json )
     end
