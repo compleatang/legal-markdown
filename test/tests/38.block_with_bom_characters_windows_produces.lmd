@@ -1,0 +1,60 @@
+ï»¿---
+
+# Mixins
+contract_title:"Non-Disclosure Agreement"
+forum:"New York, New York"
+
+# Optional Clauses
+arbitration_clause:false
+judicial_forum_clause:true
+
+# Structured Headers
+level-1: 1
+level-2: A
+level-3: i
+
+# Properties
+no-indent: ""
+no-reset: ""
+level-style: ""
+
+---
+
+ï»¿```
+
+l. {{contract_title}}
+
+ll. Definitions
+
+lll. "Agreement" means this certain Non-Disclosure Agreement dated 6 August, 201
+3.
+
+lll. "Control" means to own or control, directly or indirectly, more than 50% of
+ voting shares.
+
+lll. "Information" means confidential information disclosed under this Agreement
+.
+
+ll. Form Of Disclosure. Information may be disclosed:
+
+lll. in writing;
+
+lll. by oral presentation;
+
+lll. by visual presentation;
+
+lll. by Discloser giving Recipient access to a database or digital archive of an
+y kind; or
+
+lll. by delivery of physical objects.
+
+[{{arbitration_clause}}ll. Arbitration.
+Any controversy or claim arising out of or relating to this Agreement, or the br
+each thereof, whether sounding in contract, tort, or otherwise, shall be settled
+ by arbitration administered by the American Arbitration Association under its C
+ommercial Arbitration Rules, and judgment on the award rendered by the arbitrato
+r(s) may be entered in any court having jurisdiction thereof.]
+[{{judicial_forum_clause}}ll. Dispute Resolution.
+Any controversy or claim arising out of or relating to this Agreement, or the br
+each thereof, whether sounding in contract, tort, or otherwise, shall be decided
+ solely and exclusively by State or Federal courts located in {{forum}}.]
