@@ -8,13 +8,23 @@ require 'optparse'
 module LegalMarkdown
 
   def self.parse(*args)
-    if args.size == 1 && args.first.class == Array
-      args = args.first
-    end
 
     config={}
     config[:input] = {}
     config[:output] = {}
+
+    args, config = optsparse args, config
+
+    if args.size >= 1
+      caller args, config
+    else
+      puts opt_parser
+    end
+
+  end
+
+  def self.optsparse args, config
+    args = args_guard args
 
     opt_parser = OptionParser.new do |opt|
       opt.banner = "Usage: legal2md [commands] [input_file] [output_file]"
@@ -78,19 +88,25 @@ module LegalMarkdown
       opt.separator "There is no need to explicitly enter the --to-markdown if your output_file is *.md or *.markdown I can handle it."
       opt.separator ""
     end
-
     opt_parser.parse!(args)
 
-    if args.size >= 1
-      if config[:headers]
-        MakeYamlFrontMatter.new(args)
-      elsif config[:output][:jason]
-        LegalToMarkdown.parse_jason(args, config[:verbose])
-      elsif config[:output][:markdown] || args.size <= 2
-        LegalToMarkdown.parse_markdown(args, config[:verbose])
-      end
-    else
-      puts opt_parser
+    return args, config
+  end
+
+  def self.args_guard args
+    if args.size == 1 && args.first.class == Array
+      args = args.first
+    end
+    args
+  end
+
+  def self.caller args, config
+    if config[:headers]
+      MakeYamlFrontMatter.new(args)
+    elsif config[:output][:jason]
+      LegalToMarkdown.parse_jason(args, config[:verbose])
+    elsif config[:output][:markdown] || args.size <= 2
+      LegalToMarkdown.parse_markdown(args, config[:verbose])
     end
   end
 end
