@@ -18,6 +18,9 @@ class MakeYamlFrontMatter
     begin
       source_file = @input_file == "-" ? STDIN.read : File::read(@input_file)
       source_file = guard_partials_start source_file
+      source_file.gsub!("\xEF\xBB\xBF".force_encoding("UTF-8"), '')
+      source_file.gsub!("\xC3\xAF\xC2\xBB\xC2\xBF".force_encoding("UTF-8"), '')
+      source_file
     rescue
       puts "Sorry, I could not read the input file #{@input_file}."
       exit 0
@@ -40,7 +43,7 @@ class MakeYamlFrontMatter
   def scan_and_filter_yaml
     mixin_pattern = /[^\[]{{(\S+)}}/
     opt_clauses_pattern = /\[{{(\S+)}}/
-    @structured_headers_pattern = /(^l+.|^l\d+.)/
+    @structured_headers_pattern = /(^l+\.|^l\d+\.)/
     @yaml_data_as_array = []
     @yaml_data_as_array << ( filter_yaml mixin_pattern || {} )
     @yaml_data_as_array << ( filter_yaml opt_clauses_pattern || {} )
@@ -119,9 +122,14 @@ class MakeYamlFrontMatter
   end
 
   def guard_strings strings
-    if strings =~ /(:\s*(\d+\.))$/
-      strings = strings.gsub($1, ": \"" + $2 + "\"" )
+    strings.scan(/\:(\S.*)$/){ |m| strings = strings.gsub( m[0], " " + m[0] ) }
+    strings.scan(/^((level-\d+:)(.+)\"*)$/) do |m|
+      line = m[0]; level = m[1]; field = m[2]
+      if field !=~ /(.+)\.\z/ || field !=~ /(.+)\)\z/
+        strings = strings.gsub(line, level + " " + field.lstrip + ".")
+      end
     end
+    strings.scan(/(:\s*(\d+\.))$/){ |m| strings = strings.gsub( m[0], ": \"" + m[1] + "\"" ) }
     strings
   end
 

@@ -64,6 +64,9 @@ module LegalToMarkdown
     def get_file( file )
       begin
         f = File::read(file)
+        f.gsub!("\xEF\xBB\xBF".force_encoding("UTF-8"), '')
+        f.gsub!("\xC3\xAF\xC2\xBB\xC2\xBF".force_encoding("UTF-8"), '')
+        f
       rescue => e
         puts "Sorry, I could not read the file #{file}: #{e.message}."
         exit 0
@@ -77,9 +80,14 @@ module LegalToMarkdown
     end
 
     def string_guard strings
-      if strings =~ /(:\s*(\d+\.))$/
-        strings = strings.gsub($1, ": \"" + $2 + "\"" )
+      strings.scan(/\:(\S.*)$/){ |m| strings = strings.gsub( m[0], " " + m[0] ) }
+      strings.scan(/^((level-\d+:)(.+)\"*)$/) do |m|
+        line = m[0]; level = m[1]; field = m[2]
+        if field !=~ /(.+)\.\z/ || field !=~ /(.+)\)\z/
+          strings = strings.gsub(line, level + " " + field.lstrip + ".")
+        end
       end
+      strings.scan(/(:\s*(\d+\.))$/){ |m| strings = strings.gsub( m[0], ": \"" + m[1] + "\"" ) }
       strings
     end
   end
