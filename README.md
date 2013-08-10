@@ -331,6 +331,7 @@ At this point legal_markdown does not have a native citation handling ability. F
 
 * Legal_markdown is optimized primarily for contracts, legislation, and regulations. It is not optimized for cases. For memoranda and filings I use the mixin portion but not the structured headers functionality which is enough to meet my needs - in particular, when matched with Sublime Text snippets. If you area looking for a solution for cases and filings I would recommend the [Precedent Gem](https://github.com/BlackacreLabs/precedent) built by [Kyle Mitchell](https://github.com/kemitchell) for [Blackacre Labs](https://github.com/BlackacreLabs)
 * At this point, you cannot have more than 9 levels for headers, but if you have more than 9 levels of headers you have some insane case study which will require more than this tool to cope with.
+* If you are using windows `legal_markdown` *should* be able to deal with most of the file types, but to be safe it is preferable to save your files with UTF-8 encoding. In Notepad and Notepad++ you can select the encoding from the drop down dialog at the bottom of the Save window.
 
 ## Roadmap / TODO
 
