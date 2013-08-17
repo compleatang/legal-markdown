@@ -1,0 +1,193 @@
+
+[34;1mHere's what I found after running the loading.[0m
+[34m=============================================[0m
+
+[32;1mThe Headers I found are:[0m
+[32m------------------------[0m
+[35m{"asdfg"=>"234567890", "gfdsa"=>"oiuytrew", "nbvcx"=>".,mnbvcxz", "qwer"=>"qsdcv rtghjm", "test09"=>true, "test1"=>false, "test4"=>true, "test_5"=>true, "test_7"=>false, "test_78"=>false, "level-1"=>"Article 1.", "level-2"=>"Section 1.", "level-3"=>"1.", "no-indent"=>"l., ll., lll."}[0m
+
+[32;1mThe Content I found is:[0m
+[32m-----------------------[0m
+[33m# TEST 4
+
+```
+l. Provision for Article 1.
+ll. Provision for{{gfdsa}} Section 1.1.
+ll. Provision for 1.1.1.
+lll. [{{test_7}} Provision] for 1.1.2.
+lll. Provision for Section 1.2.
+lll. Provision for 1.2.1. {{nbvcx}}
+l. Provision for 1.2.2.
+ll. Profivis asl;jksfd;lg; lkshflksjdh
+ll. asd;flkajsdf;lkj
+lll. ;alsdkfjasd;flkajsd
+[{{test4}}ll. as;dlfk{{qwer}}jasd;flakjsdll.]
+lll. a;lsdfkjasd;lfkj
+lll. a;sdlfkajsd;flk
+l. as;dlfkajsd;flkj
+ll. a;sldfkajsd;
+lll. a;sldfkjasd;flkajs
+lll. a;lsdfk [{{test_5}} ajsd;lfkj]
+lll. a;sdlfkajsd;flkajs
+lll. as;dlfkjasd;lfkjs
+ll. Lorem ipsum [{{test09}} dolor sit amet, {{asdfg}}
+consectetur adipisicing] elit, sed do eiusmod
+l. tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+[{{test1}} ll. quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo]
+lll. consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+lll. cillum dolore eu fugiat [{{test_78}} nulla pariatur. Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui] officia deserunt mollit anim id est laborum.
+```[0m
+
+[31;1mThere are MIXINS to be parsed.[0m
+[31;1mThere are STRUCTURED HEADERS to be parsed.[0m
+
+[34;1mHere's what I found after running the mixins.[0m
+[34m=============================================[0m
+
+[32;1mThe Headers I found are:[0m
+[32m------------------------[0m
+[35m{"level-1"=>"Article 1.", "level-2"=>"Section 1.", "level-3"=>"1.", "no-indent"=>"l., ll., lll."}[0m
+
+[32;1mThe Content I found is:[0m
+[32m-----------------------[0m
+[33m# TEST 4
+
+```
+l. Provision for Article 1.
+ll. Provision foroiuytrew Section 1.1.
+ll. Provision for 1.1.1.
+lll. for 1.1.2.
+lll. Provision for Section 1.2.
+lll. Provision for 1.2.1. .,mnbvcxz
+l. Provision for 1.2.2.
+ll. Profivis asl;jksfd;lg; lkshflksjdh
+ll. asd;flkajsdf;lkj
+lll. ;alsdkfjasd;flkajsd
+ll. as;dlfkqsdcv rtghjmjasd;flakjsdll.
+lll. a;lsdfkjasd;lfkj
+lll. a;sdlfkajsd;flk
+l. as;dlfkajsd;flkj
+ll. a;sldfkajsd;
+lll. a;sldfkjasd;flkajs
+lll. a;lsdfk ajsd;lfkj
+lll. a;sdlfkajsd;flkajs
+lll. as;dlfkjasd;lfkjs
+ll. Lorem ipsum dolor sit amet, 234567890
+consectetur adipisicing elit, sed do eiusmod
+l. tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+
+lll. consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+lll. cillum dolore eu fugiat officia deserunt mollit anim id est laborum.
+```[0m
+
+[34;1mHere's what I found after running the headers.[0m
+[34m=============================================[0m
+
+[32;1mThe Headers I found are:[0m
+[32m------------------------[0m
+[35m{}[0m
+
+[32;1mThe Content I found is:[0m
+[32m-----------------------[0m
+[33m# TEST 4
+
+Article 1. Provision for Article 1.
+
+Section 1. Provision foroiuytrew Section 1.1.
+
+Section 2. Provision for 1.1.1.
+
+1. for 1.1.2.
+
+2. Provision for Section 1.2.
+
+3. Provision for 1.2.1. .,mnbvcxz
+
+Article 2. Provision for 1.2.2.
+
+Section 1. Profivis asl;jksfd;lg; lkshflksjdh
+
+Section 2. asd;flkajsdf;lkj
+
+1. ;alsdkfjasd;flkajsd
+
+Section 3. as;dlfkqsdcv rtghjmjasd;flakjsdll.
+
+1. a;lsdfkjasd;lfkj
+
+2. a;sdlfkajsd;flk
+
+Article 3. as;dlfkajsd;flkj
+
+Section 1. a;sldfkajsd;
+
+1. a;sldfkjasd;flkajs
+
+2. a;lsdfk ajsd;lfkj
+
+3. a;sdlfkajsd;flkajs
+
+4. as;dlfkjasd;lfkjs
+
+Section 2. Lorem ipsum dolor sit amet, 234567890
+
+consectetur adipisicing elit, sed do eiusmod
+
+Article 4. tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+
+1. consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+
+2. cillum dolore eu fugiat officia deserunt mollit anim id est laborum.
+
+[0m
+# TEST 4
+
+Article 1. Provision for Article 1.
+
+Section 1. Provision foroiuytrew Section 1.1.
+
+Section 2. Provision for 1.1.1.
+
+1. for 1.1.2.
+
+2. Provision for Section 1.2.
+
+3. Provision for 1.2.1. .,mnbvcxz
+
+Article 2. Provision for 1.2.2.
+
+Section 1. Profivis asl;jksfd;lg; lkshflksjdh
+
+Section 2. asd;flkajsdf;lkj
+
+1. ;alsdkfjasd;flkajsd
+
+Section 3. as;dlfkqsdcv rtghjmjasd;flakjsdll.
+
+1. a;lsdfkjasd;lfkj
+
+2. a;sdlfkajsd;flk
+
+Article 3. as;dlfkajsd;flkj
+
+Section 1. a;sldfkajsd;
+
+1. a;sldfkjasd;flkajs
+
+2. a;lsdfk ajsd;lfkj
+
+3. a;sdlfkajsd;flkajs
+
+4. as;dlfkjasd;lfkjs
+
+Section 2. Lorem ipsum dolor sit amet, 234567890
+
+consectetur adipisicing elit, sed do eiusmod
+
+Article 4. tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+
+1. consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+
+2. cillum dolore eu fugiat officia deserunt mollit anim id est laborum.
+
