@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.license           = 'MIT'
 
   s.add_dependency('paint')
+  s.add_development_dependency('rspec')
   s.add_development_dependency('coveralls')
 
   s.description       = <<desc
