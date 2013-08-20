@@ -50,6 +50,10 @@ module LegalToMarkdown
 
     def build_front_portion
       document_hash = { "document" => { "title" => "", "abstract" => "", "views" => ["content"] }}
+      if @docinfo.is_a?(Hash)
+        document_hash = { "document" => document_hash['document'].merge(@docinfo) }
+      end
+      document_hash
     end
 
     def build_header_and_text_hashs( text_block )

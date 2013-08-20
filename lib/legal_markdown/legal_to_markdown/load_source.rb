@@ -3,11 +3,12 @@ module LegalToMarkdown
 
   class FileToParse
 
-    attr_accessor :headers, :content, :mixins, :leaders, :writer
+    attr_accessor :headers, :content, :mixins, :leaders, :docinfo, :writer
 
     def initialize(file, output)
       @input_file = file; @headers = nil; @content = ""; @writer = output
       load; get_the_partials; parse; set_the_parsers
+      @orig_headers = @headers.clone if @headers
     end
 
     private
@@ -55,6 +56,10 @@ module LegalToMarkdown
       if @content[/^```/] && @headers
         self.extend LegalToMarkdown::Leaders
         @leaders = true
+      end
+      if @headers && ! @headers.keys.select{|k| k.to_s[/meta/] }.empty?
+        self.extend LegalToMarkdown::Meta
+        @docinfo = true
       end
       if @writer == :jason
         self.extend LegalToMarkdown::JasonBuilder

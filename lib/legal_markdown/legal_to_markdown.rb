@@ -3,6 +3,7 @@ require 'legal_to_markdown/load_source.rb'
 require 'legal_to_markdown/mixins.rb'
 require 'legal_to_markdown/leaders.rb'
 require 'legal_to_markdown/json_builder.rb'
+require 'legal_to_markdown/meta.rb'
 require 'legal_to_markdown/writer.rb'
 require 'roman_numerals'
 require 'paint'
@@ -35,6 +36,7 @@ module LegalToMarkdown
     verbose_after_process source, 'mixins'
     source.run_leaders if source.leaders
     verbose_after_process source, 'headers'
+    source.run_meta if source.docinfo
     source.build_jason if source.writer == :jason
     write_it(source.content, source.writer)
   end
