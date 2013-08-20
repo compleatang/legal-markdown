@@ -64,7 +64,7 @@ class MakeYamlFrontMatter
         unless @yaml_data_as_array.index(section) == 4
           string << sink_it(section)
         else
-          string << YAML.dump(section).gsub(/---\s*\n/, '')
+          string << YAML.dump(section).gsub(/---\s*\n/, '').gsub(/\s+\n/, "\n")
         end
       end
       string
