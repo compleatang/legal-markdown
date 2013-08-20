@@ -18,12 +18,11 @@ no-indent: "l., ll., lll."
 no-reset: ""
 level-style: ""
 
-
 # Document Meta-Data
-meta-json-output:
+meta-yaml-output:
   title: asdf
   author: asdqwer
-meta-yaml-output:
+meta-json-output:
   title: asdf
   author: asdqwer
 
