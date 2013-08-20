@@ -3,6 +3,7 @@
   "nodes": {
     "document": {
       "title": "asdf",
+      "author": "asdqwer",
       "abstract": "asdqwer",
       "views": [
         "content"

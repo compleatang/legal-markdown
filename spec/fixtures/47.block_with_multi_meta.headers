@@ -19,7 +19,7 @@ no-reset: ""
 level-style: ""
 
 # Document Meta-Data
-meta-output:
+meta:
   title: asdf
   author: asdqwer
 meta-no-output:

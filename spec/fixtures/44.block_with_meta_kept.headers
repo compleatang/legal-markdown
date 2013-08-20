@@ -20,7 +20,10 @@ level-style: ""
 
 
 # Document Meta-Data
-meta-output:
+meta-json-output:
+  title: asdf
+  author: asdqwer
+meta-yaml-output:
   title: asdf
   author: asdqwer
 

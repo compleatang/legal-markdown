@@ -15,7 +15,10 @@ level-3: "1."
 no-indent: l., ll., lll.
 
 # Document Meta-Data
-meta-output:
+meta-yaml-output:
+  title: asdf
+  author: asdqwer
+meta-json-output:
   title: asdf
   author: asdqwer
 
