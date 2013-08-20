@@ -1,0 +1,476 @@
+{
+  "id": "a97e1744d9637264fa6231f5bbe3c4af",
+  "nodes": {
+    "document": {
+      "title": "asdf",
+      "abstract": "asdqwer",
+      "views": [
+        "content"
+      ]
+    },
+    "provision:61c8486bbed87ddc6289fb74b1c01448": {
+      "id": "provision:61c8486bbed87ddc6289fb74b1c01448",
+      "type": "provision",
+      "data": {
+        "level": "1",
+        "provision_reference": "Article 1.",
+        "provision_text": "Provision for Article 1.",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "Article ",
+          "",
+          "5",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:326438c0e7354894df306635b94c6756": {
+      "id": "provision:326438c0e7354894df306635b94c6756",
+      "type": "provision",
+      "data": {
+        "level": "2",
+        "provision_reference": "Section 1.",
+        "provision_text": "Provision for Section 1.1.",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "Section ",
+          "",
+          "1",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:7a570ecad7562733bb3b5e039857a42b": {
+      "id": "provision:7a570ecad7562733bb3b5e039857a42b",
+      "type": "provision",
+      "data": {
+        "level": "2",
+        "provision_reference": "Section 2.",
+        "provision_text": "Provision for 1.1.1.",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "Section ",
+          "",
+          "1",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:1cbf69c5c88e06b06039a8835fe35363": {
+      "id": "provision:1cbf69c5c88e06b06039a8835fe35363",
+      "type": "provision",
+      "data": {
+        "level": "3",
+        "provision_reference": "1.",
+        "provision_text": "for 1.1.2.",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "",
+          "",
+          "2",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:9dfd8029f6d62b07edc9bcc7eeadf7c2": {
+      "id": "provision:9dfd8029f6d62b07edc9bcc7eeadf7c2",
+      "type": "provision",
+      "data": {
+        "level": "3",
+        "provision_reference": "2.",
+        "provision_text": "Provision for Section 1.2.",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "",
+          "",
+          "2",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:99824033774efdb342eb1ec0fb0d05a9": {
+      "id": "provision:99824033774efdb342eb1ec0fb0d05a9",
+      "type": "provision",
+      "data": {
+        "level": "3",
+        "provision_reference": "3.",
+        "provision_text": "Provision for 1.2.1.",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "",
+          "",
+          "2",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:426344c2b7a18272b8e4ab5d64a991f4": {
+      "id": "provision:426344c2b7a18272b8e4ab5d64a991f4",
+      "type": "provision",
+      "data": {
+        "level": "1",
+        "provision_reference": "Article 2.",
+        "provision_text": "Provision for 1.2.2.",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "Article ",
+          "",
+          "5",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:52221bc7ec9ae21912f494d5ec6bfa31": {
+      "id": "provision:52221bc7ec9ae21912f494d5ec6bfa31",
+      "type": "provision",
+      "data": {
+        "level": "2",
+        "provision_reference": "Section 1.",
+        "provision_text": "Profivis asl;jksfd;lg; lkshflksjdh",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "Section ",
+          "",
+          "1",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:b9e4cf1d561930a8aca9452b5b4310eb": {
+      "id": "provision:b9e4cf1d561930a8aca9452b5b4310eb",
+      "type": "provision",
+      "data": {
+        "level": "2",
+        "provision_reference": "Section 2.",
+        "provision_text": "asd;flkajsdf;lkj",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "Section ",
+          "",
+          "1",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:5aeaecdd179834d76060c16010195886": {
+      "id": "provision:5aeaecdd179834d76060c16010195886",
+      "type": "provision",
+      "data": {
+        "level": "3",
+        "provision_reference": "1.",
+        "provision_text": ";alsdkfjasd;flkajsd",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "",
+          "",
+          "2",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:5c991471384aede669a2b73c2c8c69b4": {
+      "id": "provision:5c991471384aede669a2b73c2c8c69b4",
+      "type": "provision",
+      "data": {
+        "level": "2",
+        "provision_reference": "Section 3.",
+        "provision_text": "as;dlfkjasd;flakjsdll.",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "Section ",
+          "",
+          "1",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:6700e84526c7c9a77ecd13cac0b4b30b": {
+      "id": "provision:6700e84526c7c9a77ecd13cac0b4b30b",
+      "type": "provision",
+      "data": {
+        "level": "3",
+        "provision_reference": "1.",
+        "provision_text": "a;lsdfkjasd;lfkj",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "",
+          "",
+          "2",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:b6c02ce67a5c42fb7c3ec2d6b0e073a8": {
+      "id": "provision:b6c02ce67a5c42fb7c3ec2d6b0e073a8",
+      "type": "provision",
+      "data": {
+        "level": "3",
+        "provision_reference": "2.",
+        "provision_text": "a;sdlfkajsd;flk",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "",
+          "",
+          "2",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:1a1b6d24cd6141f2e600f7cde2811d2a": {
+      "id": "provision:1a1b6d24cd6141f2e600f7cde2811d2a",
+      "type": "provision",
+      "data": {
+        "level": "1",
+        "provision_reference": "Article 3.",
+        "provision_text": "as;dlfkajsd;flkj",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "Article ",
+          "",
+          "5",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:1cd49ef95dbe68cac425f6c39fbf2735": {
+      "id": "provision:1cd49ef95dbe68cac425f6c39fbf2735",
+      "type": "provision",
+      "data": {
+        "level": "2",
+        "provision_reference": "Section 1.",
+        "provision_text": "a;sldfkajsd;",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "Section ",
+          "",
+          "1",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:aa2bb6811259a3dc1eebe101d8611191": {
+      "id": "provision:aa2bb6811259a3dc1eebe101d8611191",
+      "type": "provision",
+      "data": {
+        "level": "3",
+        "provision_reference": "1.",
+        "provision_text": "a;sldfkjasd;flkajs",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "",
+          "",
+          "2",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:18f58ca79d3cb463f06c551ae102e906": {
+      "id": "provision:18f58ca79d3cb463f06c551ae102e906",
+      "type": "provision",
+      "data": {
+        "level": "3",
+        "provision_reference": "2.",
+        "provision_text": "a;lsdfk ajsd;lfkj",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "",
+          "",
+          "2",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:d15cbbe3edc36cc2d00888de07781334": {
+      "id": "provision:d15cbbe3edc36cc2d00888de07781334",
+      "type": "provision",
+      "data": {
+        "level": "3",
+        "provision_reference": "3.",
+        "provision_text": "a;sdlfkajsd;flkajs",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "",
+          "",
+          "2",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:47ce37996e6245fb3cd7e9c9eeb853aa": {
+      "id": "provision:47ce37996e6245fb3cd7e9c9eeb853aa",
+      "type": "provision",
+      "data": {
+        "level": "3",
+        "provision_reference": "4.",
+        "provision_text": "as;dlfkjasd;lfkjs",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "",
+          "",
+          "2",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:4dbc588ddf1d6f7f41c609313bd8e696": {
+      "id": "provision:4dbc588ddf1d6f7f41c609313bd8e696",
+      "type": "provision",
+      "data": {
+        "level": "2",
+        "provision_reference": "Section 2.",
+        "provision_text": "Lorem ipsum dolor sit amet,\nconsectetur adipisicing elit, sed do eiusmod",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "Section ",
+          "",
+          "1",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:1540dff284f1e76d0bac70679897e54b": {
+      "id": "provision:1540dff284f1e76d0bac70679897e54b",
+      "type": "provision",
+      "data": {
+        "level": "1",
+        "provision_reference": "Article 4.",
+        "provision_text": "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "Article ",
+          "",
+          "5",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:68e57e0b927d699d95fd67ebd21425af": {
+      "id": "provision:68e57e0b927d699d95fd67ebd21425af",
+      "type": "provision",
+      "data": {
+        "level": "3",
+        "provision_reference": "1.",
+        "provision_text": "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "",
+          "",
+          "2",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "provision:53481d929917d785d96c44682ebc8c09": {
+      "id": "provision:53481d929917d785d96c44682ebc8c09",
+      "type": "provision",
+      "data": {
+        "level": "3",
+        "provision_reference": "2.",
+        "provision_text": "cillum dolore eu fugiat officia deserunt mollit anim id est laborum.",
+        "citation": "",
+        "substitution": [
+          "type0",
+          "",
+          "",
+          "2",
+          ".",
+          null,
+          ""
+        ]
+      }
+    },
+    "content": {
+      "nodes": [
+        "provision:61c8486bbed87ddc6289fb74b1c01448",
+        "provision:326438c0e7354894df306635b94c6756",
+        "provision:7a570ecad7562733bb3b5e039857a42b",
+        "provision:1cbf69c5c88e06b06039a8835fe35363",
+        "provision:9dfd8029f6d62b07edc9bcc7eeadf7c2",
+        "provision:99824033774efdb342eb1ec0fb0d05a9",
+        "provision:426344c2b7a18272b8e4ab5d64a991f4",
+        "provision:52221bc7ec9ae21912f494d5ec6bfa31",
+        "provision:b9e4cf1d561930a8aca9452b5b4310eb",
+        "provision:5aeaecdd179834d76060c16010195886",
+        "provision:5c991471384aede669a2b73c2c8c69b4",
+        "provision:6700e84526c7c9a77ecd13cac0b4b30b",
+        "provision:b6c02ce67a5c42fb7c3ec2d6b0e073a8",
+        "provision:1a1b6d24cd6141f2e600f7cde2811d2a",
+        "provision:1cd49ef95dbe68cac425f6c39fbf2735",
+        "provision:aa2bb6811259a3dc1eebe101d8611191",
+        "provision:18f58ca79d3cb463f06c551ae102e906",
+        "provision:d15cbbe3edc36cc2d00888de07781334",
+        "provision:47ce37996e6245fb3cd7e9c9eeb853aa",
+        "provision:4dbc588ddf1d6f7f41c609313bd8e696",
+        "provision:1540dff284f1e76d0bac70679897e54b",
+        "provision:68e57e0b927d699d95fd67ebd21425af",
+        "provision:53481d929917d785d96c44682ebc8c09"
+      ]
+    }
+  }
+}
