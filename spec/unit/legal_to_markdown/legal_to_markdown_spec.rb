@@ -25,7 +25,8 @@ describe "Legal Markdown to" do
         LegalMarkdown.parse( :to_json, lmd_file,  result )
         expect( contents benchmark ).not_to eql( contents result )
         expect( (contents benchmark)['nodes'].count ).to eql( (contents result)['nodes'].count )
-        expect( (contents benchmark)['nodes']["document"] ).to eql( (contents result)['nodes']["document"] )
+        expect( (contents benchmark)['nodes']["document"].count ).to eql( (contents result)['nodes']["document"].count )
+        expect( (contents benchmark)['nodes']["document"]['title'] ).to eql( (contents result)['nodes']["document"]['title'] )
         expect( (contents benchmark)['nodes']["content"]["nodes"]).not_to eql( (contents result)['nodes']["content"]["nodes"] )
         expect( the_content benchmark ).to eql( the_content result )
       end
