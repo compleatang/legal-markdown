@@ -104,7 +104,7 @@ module LegalMarkdown
   def self.optsmakeother opt, config, args
 
     config[:verbose] = false
-    opt.on('--verbose', 'Debug legal_markdown. Only works with output options, not with headers switch.') do
+    opt.on('--debug', 'Debug legal_markdown. **Only works with output options, not with headers switch.**') do
       config[:verbose] = true
     end
 

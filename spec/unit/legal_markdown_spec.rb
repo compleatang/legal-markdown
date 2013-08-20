@@ -67,7 +67,7 @@ describe "Legal Markdown Command Line Caller" do
     end
 
     describe "and provides debug output" do
-      let(:cmd) { `legal2md --verbose #{cli_debug_subj} - > #{cli_debug_recipient}` }
+      let(:cmd) { `legal2md --debug #{cli_debug_subj} - > #{cli_debug_recipient}` }
       it "should parse the file and output the debug information." do
         expect( contents cli_debug_recipient ).to eql( contents cli_debug_benchmark )
       end
