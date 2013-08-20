@@ -21,13 +21,13 @@ module LegalMarkdown
     if args.size >= 1
       caller args, config
     else
-      puts opt_parser
+      puts @opt_parser
     end
 
   end
 
   def self.optsparse args, config
-    opt_parser = OptionParser.new do |opt|
+    @opt_parser = OptionParser.new do |opt|
       optsheaders opt
       optsmarkdown opt, config, args
       optsjason opt, config, args
@@ -36,7 +36,7 @@ module LegalMarkdown
       optsfooters opt
     end
 
-    opt_parser.parse!(args)
+    @opt_parser.parse!(args)
     return args, config
   end
 
@@ -114,7 +114,7 @@ module LegalMarkdown
     end
 
     opt.on( '-h', '--help', 'Display this screen at any time.' ) do
-      puts opt_parser
+      puts @opt_parser
       exit
     end
 
@@ -129,6 +129,7 @@ module LegalMarkdown
     opt.separator "There is no need to explicitly enter the --to-json if your output_file is *.json I can handle it."
     opt.separator "There is no need to explicitly enter the --to-markdown if your output_file is *.md or *.markdown I can handle it."
     opt.separator ""
+    opt
   end
 end
 
