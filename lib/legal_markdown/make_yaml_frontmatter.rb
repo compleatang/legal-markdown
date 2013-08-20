@@ -8,7 +8,7 @@ class MakeYamlFrontMatter
     @output_file = args[-1]
     find_yaml_if_yaml load
     scan_and_filter_yaml
-    build_new_yaml_frontmatter unless @yaml_data_as_array == [{},{},{},{}]
+    build_new_yaml_frontmatter unless @yaml_data_as_array == [{},{},{},{},{}]
     write_it
   end
 
@@ -52,15 +52,20 @@ class MakeYamlFrontMatter
     @yaml_data_as_array << ( filter_yaml opt_clauses_pattern || {} )
     @yaml_data_as_array << ( filter_yaml @structured_headers_pattern || {} )
     @yaml_data_as_array << ( @yaml_data_as_array.last.empty? ? {} : filter_yaml(%w{no-indent no-reset level-style}) )
+    @yaml_data_as_array << ( filter_meta )
   end
 
   def build_new_yaml_frontmatter
     @content = "\n---\n\n" + @content
-    replacers = {0=>"Mixins", 1=>"Optional Clauses", 2=>"Structured Headers", 3=>"Properties"}
+    replacers = {0=>"Mixins", 1=>"Optional Clauses", 2=>"Structured Headers", 3=>"Properties", 4=>"Document Meta-Data"}
     stringy = @yaml_data_as_array.inject("") do |string, section|
       unless section.empty?
         string << "\n\# " + replacers[@yaml_data_as_array.index(section)] + "\n"
-        string << sink_it(section)
+        unless @yaml_data_as_array.index(section) == 4
+          string << sink_it(section)
+        else
+          string << YAML.dump(section).gsub("---\n", '')
+        end
       end
       string
     end
@@ -85,6 +90,17 @@ class MakeYamlFrontMatter
         @headers.has_key?(elem) ? hash.merge({elem => @headers[elem]}) : hash.merge({elem => ""})
       end
     end
+  end
+
+  def filter_meta
+    meta_tags = %w(meta meta-yaml-output meta-json-output meta-no-output)
+    meta_in_yaml = meta_tags.inject({}) do |hash, elem|
+      if @headers.has_key?(elem)
+        hash[elem] = @headers[elem]
+      end
+      hash
+    end
+    meta_in_yaml
   end
 
   def scan_doc pattern
