@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/compleatang/legal-markdown.png?label=ready)](https://waffle.io/compleatang/legal-markdown)  
 # Legal Markdown
 
 [![Build Status](https://travis-ci.org/compleatang/legal-markdown.png)](https://travis-ci.org/compleatang/legal-markdown)[![Coverage Status](https://coveralls.io/repos/compleatang/legal-markdown/badge.png?branch=master)](https://coveralls.io/r/compleatang/legal-markdown?branch=master)[![Code Climate](https://codeclimate.com/github/compleatang/legal-markdown.png)](https://codeclimate.com/github/compleatang/legal-markdown)[![Dependency Status](https://gemnasium.com/compleatang/legal-markdown.png)](https://gemnasium.com/compleatang/legal-markdown)
