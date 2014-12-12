@@ -172,19 +172,19 @@ The syntax should be straight-forward. If you learn by seeing rather than by rea
 Let us say you wanted to output a document that looks like this:
 
 ```md
-# Article 1. Provision for Article 1.
+1. Provision for Article 1.
 
-  Section 1.1. Provision for Section 1.1.
+  1. Provision for Section 1.1.
 
-      1.1.1 Provision for 1.1.1.
+      1. Provision for 1.1.1.
 
-      1.1.2 Provision for 1.1.2.
+      2. Provision for 1.1.2.
 
-  Section 1.2. Provision for Section 1.2.
+  2. Provision for Section 1.2.
 
-      1.2.1 Provision for 1.2.1.
+      1. Provision for 1.2.1.
 
-      1.2.2 Provision for 1.2.2.
+      2. Provision for 1.2.2.
 ```
 
 You can easily to that by doing the following steps.
@@ -217,7 +217,7 @@ To output the document above, we need to be able to add the words Article and Se
 
 **Note**. The gem looks at the last block of characters in the level-X YAML field to understand what type of Base Reference you need for your document. So you cannot add additional text *after* the Base Reference.
 
-To achieve the above output, we should update our YAML front matter to look like this:
+If the headers looked like this:
 
 ```yaml
 ---
@@ -227,13 +227,31 @@ level-3: 1.
 ---
 ```
 
+Then the output would look like this:
+
+```md
+Article 1. Provision for Article 1.
+
+  Section 1. Provision for Section 1.1.
+
+      1. Provision for 1.1.1.
+
+      2. Provision for 1.1.2.
+
+  Section 2. Provision for Section 1.2.
+
+      1. Provision for 1.2.1.
+
+      2. Provision for 1.2.2.
+```
+
 ### Step 2(c): (Optional) Add Precursors to Headers
 
 To output the document above, we need to be able to call the reference of the level above (also the level above that in the case of the above example). Legal Markdown allows for this with the precursor function.
 
 To reference the level above in your reference, you will modifiy the YAML front matter. In the YAML front matter you add any word or other marker *before* the precursor trigger. If you want to reference the preceding level (like 1.1.1 in the example above) then simply put in `pre` where that is appropriate.
 
-To achieve the above output, we should update our YAML front matter to look like this:
+If the headers looked like this:
 
 ```yaml
 ---
@@ -241,6 +259,24 @@ level-1: Article 1.
 level-2: Section pre 1.
 level-3: pre 1.
 ---
+```
+
+Then the output would look like this:
+
+```md
+Article 1. Provision for Article 1.
+
+  Section 1.1. Provision for Section 1.1.
+
+      1.1.1 Provision for 1.1.1.
+
+      1.1.2. Provision for 1.1.2.
+
+  Section 1.2. Provision for Section 1.2.
+
+      1.2.1. Provision for 1.2.1.
+
+      1.2.2. Provision for 1.2.2.
 ```
 
 ### Step 2(d): (Optional) Add Another Type of Precursors to Headers
